@@ -1,6 +1,9 @@
 package com.example.s198569.hangman;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -13,6 +16,8 @@ import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import java.util.Random;
 
 public class GamePlay extends AppCompatActivity {
 
@@ -41,10 +46,20 @@ public class GamePlay extends AppCompatActivity {
         GridLayout keyboard = (GridLayout) findViewById(R.id.keboard_layout);
         for(String kb : kb_values){
             Button b = new Button(this);
+            //b.setBackgroundColor(getResources().getColor(R.color.secondary_1_1));
+            b.setTextColor(getResources().getColor(R.color.primary_4));
             b.setText(kb);
             b.setLayoutParams(new LinearLayout.LayoutParams(100, 100));
             keyboard.addView(b);
         }
+
+        //Loads the available word list
+        //TODO: Find more effective way to get word directly from the xml array
+        String[] words = getResources().getStringArray(R.array.words);
+        Random rand = new Random();
+        int chosen_index = rand.nextInt((words.length - 0) + 1) + 0;
+        char[] letters = words[chosen_index].toCharArray();
+        //Sluttet her. Her skal hver bokstav som vi har legges i en textedit som i sin tur skal legges en etter den linear layout som alerede er lagt til.
     }
 
     @Override
