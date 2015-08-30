@@ -27,40 +27,51 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="54dp"
-        android:columnCount="4"
+        android:columnCount="5"
         android:rowCount="1"
         android:orientation="horizontal"
         android:layout_below="@+id/hangman_title_image">
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
             android:layout_gravity="left|top"
             android:background="@drawable/quit"
+            android:onClick="quitApp"
             />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
             android:layout_gravity="left|top"
             android:background="@drawable/locale"
             />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
             android:layout_gravity="left|top"
             android:background="@drawable/info"
             />
 
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="50dip"
             android:layout_gravity="left|top"
             android:background="@drawable/sound_off"
             />
 
+        <ImageButton
+            android:layout_width="50dip"
+            android:layout_height="50dip"
+            android:layout_gravity="left|top"
+            android:background="@drawable/play"
+            android:id="@+id/btn_startGame"
+            />
+
+
     </GridLayout>
+
 
 
 </RelativeLayout>
