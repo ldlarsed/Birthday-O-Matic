@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
@@ -22,7 +23,6 @@ import android.widget.ImageView;
 public class StartGame extends ActionBarActivity {
 
     private ImageButton button_startGame;
-    private EditText userName;
     final Context context = this;
 
     @Override
@@ -38,10 +38,9 @@ public class StartGame extends ActionBarActivity {
         title_image.startAnimation(titleAnimation);
         hangman_title__image.startAnimation(hangmanTitleAnimation);
 
-        /* The sign in dialog that allows user to enter it's name. */
+        /* Player name prompt */
         //Fetching the start game button
         button_startGame = (ImageButton) findViewById(R.id.btn_startGame);
-        userName = (EditText) findViewById(R.id.user_Name);
 
         button_startGame.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,27 +51,39 @@ public class StartGame extends ActionBarActivity {
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
                 alertDialogBuilder.setView(promtView);
 
-                final EditText input = (EditText) promtView.findViewById(R.id.user_Name);
+                final EditText userName_input = (EditText) promtView.findViewById(R.id.dialog_user_Name);
 
                 //Set up for the user name dialog window
                 alertDialogBuilder
                         .setCancelable(false)
-                        .setPositiveButton("Start", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.start_game, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
-
+                                //Starting the GamePlay activity from this button click
+                                Intent startGame = new Intent(getApplicationContext(), GamePlay.class);
+                                //TODO: Fix the the user name is forwarded from the text edit here to the next activity.
+                                startGame.putExtra("userName", userName_input.getText().toString());
+                                startActivity(startGame);
                             }
-
                         })
-                        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int id) {
                                 dialog.cancel();
                             }
                         });
 
                 AlertDialog dialog_userInputName = alertDialogBuilder.create();
+                //Keeps the immersive state with dialog
+                //dialog_userInputName.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
+                //Shows the dialog
                 dialog_userInputName.show();
+
+                //Restores the immersive state after popping the dialog window
+                //dialog_userInputName.getWindow().getDecorView().setSystemUiVisibility(getWindow().getDecorView().getSystemUiVisibility());
+                //dialog_userInputName.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
             }
         });
+
+        /* End of player name prompt */
     }
 
     @Override
