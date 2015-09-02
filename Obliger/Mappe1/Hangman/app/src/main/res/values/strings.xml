@@ -4,6 +4,9 @@
     <string name="player">Player</string>
     <string name="title_activity_game_play">GamePlay</string>
 
+    <string name="new_player">New Player</string>
+    <string name="existing_player">Existing Players</string>
+
     <string name="menu_play">Play Game</string>
     <string name="menu_scores">View Scores</string>
     <string name="menu_settings">Settings</string>
@@ -23,5 +26,6 @@
 
     <string name="exception">HANGMAN</string>
     <string name="err_scores">Error while processing scores</string>
+    <string name="title_activity_login">LoginActivity</string>
 
 </resources>

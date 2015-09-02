@@ -57,7 +57,8 @@ public class StartGameActivity extends ActionBarActivity {
                 TextView textView = (TextView) itemClicked;
                 String strText = textView.getText().toString();
                 if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_play))){
-                    startActivity(new Intent(StartGameActivity.this, GamePlayActivity.class));
+                    //startActivity(new Intent(StartGameActivity.this, GamePlayActivity.class));
+                    startActivity(new Intent(StartGameActivity.this, LoginActivity.class));
                 }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_scores))){
                     //Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
                     //toast.show();
