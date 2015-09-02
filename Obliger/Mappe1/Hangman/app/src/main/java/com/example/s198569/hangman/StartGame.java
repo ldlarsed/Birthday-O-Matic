@@ -15,11 +15,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 
 public class StartGame extends ActionBarActivity {
@@ -53,6 +56,32 @@ public class StartGame extends ActionBarActivity {
 
         ArrayAdapter<String> mainMenuAdapter = new ArrayAdapter<String>(this, R.layout.main_menu_item, menuItems);
         mainMenu.setAdapter(mainMenuAdapter);
+
+
+        //Listeners for Main Menu
+        mainMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id){
+                TextView textView = (TextView) itemClicked;
+                String strText = textView.getText().toString();
+                if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_play))){
+                    startActivity(new Intent(StartGame.this, GamePlay.class));
+                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_scores))){
+                    //Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
+                    //toast.show();
+                    startActivity(new Intent(StartGame.this, Scores.class));
+                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_settings))){
+                    Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_help))){
+                    Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
+                    toast.show();
+                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_quit))){
+                    finish();
+                }
+            }
+        });
+
+        /* End of Main Menu */
 
     }
 

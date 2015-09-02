@@ -34,8 +34,8 @@ public class GamePlay extends AppCompatActivity {
         String playerNameString = intent.getStringExtra("userName");
 
         //Sets the player name in the north west corner
-        playerName = (TextView) findViewById(R.id.playerName);
-        playerName.setText(playerNameString);
+        //playerName = (TextView) findViewById(R.id.playerName);
+        //playerName.setText(playerNameString);
 
         //Fetches the keyboard values for the default language
         String[] kb_values = getResources().getStringArray(R.array.alphabet);
