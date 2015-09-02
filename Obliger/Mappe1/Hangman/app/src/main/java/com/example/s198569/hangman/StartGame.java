@@ -15,9 +15,11 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 
 public class StartGame extends ActionBarActivity {
@@ -38,52 +40,20 @@ public class StartGame extends ActionBarActivity {
         title_image.startAnimation(titleAnimation);
         hangman_title__image.startAnimation(hangmanTitleAnimation);
 
-        /* Player name prompt */
-        //Fetching the start game button
-        button_startGame = (ImageButton) findViewById(R.id.btn_startGame);
+        /*  Main Menu */
+        ListView mainMenu = (ListView) findViewById(R.id.main_menu);
+        //TODO: Try to fill it from a string array later
+        String[] menuItems = {
+                getResources().getString(R.string.menu_play),
+                getResources().getString(R.string.menu_scores),
+                getResources().getString(R.string.menu_settings),
+                getResources().getString(R.string.menu_help),
+                getResources().getString(R.string.menu_quit)
+        };
 
-        button_startGame.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        ArrayAdapter<String> mainMenuAdapter = new ArrayAdapter<String>(this, R.layout.main_menu_item, menuItems);
+        mainMenu.setAdapter(mainMenuAdapter);
 
-                LayoutInflater layoutInflater = LayoutInflater.from(context);
-                View promtView = layoutInflater.inflate(R.layout.dialog_user_name, null);
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(context);
-                alertDialogBuilder.setView(promtView);
-
-                final EditText userName_input = (EditText) promtView.findViewById(R.id.dialog_user_Name);
-
-                //Set up for the user name dialog window
-                alertDialogBuilder
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.start_game, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                //Starting the GamePlay activity from this button click
-                                Intent startGame = new Intent(getApplicationContext(), GamePlay.class);
-                                //TODO: Fix the the user name is forwarded from the text edit here to the next activity.
-                                startGame.putExtra("userName", userName_input.getText().toString());
-                                startActivity(startGame);
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int id) {
-                                dialog.cancel();
-                            }
-                        });
-
-                AlertDialog dialog_userInputName = alertDialogBuilder.create();
-                //Keeps the immersive state with dialog
-                //dialog_userInputName.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE, WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-                //Shows the dialog
-                dialog_userInputName.show();
-
-                //Restores the immersive state after popping the dialog window
-                //dialog_userInputName.getWindow().getDecorView().setSystemUiVisibility(getWindow().getDecorView().getSystemUiVisibility());
-                //dialog_userInputName.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE);
-            }
-        });
-
-        /* End of player name prompt */
     }
 
     @Override
@@ -108,41 +78,7 @@ public class StartGame extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * Configures the immersive state of an application where both navigation and status bar are hidden and require user to swipe from upper or lower side of screen to activate.
-     * @param hasFocus
-     */
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
 
-        View decorView = getWindow().getDecorView();
-
-        if (hasFocus) {
-            decorView.setSystemUiVisibility(
-                    View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                            | View.SYSTEM_UI_FLAG_FULLSCREEN
-                            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);}
-    }
-
-
-    /*
-    Following are the methods to start screen of application.
-     */
-
-    /**
-     * Since the OS on android handles the application exit this will basically put application to standby and exit the home screen.
-     * @param v
-     */
-    public void quitApp(View v){
-        Intent intent = new Intent(Intent.ACTION_MAIN);
-        intent.addCategory(Intent.CATEGORY_HOME);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-    }
 
 
 
