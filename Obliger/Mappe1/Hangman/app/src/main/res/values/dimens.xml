@@ -5,4 +5,5 @@
     <dimen name="screen_title_size">40dp</dimen>
     <dimen name="menu_item_size">34dp</dimen>
     <dimen name="default_text_size">12dp</dimen>
+    <dimen name="table_text">8dp</dimen>
 </resources>

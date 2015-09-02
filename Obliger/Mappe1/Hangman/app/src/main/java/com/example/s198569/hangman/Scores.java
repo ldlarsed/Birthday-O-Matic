@@ -9,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.xmlpull.v1.XmlPullParserException;
 
@@ -29,7 +30,9 @@ public class Scores extends AppCompatActivity {
         try{
             showScores(scores, mockupScores);
         }catch (Exception e){
-            Log.e("SCORES", "Failed to load scores", e);
+            Toast toast = Toast.makeText(this, getResources().getString(R.string.err_scores), Toast.LENGTH_SHORT);
+            toast.show();
+            Log.e(getResources().getString(R.string.exception), getResources().getString(R.string.err_scores), e);
         }
 
     }
@@ -56,28 +59,48 @@ public class Scores extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    /**
+     * Set up the first row in a table
+     * @param scoreTable
+     */
     private void setHeaderRow(TableLayout scoreTable){
         final TableRow headerRow = new TableRow(this);
-        int textColor = getResources().getColor(R.color.secondary_1_2);
+        int textColor = getResources().getColor(R.color.secondary_2_1);
         float textSize = getResources().getDimensionPixelSize(R.dimen.default_text_size);
 
-        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_username), textColor, textSize);
-        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_score), textColor, textSize);
         addTextToRowWithValues(headerRow, getResources().getString(R.string.score_ranking), textColor, textSize);
+        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_score), textColor, textSize);
+        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_username), textColor, textSize);
+
         scoreTable.addView(headerRow);
     }
 
+    /**
+     * Inserts the score rows
+     * @param scoreTable
+     * @param scoreValue
+     * @param scoreRank
+     * @param scorePlayerName
+     */
     private void insertScoreRow(final TableLayout scoreTable, String scoreValue, String scoreRank, String scorePlayerName){
         final TableRow newRow = new TableRow(this);
-        int textColor = getResources().getColor(R.color.secondary_1_1);
-        float textSize = getResources().getDimension(R.dimen.default_text_size);
+        int textColor = getResources().getColor(R.color.secondary_1_2);
+        float textSize = getResources().getDimension(R.dimen.table_text);
 
         addTextToRowWithValues(newRow, scorePlayerName, textColor, textSize);
         addTextToRowWithValues(newRow, scoreValue, textColor, textSize);
         addTextToRowWithValues(newRow, scoreRank, textColor, textSize);
+
         scoreTable.addView(newRow);
     }
 
+    /**
+     * Helper method thath adds a single row to the end of the current table view
+     * @param tableRow
+     * @param text
+     * @param textColor
+     * @param textSize
+     */
     private void addTextToRowWithValues(final TableRow tableRow, String text, int textColor, float textSize){
         TextView textView = new TextView(this);
         textView.setTextSize(textSize);
@@ -105,7 +128,7 @@ public class Scores extends AppCompatActivity {
                     String scoreValue = scores.getAttributeValue(null, "score");
                     String scorePlayerName = scores.getAttributeValue(null, "username");
                     String scorePlayerRank = scores.getAttributeValue(null, "rank");
-                    insertScoreRow(scoreTable, scoreValue, scorePlayerName, scorePlayerRank);
+                    insertScoreRow(scoreTable, scorePlayerRank, scoreValue, scorePlayerName );
                 }
             }
             eventType = scores.next();

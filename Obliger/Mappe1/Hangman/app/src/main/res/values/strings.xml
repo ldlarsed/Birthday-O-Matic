@@ -13,12 +13,15 @@
     <string name="score_all">All Scores</string>
     <string name="score_no_scores">No scores yet</string>
     <string name="score_username">Username</string>
-    <string name="score_ranking">Ranking</string>
+    <string name="score_ranking">Rank</string>
     <string name="score_score">Score</string>
-    <string name="score_wait_msg">Retriving scores</string>
+    <string name="score_wait_msg">Retrieving scores</string>
     <string name="score_wait_title">Loading...</string>
     <string name="title_activity_activity_scores">activity_scores</string>
 
     <string name="hello_world">Hello world!</string>
+
+    <string name="exception">HANGMAN</string>
+    <string name="err_scores">Error while processing scores</string>
 
 </resources>
