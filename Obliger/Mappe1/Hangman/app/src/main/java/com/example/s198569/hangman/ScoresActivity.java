@@ -15,12 +15,12 @@ import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
 
-public class Scores extends AppCompatActivity {
+public class ScoresActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_scores);
+        setContentView(R.layout.activity_scores);
 
         /* Setting the mockup scores */
         TableLayout scores = (TableLayout) findViewById(R.id.layout_scores_table);

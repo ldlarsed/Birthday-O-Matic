@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 import java.util.Random;
 
-public class GamePlay extends AppCompatActivity {
+public class GamePlayActivity extends AppCompatActivity {
 
     private RelativeLayout gameLayout;
     private TextView playerName;

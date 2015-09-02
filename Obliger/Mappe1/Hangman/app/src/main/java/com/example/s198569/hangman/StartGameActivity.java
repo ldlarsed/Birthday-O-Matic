@@ -1,23 +1,16 @@
 package com.example.s198569.hangman;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.media.Image;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -25,7 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class StartGame extends ActionBarActivity {
+public class StartGameActivity extends ActionBarActivity {
 
     private ImageButton button_startGame;
     final Context context = this;
@@ -64,11 +57,11 @@ public class StartGame extends ActionBarActivity {
                 TextView textView = (TextView) itemClicked;
                 String strText = textView.getText().toString();
                 if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_play))){
-                    startActivity(new Intent(StartGame.this, GamePlay.class));
+                    startActivity(new Intent(StartGameActivity.this, GamePlayActivity.class));
                 }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_scores))){
                     //Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
                     //toast.show();
-                    startActivity(new Intent(StartGame.this, Scores.class));
+                    startActivity(new Intent(StartGameActivity.this, ScoresActivity.class));
                 }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_settings))){
                     Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
                     toast.show();
