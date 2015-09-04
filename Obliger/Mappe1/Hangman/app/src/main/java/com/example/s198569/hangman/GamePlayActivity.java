@@ -21,12 +21,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class GamePlayActivity extends AppCompatActivity {
 
     private RelativeLayout gameLayout;
     private TextView playerName;
+    private char[] letters;
+    private LinearLayout wordsLayout;
+    private GridLayout keyboard;
+    private int lettersCount;
+    private ArrayList<EditText> edComponents; //Current collection of letter placeholders
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,10 +43,45 @@ public class GamePlayActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String playerNameString = intent.getStringExtra("pName");
 
-        //Sets the player name in the north west corner
-        playerName = (TextView) findViewById(R.id.playerName);
-        playerName.setText(playerNameString);
+        setPlayerName(playerNameString);
+        setKeyboard();
+        setWord();
+    }
 
+    /**
+     * Sets the player name in the north west corner
+     * @param n
+     */
+    private void setPlayerName(String n){
+        playerName = (TextView) findViewById(R.id.playerName);
+        playerName.setText(n);
+    }
+
+    private void setWord(){
+        lettersCount = 0;
+        edComponents = new ArrayList<>();
+
+        //Loads the available word list
+        //TODO: Find more effective way to get word directly from the xml array
+        String[] words = getResources().getStringArray(R.array.words);
+        Random rand = new Random();
+        int chosen_index = rand.nextInt((words.length - 0) + 1) + 0;
+        Log.w("HANGMAN", words[chosen_index]);
+        letters = words[chosen_index].toCharArray();
+
+        wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
+        for(char c : letters){
+            final EditText et = new EditText(this);
+            //et.setText(Character.toString(c));
+            et.setEnabled(false);
+            edComponents.add(et);
+            wordsLayout.addView(et);
+            lettersCount++;
+        }
+        Log.w("HANGMAN", "Antall EditText: " + lettersCount);
+    }
+
+    private void setKeyboard(){
         //Fetches the keyboard values for the default language
         String[] kb_values = getResources().getStringArray(R.array.alphabet);
 
@@ -52,7 +93,7 @@ public class GamePlayActivity extends AppCompatActivity {
         int screenWidth = displaymetrics.widthPixels;
 
         //Sets up the keyboard inside a gridview
-        GridLayout keyboard = (GridLayout) findViewById(R.id.keboard_layout);
+        keyboard = (GridLayout) findViewById(R.id.keboard_layout);
         for(String kb : kb_values){
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.primary_4));
@@ -64,28 +105,47 @@ public class GamePlayActivity extends AppCompatActivity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast t = Toast.makeText(getApplicationContext(), b.getText().toString(), Toast.LENGTH_SHORT);
-                    t.show();
-
+                    //Toast t = Toast.makeText(getApplicationContext(), b.getText().toString(), Toast.LENGTH_SHORT);
+                    char c = b.getText().charAt(0);
+                    //Toast t = Toast.makeText(getApplicationContext(), String.valueOf(checkForLetter(c)), Toast.LENGTH_SHORT);
+                    //t.show();
+                    if(checkForLetter(c)){
+                        revealLetter(getLetterIndex(c), c);
+                    }
                 }
             });
         }
+    }
 
-        //Loads the available word list
-        //TODO: Find more effective way to get word directly from the xml array
-        String[] words = getResources().getStringArray(R.array.words);
-        Random rand = new Random();
-        int chosen_index = rand.nextInt((words.length - 0) + 1) + 0;
-        Log.w("HANGMAN", words[chosen_index]);
-        char[] letters = words[chosen_index].toCharArray();
-        //Sluttet her. Her skal hver bokstav som vi har legges i en textedit som i sin tur skal legges en etter den linear layout som alerede er lagt til.
+    /**
+     * Checks if letter exists i array.
+     * @param letter
+     * @return
+     */
+    private boolean checkForLetter(char letter){
+        for(char c : letters)
+            if(c == letter) return true;
+        return false;
+    }
 
-        LinearLayout wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
-        for(char c : letters){
-            final EditText et = new EditText(this);
-            et.setText(Character.toString(c));
-            wordsLayout.addView(et);
-        }
+    /**
+     * Returns index to the letter position. If not found returns -1.
+     * @param letter
+     * @return
+     */
+    private int getLetterIndex(char letter){
+        for(int i = 0; i < letters.length; i++)
+            if(letters[i] == letter) return i;
+        return -1;
+    }
+
+    /**
+     * Reveals a letter with current position to the player.
+     * @param idx
+     */
+    private void revealLetter(int idx, char letter){
+        if(idx > letters.length -1) throw new IndexOutOfBoundsException();
+        edComponents.get(idx).setText(Character.toString(letter));
     }
 
     @Override
