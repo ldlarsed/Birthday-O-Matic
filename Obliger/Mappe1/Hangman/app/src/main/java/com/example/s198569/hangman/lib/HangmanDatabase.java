@@ -22,7 +22,7 @@ public class HangmanDatabase extends SQLiteOpenHelper {
     //Creation of the database
     private static final String DATABASE_CREATE = "create table " + TABLE_PLAYERS + "(" +
             COLUMN_ID + " integer primary key autoincrement, " +
-            COLUMN_NAME + " text not null, " +
+            COLUMN_NAME + " text not null unique, " +
             COLUMN_SCORE + " integer);";
 
 

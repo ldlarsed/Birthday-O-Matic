@@ -8,6 +8,7 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.jar.Attributes;
 
@@ -52,9 +53,11 @@ public class HangmanDataSource {
             Log.d("HANGMAN", "Insertion succesfull");
         }
         long insertId = database.insert(HangmanDatabase.TABLE_PLAYERS, null, values);
+
         Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS,
                 allColumns, HangmanDatabase.COLUMN_ID + " = " + insertId, null,
                 null, null, null);
+
         cursor.moveToFirst();
         Player newPlayer = cursorToPlayer(cursor);
         cursor.close();
@@ -98,8 +101,7 @@ public class HangmanDataSource {
         }
         cursor.close();
 
-        String[] navn = players.toArray(new String[players.size()]);
-        Log.d("HANGMAN", navn.toString());
+        //Log.w("HANGMAN", Arrays.toString(players.toArray(new String[players.size()])));
 
         return players.toArray(new String[players.size()]);
     }

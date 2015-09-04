@@ -1,5 +1,6 @@
 package com.example.s198569.hangman;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
@@ -10,18 +11,23 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.s198569.hangman.lib.HangmanDataSource;
 import com.example.s198569.hangman.lib.HangmanDatabase;
 import com.example.s198569.hangman.lib.Player;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -54,6 +60,19 @@ public class LoginActivity extends AppCompatActivity {
         existingPlayersList.setAdapter(playersAdapter);
 
         /* End of existing players list */
+
+
+        /* Listener for existing players list view */
+        existingPlayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
+                TextView textView = (TextView) itemClicked;
+                String playerName = textView.getText().toString();
+                Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
+                playGame.putExtra("pName", playerName);
+                startActivity(playGame);
+            }
+        });
+        /* End of Listener for existing players list view */
     }
 
 
