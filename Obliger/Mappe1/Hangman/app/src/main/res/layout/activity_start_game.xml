@@ -37,7 +37,8 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_below="@+id/title_and_logo"
-      android:paddingTop="20dp">
+      android:paddingTop="20dp"
+      android:scrollbars="none">
   </ListView>
 
 

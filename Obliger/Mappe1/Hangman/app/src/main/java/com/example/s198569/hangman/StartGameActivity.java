@@ -47,7 +47,7 @@ public class StartGameActivity extends ActionBarActivity {
                 getResources().getString(R.string.menu_quit)
         };
 
-        ArrayAdapter<String> mainMenuAdapter = new ArrayAdapter<String>(this, R.layout.main_menu_item, menuItems);
+        ArrayAdapter<String> mainMenuAdapter = new ArrayAdapter<String>(this, R.layout.listview_item_main_menu, menuItems);
         mainMenu.setAdapter(mainMenuAdapter);
 
 
