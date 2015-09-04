@@ -33,6 +33,8 @@ public class GamePlayActivity extends AppCompatActivity {
     private GridLayout keyboard;
     private int lettersCount;
     private ArrayList<EditText> edComponents; //Current collection of letter placeholders
+    private int score;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,7 @@ public class GamePlayActivity extends AppCompatActivity {
         String playerNameString = intent.getStringExtra("pName");
 
         setPlayerName(playerNameString);
+        score = 0;
         setKeyboard();
         setWord();
     }
@@ -111,6 +114,7 @@ public class GamePlayActivity extends AppCompatActivity {
                     //t.show();
                     if(checkForLetter(c)){
                         revealLetter(getLetterIndex(c), c);
+                        score+=10;
                     }
                 }
             });
@@ -146,6 +150,7 @@ public class GamePlayActivity extends AppCompatActivity {
     private void revealLetter(int idx, char letter){
         if(idx > letters.length -1) throw new IndexOutOfBoundsException();
         edComponents.get(idx).setText(Character.toString(letter));
+        letters[idx] = 0;
     }
 
     @Override

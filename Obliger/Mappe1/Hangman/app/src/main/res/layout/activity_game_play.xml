@@ -23,12 +23,7 @@
         android:layout_centerHorizontal="true"
         android:id="@+id/word_layout"></LinearLayout>
 
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/keboard_layout"
-        android:orientation="horizontal"
-        ></LinearLayout>
+
 
     <GridLayout
         android:layout_width="fill_parent"
