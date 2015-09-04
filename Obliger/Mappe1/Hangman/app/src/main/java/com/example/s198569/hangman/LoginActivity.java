@@ -38,35 +38,12 @@ public class LoginActivity extends AppCompatActivity {
         /* Connecting to the SQLite database */
 
         datasource = new HangmanDataSource(this);
-        datasource.open();
-        Player newPlayer = datasource.createPlayer("Luke");
-        Toast p = Toast.makeText(this, newPlayer.toString() + " created", Toast.LENGTH_SHORT);
-        p.show();
-
-
-/*        try {
-
-            SQLiteOpenHelper hangmanDatabase = new HangmanDatabase(this);
-            db = hangmanDatabase.getReadableDatabase();
-
-            //Fetching list of existing players
-            cursor = db.query("PLAYERS", new String[] {"NAME"}, null, null, null, null, null);
-
-            CursorAdapter listAdapter = new SimpleCursorAdapter(this,
-                                            android.R.layout.simple_list_item_1,
-                                            cursor,
-                                            new String[]{"NAME", "SCORE"},
-                                            new int[] {android.R.id.text1},
-                                            0);
-
-            existingPlayersList.setAdapter(listAdapter);
-
-        }catch(SQLiteException e){
-            Log.d("HANGMAN", "Cannot read database: " + e.getMessage());
-            Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+        try {
+            datasource.open();
+        }catch (Exception e){
+            Toast toast = Toast.makeText(this, "Could not connect to the database.", Toast.LENGTH_SHORT);
             toast.show();
-        }*/
-        /* End of SQLite database connection */
+        }
 
 
         /* Existing Players List*/
@@ -76,10 +53,7 @@ public class LoginActivity extends AppCompatActivity {
         ArrayAdapter<String> playersAdapter = new ArrayAdapter<String>(this, R.layout.listview_item_existing_players, playerNames);
         existingPlayersList.setAdapter(playersAdapter);
 
-
         /* End of existing players list */
-
-
     }
 
 
@@ -135,8 +109,12 @@ public class LoginActivity extends AppCompatActivity {
         //Local check of regex
         Toast toast;
         if(newUserName.matches(getString(R.string.regex_all_alphanumeric))){
-            toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
+            //toast = Toast.makeText(getApplicationContext(), "OK", Toast.LENGTH_SHORT);
+            EditText playerInput = (EditText) findViewById(R.id.edit_text_new_player);
+            //Saves the name to the database and retrives it to verify that everything worked ok
+            Player newPlayer = datasource.createPlayer(playerInput.getText().toString());
 
+            toast = Toast.makeText(this, "Player " + newPlayer.getName() + " created", Toast.LENGTH_SHORT);
         }else {
             toast = Toast.makeText(getApplicationContext(), "Enter valid user name", Toast.LENGTH_SHORT);
         }

@@ -11,12 +11,12 @@ import android.widget.Toast;
 public class HangmanDatabase extends SQLiteOpenHelper {
 
     public static final String TABLE_PLAYERS = "PLAYERS";
-    public static final String COLUMN_ID = "_ID";
+    public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "NAME";
     public static final String COLUMN_SCORE = "SCORE";
 
     private static final String DB_NAME = "hangmanDB";
-    private static final int DB_VERSION = 2;
+    private static final int DB_VERSION = 1;
 
 
     //Creation of the database
@@ -32,7 +32,11 @@ public class HangmanDatabase extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(DATABASE_CREATE);
+        try {
+            db.execSQL(DATABASE_CREATE);
+        }catch (Exception e){
+            Log.d("HANGMAN", "Database cannot be created");
+        }
     }
 
     @Override
