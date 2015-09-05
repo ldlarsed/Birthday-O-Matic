@@ -36,8 +36,10 @@ public class GamePlayActivity extends AppCompatActivity {
     private int lettersCount;
     private ArrayList<EditText> edComponents; //Current collection of letter placeholders
     private int score;
+    private int tryCount;
     private TextView scoreView;
     private ImageView hangmanImage;
+    private String pName;
 
 
     @Override
@@ -47,18 +49,10 @@ public class GamePlayActivity extends AppCompatActivity {
 
         //Initializes intent the starts this activity
         Intent intent = getIntent();
-        String playerNameString = intent.getStringExtra("pName");
-
-        setPlayerName(playerNameString);
-        score = 0;
+        this.pName = intent.getStringExtra("pName");
+        setPlayerName(pName);
         setKeyboard();
-        setWord();
-
-        scoreView = (TextView) findViewById(R.id.playerScore);
-        scoreView.setText(String.valueOf(score));
-
-        hangmanImage = (ImageView) findViewById(R.id.hangman_image);
-        hangmanImage.setImageResource(R.drawable.hang6);
+        newGame();
     }
 
     /**
@@ -70,6 +64,19 @@ public class GamePlayActivity extends AppCompatActivity {
         playerName.setText(n);
     }
 
+    private void newGame(){
+        score = 0;
+        tryCount = 6;
+        setWord();
+        scoreView = (TextView) findViewById(R.id.playerScore);
+        scoreView.setText(String.valueOf(score));
+        hangmanImage = (ImageView) findViewById(R.id.hangman_image);
+        hangmanImage.setImageResource(R.drawable.hang0);
+    }
+
+    /**
+     * Fetces a random word from arrays.xml and creates a new EditText component that represents each letter in the word.
+     */
     private void setWord(){
         lettersCount = 0;
         edComponents = new ArrayList<>();
@@ -78,8 +85,9 @@ public class GamePlayActivity extends AppCompatActivity {
         //TODO: Find more effective way to get word directly from the xml array
         String[] words = getResources().getStringArray(R.array.words);
         Random rand = new Random();
-        int chosen_index = rand.nextInt((words.length - 0) + 1) + 0;
-        Log.w("HANGMAN", words[chosen_index]);
+        int chosen_index = rand.nextInt((words.length - 1));
+        Log.w("HANGMAN", "chosen_index: " + chosen_index);
+        //Log.w("HANGMAN", words[chosen_index]);
         letters = words[chosen_index].toCharArray();
 
         wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
@@ -109,7 +117,7 @@ public class GamePlayActivity extends AppCompatActivity {
         keyboard = (GridLayout) findViewById(R.id.keboard_layout);
         for(String kb : kb_values){
             final Button b = new Button(this);
-            b.setTextColor(getResources().getColor(R.color.primary_4));
+            b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
             b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth/8, screenWidth/8));
             keyboard.addView(b);
@@ -123,12 +131,50 @@ public class GamePlayActivity extends AppCompatActivity {
                     //Toast t = Toast.makeText(getApplicationContext(), String.valueOf(checkForLetter(c)), Toast.LENGTH_SHORT);
                     //t.show();
                     if(checkForLetter(c)){
+                        //When guessed correct letter
                         revealLetter(getLetterIndex(c), c);
                         score+=10;
                         scoreView.setText(Integer.toString(score));
+                    }else{
+                        //Guessed wrong letter
+                        tryCount--;
+                        updateHangmanImage();
+//                        if(tryCount == 0) {
+//                            wordsLayout.removeAllViewsInLayout();
+//                            newGame();
+//                        }
                     }
                 }
             });
+        }
+    }
+
+    /**
+     * Depending on tries left for players sets corresponding hangman image.
+     */
+    private void updateHangmanImage(){
+        switch(tryCount){
+            case 5:
+                hangmanImage.setImageResource(R.drawable.hang1);
+                break;
+            case 4:
+                hangmanImage.setImageResource(R.drawable.hang2);
+                break;
+            case 3:
+                hangmanImage.setImageResource(R.drawable.hang3);
+                break;
+            case 2:
+                hangmanImage.setImageResource(R.drawable.hang4);
+                break;
+            case 1:
+                hangmanImage.setImageResource(R.drawable.hang5);
+                break;
+            case 0:
+                hangmanImage.setImageResource(R.drawable.hang6);
+                break;
+            default:
+                hangmanImage.setImageResource(R.drawable.hang0);
+                break;
         }
     }
 

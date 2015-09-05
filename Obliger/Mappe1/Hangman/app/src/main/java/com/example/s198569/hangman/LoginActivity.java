@@ -1,5 +1,7 @@
 package com.example.s198569.hangman;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -22,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.s198569.hangman.lib.HangmanDataSource;
 import com.example.s198569.hangman.lib.HangmanDatabase;
+import com.example.s198569.hangman.lib.PlayGameAs;
 import com.example.s198569.hangman.lib.Player;
 
 import org.w3c.dom.Text;
@@ -35,6 +38,7 @@ import java.util.regex.Pattern;
 public class LoginActivity extends AppCompatActivity {
 
     private HangmanDataSource datasource;
+    private String playerName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,16 +74,39 @@ public class LoginActivity extends AppCompatActivity {
             existingPlayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
                     TextView textView = (TextView) itemClicked;
-                    String playerName = textView.getText().toString();
-                    Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
-                    playGame.putExtra("pName", playerName);
-                    startActivity(playGame);
+                    playerName = textView.getText().toString();
+//                    Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
+//                    playGame.putExtra("pName", playerName);
+//                    startActivity(playGame);
+                   showContinueDialog();
                 }
             });
         }
         /* End of Listener for existing players list view */
     }
 
+    private void showContinueDialog(){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
+                        playGame.putExtra("pName", playerName);
+                        startActivity(playGame);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
 
     @Override
     protected void onResume(){
