@@ -22,6 +22,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/playerName"
             android:layout_gravity="left"
+            android:textSize="@dimen/existing_player_text_size"
+            android:shadowRadius="5"
+            android:textColor="@color/secondary_2_2"
+            android:shadowColor="@color/secondary_1_4"
+            android:shadowDx="3"
+            android:shadowDy="3"
             />
 
         <TextView
@@ -30,6 +36,12 @@
             android:layout_height="wrap_content"
             android:id="@+id/playerScore"
             android:layout_gravity="right"
+            android:textSize="@dimen/existing_player_text_size"
+            android:shadowRadius="5"
+            android:textColor="@color/secondary_2_2"
+            android:shadowColor="@color/secondary_1_4"
+            android:shadowDx="3"
+            android:shadowDy="3"
             />
     </GridLayout>
 
@@ -37,7 +49,9 @@
         android:id="@+id/hangman_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_info"/>
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/word_layout"
+        android:paddingRight="40dp"/>
 
     <LinearLayout
         android:orientation="horizontal"
@@ -46,7 +60,9 @@
         android:layout_centerVertical="true"
         android:id="@+id/word_layout"
         android:layout_above="@+id/keboard_layout"
-        android:gravity="center_horizontal"></LinearLayout>
+        android:gravity="center_horizontal"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"></LinearLayout>
 
 
     <GridLayout

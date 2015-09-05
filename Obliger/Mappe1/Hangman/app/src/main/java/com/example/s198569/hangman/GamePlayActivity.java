@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -64,6 +65,9 @@ public class GamePlayActivity extends AppCompatActivity {
         playerName.setText(n);
     }
 
+    /**
+     * Starts or resets the game.
+     */
     private void newGame(){
         score = 0;
         tryCount = 6;
@@ -87,7 +91,7 @@ public class GamePlayActivity extends AppCompatActivity {
         Random rand = new Random();
         int chosen_index = rand.nextInt((words.length - 1));
         Log.w("HANGMAN", "chosen_index: " + chosen_index);
-        //Log.w("HANGMAN", words[chosen_index]);
+        Log.w("HANGMAN", words[chosen_index]);
         letters = words[chosen_index].toCharArray();
 
         wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
@@ -95,6 +99,13 @@ public class GamePlayActivity extends AppCompatActivity {
             final EditText et = new EditText(this);
             //et.setText(Character.toString(c));
             et.setEnabled(false);
+            et.setTextColor(getResources().getColor(R.color.secondary_2_2));
+            et.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+            et.setTextSize(15);
+            et.setWidth(53);
+            et.setHintTextColor(getResources().getColor(R.color.secondary_2_2));
+
+
             edComponents.add(et);
             wordsLayout.addView(et);
             lettersCount++;
@@ -108,6 +119,7 @@ public class GamePlayActivity extends AppCompatActivity {
 
         gameLayout = (RelativeLayout) findViewById(R.id.gameplay_layout);
 
+        //TODO: Move to standalone static class
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int screenHeight = displaymetrics.heightPixels;

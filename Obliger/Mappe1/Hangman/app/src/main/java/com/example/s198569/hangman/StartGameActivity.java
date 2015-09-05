@@ -6,6 +6,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -72,6 +73,14 @@ public class StartGameActivity extends ActionBarActivity {
                 }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_quit))){
                     finish();
                 }
+            }
+        });
+
+        //Prevents the listview from using scrollbar
+        mainMenu.setOnTouchListener(new View.OnTouchListener() {
+
+            public boolean onTouch(View v, MotionEvent event) {
+                return (event.getAction() == MotionEvent.ACTION_MOVE);
             }
         });
 

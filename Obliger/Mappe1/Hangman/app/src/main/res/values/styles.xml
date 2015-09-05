@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <!-- Før android 5 må man definere fjerning av TitleBar her. -->
+    <!-- Before android 5 action bar is hidden here. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/primary_0</item>
