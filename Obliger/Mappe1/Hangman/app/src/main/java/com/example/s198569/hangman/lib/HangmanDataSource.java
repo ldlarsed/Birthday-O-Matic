@@ -72,6 +72,7 @@ public class HangmanDataSource {
         List<Player> players = new ArrayList<Player>();
 
         Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS, allColumns, null, null, null, null, null);
+        if(cursor == null ) return null;
         cursor.moveToFirst();
 
         while(!cursor.isAfterLast()){

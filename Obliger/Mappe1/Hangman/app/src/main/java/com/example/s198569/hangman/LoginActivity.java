@@ -55,23 +55,28 @@ public class LoginActivity extends AppCompatActivity {
         /* Existing Players List*/
         ListView existingPlayersList = (ListView) findViewById(R.id.existing_players_list);
         ArrayList<Player> registeredPlayers = (ArrayList<Player>) datasource.getAllPlayers();
-        String[] playerNames = datasource.getAllPlayerNames();
-        ArrayAdapter<String> playersAdapter = new ArrayAdapter<String>(this, R.layout.listview_item_existing_players, playerNames);
-        existingPlayersList.setAdapter(playersAdapter);
+        if(registeredPlayers == null){
+            String[] playerNames = {"No registered players"};
+        }else {
+
+            String[] playerNames = datasource.getAllPlayerNames();
+            ArrayAdapter<String> playersAdapter = new ArrayAdapter<String>(this, R.layout.listview_item_existing_players, playerNames);
+            existingPlayersList.setAdapter(playersAdapter);
 
         /* End of existing players list */
 
 
         /* Listener for existing players list view */
-        existingPlayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
-                TextView textView = (TextView) itemClicked;
-                String playerName = textView.getText().toString();
-                Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
-                playGame.putExtra("pName", playerName);
-                startActivity(playGame);
-            }
-        });
+            existingPlayersList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
+                    TextView textView = (TextView) itemClicked;
+                    String playerName = textView.getText().toString();
+                    Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
+                    playGame.putExtra("pName", playerName);
+                    startActivity(playGame);
+                }
+            });
+        }
         /* End of Listener for existing players list view */
     }
 

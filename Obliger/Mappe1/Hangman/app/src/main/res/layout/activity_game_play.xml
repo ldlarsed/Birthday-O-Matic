@@ -9,20 +9,44 @@
     android:id="@+id/gameplay_layout"
     >
 
-    <TextView
-        android:text="@string/player"
+    <GridLayout
+        android:id="@+id/layout_info"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:columnCount="2"
+        android:rowCount="1">
+
+        <TextView
+            android:text="@string/player"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playerName"
+            android:layout_gravity="left"
+            />
+
+        <TextView
+            android:text="Score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/playerScore"
+            android:layout_gravity="right"
+            />
+    </GridLayout>
+
+    <ImageView
+        android:id="@+id/hangman_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/playerName"/>
+        android:layout_below="@+id/layout_info"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/word_layout"></LinearLayout>
-
+        android:id="@+id/word_layout"
+        android:layout_above="@+id/keboard_layout"
+        android:gravity="center_horizontal"></LinearLayout>
 
 
     <GridLayout

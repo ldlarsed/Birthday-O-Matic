@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -16,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,6 +36,8 @@ public class GamePlayActivity extends AppCompatActivity {
     private int lettersCount;
     private ArrayList<EditText> edComponents; //Current collection of letter placeholders
     private int score;
+    private TextView scoreView;
+    private ImageView hangmanImage;
 
 
     @Override
@@ -49,6 +53,12 @@ public class GamePlayActivity extends AppCompatActivity {
         score = 0;
         setKeyboard();
         setWord();
+
+        scoreView = (TextView) findViewById(R.id.playerScore);
+        scoreView.setText(String.valueOf(score));
+
+        hangmanImage = (ImageView) findViewById(R.id.hangman_image);
+        hangmanImage.setImageResource(R.drawable.hang6);
     }
 
     /**
@@ -115,6 +125,7 @@ public class GamePlayActivity extends AppCompatActivity {
                     if(checkForLetter(c)){
                         revealLetter(getLetterIndex(c), c);
                         score+=10;
+                        scoreView.setText(Integer.toString(score));
                     }
                 }
             });
@@ -150,7 +161,7 @@ public class GamePlayActivity extends AppCompatActivity {
     private void revealLetter(int idx, char letter){
         if(idx > letters.length -1) throw new IndexOutOfBoundsException();
         edComponents.get(idx).setText(Character.toString(letter));
-        letters[idx] = 0;
+        letters[idx] = 0; //removes letter if guessed correctly
     }
 
     @Override
