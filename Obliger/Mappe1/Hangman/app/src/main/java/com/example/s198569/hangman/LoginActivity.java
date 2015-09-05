@@ -75,16 +75,16 @@ public class LoginActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
                     TextView textView = (TextView) itemClicked;
                     playerName = textView.getText().toString();
-//                    Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
-//                    playGame.putExtra("pName", playerName);
-//                    startActivity(playGame);
-                   showContinueDialog();
+                    showContinueDialog();
                 }
             });
         }
         /* End of Listener for existing players list view */
     }
 
+    /**
+     * Shows a continue dialog for the player. It gives posibility to revert the choosen playername in case of wrong click.
+     */
     private void showContinueDialog(){
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -104,8 +104,8 @@ public class LoginActivity extends AppCompatActivity {
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+        builder.setMessage("Play as " + playerName + "?").setPositiveButton("OK", dialogClickListener)
+                .setNegativeButton("Cancel", dialogClickListener).show();
     }
 
     @Override
