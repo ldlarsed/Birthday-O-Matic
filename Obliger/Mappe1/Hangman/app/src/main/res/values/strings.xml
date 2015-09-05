@@ -30,4 +30,10 @@
 
     <string name="regex_all_alphanumeric">^[a-zøæåöäA-Zøæåäö0-9_]{3,15}$</string>
 
+    <string name="game_fail">Better luck next time.\n</string>
+    <string name="game_success">Congratulations!\n</string>
+    <string name="game_points_1">You\'ve earned </string>
+    <string name="game_points_2"> points.</string>
+    <string name="game_play_again">Want to play again?</string>
+
 </resources>

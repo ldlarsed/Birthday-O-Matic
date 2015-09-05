@@ -1,11 +1,14 @@
 package com.example.s198569.hangman;
 
 import android.app.ActionBar;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.media.Image;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -151,14 +154,46 @@ public class GamePlayActivity extends AppCompatActivity {
                         //Guessed wrong letter
                         tryCount--;
                         updateHangmanImage();
-//                        if(tryCount == 0) {
-//                            wordsLayout.removeAllViewsInLayout();
-//                            newGame();
-//                        }
+                        if(tryCount == 0) {
+                            wordsLayout.removeAllViewsInLayout();
+                            new Handler().postDelayed(new Runnable() {
+
+                                @Override
+                                public void run() {
+                                    //delayAction();
+                                    //newGame();
+                                    String message = getResources().getString(R.string.game_fail);
+                                    showContinueDialog(message, score);
+                                }
+                            }, 500);
+                            //newGame();
+                        }
                     }
                 }
             });
         }
+    }
+
+    private void showContinueDialog(String message, int score){
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        newGame();
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        Intent startScreen = new Intent(GamePlayActivity.this, StartGameActivity.class);
+                        startActivity(startScreen);
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message + getResources().getString(R.string.game_play_again)).setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
     }
 
     /**
