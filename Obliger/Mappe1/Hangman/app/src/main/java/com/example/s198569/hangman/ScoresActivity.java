@@ -6,21 +6,52 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.s198569.hangman.lib.HangmanDataSource;
+import com.example.s198569.hangman.lib.Player;
+
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class ScoresActivity extends AppCompatActivity {
+
+    private HangmanDataSource datasource;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_scores);
+
+        /* Datasource connection */
+        datasource = new HangmanDataSource(this);
+        try {
+            datasource.open();
+        }catch (Exception e){
+            Toast toast = Toast.makeText(this, "Could not connect to the database.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        /* End of database conncetion */
+
+         /* Existing Players List*/
+        ArrayList<Player> registeredPlayers = (ArrayList<Player>) datasource.getAllPlayers();
+        if(registeredPlayers == null){
+            Toast.makeText(this, "No registered players yet", Toast.LENGTH_SHORT).show();
+        }else {
+            String allFolks = "";
+            for(Player p : registeredPlayers){
+                allFolks += p.getName() + " " + p.getScore() + "\n";
+            }
+            Toast.makeText(this, allFolks, Toast.LENGTH_SHORT).show();
+        }
+        /* End of existing players list */
 
         /* Setting the mockup scores */
         TableLayout scores = (TableLayout) findViewById(R.id.layout_scores_table);
@@ -28,13 +59,13 @@ public class ScoresActivity extends AppCompatActivity {
 
         setHeaderRow(scores);
         try{
-            showScores(scores, mockupScores);
+            //showScores(scores, mockupScores);
+            showScores(scores, registeredPlayers);
         }catch (Exception e){
             Toast toast = Toast.makeText(this, getResources().getString(R.string.err_scores), Toast.LENGTH_SHORT);
             toast.show();
             Log.e(getResources().getString(R.string.exception), getResources().getString(R.string.err_scores), e);
         }
-
     }
 
     @Override
@@ -117,7 +148,7 @@ public class ScoresActivity extends AppCompatActivity {
      * @param scores
      * @throws XmlPullParserException
      */
-    private void showScores(final TableLayout scoreTable, XmlResourceParser scores) throws XmlPullParserException, IOException{
+/*    private void showScores(final TableLayout scoreTable, XmlResourceParser scores) throws XmlPullParserException, IOException{
         int eventType = -1;
         boolean foundScores = false;
 
@@ -133,6 +164,18 @@ public class ScoresActivity extends AppCompatActivity {
                 }
             }
             eventType = scores.next();
+        }
+    }*/
+
+    /**
+     * Sets a table from a sorted list of player objects. Sorted after the score rank.
+     * @param scoreTable
+     * @param sortedPlayers
+     */
+    private void showScores(final TableLayout scoreTable, ArrayList<Player> sortedPlayers){
+        int rank = 1;
+        for(Player p : sortedPlayers){
+            insertScoreRow(scoreTable, String.valueOf(rank++), p.getName(), String.valueOf(p.getScore()));
         }
     }
 }
