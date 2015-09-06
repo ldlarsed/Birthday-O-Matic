@@ -32,6 +32,22 @@ public class HangmanDataSource {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     * Updates the score for a specific player.
+     * @param playerName
+     * @param newScore
+     */
+    public void updateScore(String playerName, int newScore){
+
+        /*ContentValues cv = new ContentValues();
+        cv.put(HangmanDatabase.COLUMN_NAME, playerName);
+        cv.put(HangmanDatabase.COLUMN_SCORE, newScore);
+        database.update(HangmanDatabase.TABLE_PLAYERS, cv, )*/
+
+        String updateSQL = "UPDATE PLAYERS SET SCORE = " + String.valueOf(newScore) + " WHERE NAME = "+ playerName;
+        database.execSQL(updateSQL);
+    }
+
     public void close() {
         dbHelper.close();
     }
