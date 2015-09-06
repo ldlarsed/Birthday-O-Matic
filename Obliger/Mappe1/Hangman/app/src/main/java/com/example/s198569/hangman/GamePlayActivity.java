@@ -44,6 +44,7 @@ public class GamePlayActivity extends AppCompatActivity {
     private TextView scoreView;
     private ImageView hangmanImage;
     private String pName;
+    private int lettersGuessed;
 
 
     @Override
@@ -74,6 +75,7 @@ public class GamePlayActivity extends AppCompatActivity {
     private void newGame(){
         score = 0;
         tryCount = 6;
+        lettersGuessed = 0;
         setWord();
         scoreView = (TextView) findViewById(R.id.playerScore);
         scoreView.setText(String.valueOf(score));
@@ -141,32 +143,41 @@ public class GamePlayActivity extends AppCompatActivity {
             b.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //Toast t = Toast.makeText(getApplicationContext(), b.getText().toString(), Toast.LENGTH_SHORT);
                     char c = b.getText().charAt(0);
-                    //Toast t = Toast.makeText(getApplicationContext(), String.valueOf(checkForLetter(c)), Toast.LENGTH_SHORT);
-                    //t.show();
                     if(checkForLetter(c)){
                         //When guessed correct letter
                         revealLetter(getLetterIndex(c), c);
                         score+=10;
+                        lettersGuessed++;
                         scoreView.setText(Integer.toString(score));
+                        Log.w("HANGMAN", "lettersCount: "+lettersCount);
+                        Log.w("HANGMAN", "letters.length: "+letters.length);
+                        //Guessed all of the letters
+                        if(lettersGuessed == letters.length){
+                            wordsLayout.removeAllViewsInLayout();
+                            new Handler().postDelayed(new Runnable() {
+                                @Override
+                                public void run() {
+                                    String message = getResources().getString(R.string.game_success);
+                                    showContinueDialog(message, score);
+                                }
+                            }, 200);
+                        }
                     }else{
                         //Guessed wrong letter
                         tryCount--;
                         updateHangmanImage();
+
+                        //No tries left
                         if(tryCount == 0) {
                             wordsLayout.removeAllViewsInLayout();
                             new Handler().postDelayed(new Runnable() {
-
                                 @Override
                                 public void run() {
-                                    //delayAction();
-                                    //newGame();
                                     String message = getResources().getString(R.string.game_fail);
                                     showContinueDialog(message, score);
                                 }
-                            }, 500);
-                            //newGame();
+                            }, 200);
                         }
                     }
                 }
@@ -189,9 +200,12 @@ public class GamePlayActivity extends AppCompatActivity {
                         break;
                 }
             }
+
+
         };
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setCancelable(false);
         builder.setMessage(message + getResources().getString(R.string.game_play_again)).setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
     }
