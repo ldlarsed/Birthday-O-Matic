@@ -50,6 +50,7 @@ public class GamePlayActivity extends AppCompatActivity {
     private String pName;
     private int lettersGuessed;
     private HangmanDataSource datasource;
+    private int wonInSession, lostInSession;
 
 
     @Override
@@ -104,6 +105,7 @@ public class GamePlayActivity extends AppCompatActivity {
         tryCount = 6;
         lettersGuessed = 0;
         setWord();
+        resetTheKeyboard();
         scoreView = (TextView) findViewById(R.id.playerScore);
         scoreView.setText(String.valueOf(score));
         hangmanImage = (ImageView) findViewById(R.id.hangman_image);
@@ -136,7 +138,6 @@ public class GamePlayActivity extends AppCompatActivity {
             et.setTextSize(15);
             et.setWidth(53);
             et.setHintTextColor(getResources().getColor(R.color.secondary_2_2));
-
 
             edComponents.add(et);
             wordsLayout.addView(et);
@@ -179,8 +180,7 @@ public class GamePlayActivity extends AppCompatActivity {
                         score+=10;
                         lettersGuessed++;
                         scoreView.setText(Integer.toString(score));
-                        Log.w("HANGMAN", "lettersCount: "+lettersCount);
-                        Log.w("HANGMAN", "letters.length: "+letters.length);
+
                         //Guessed all of the letters
                         if(lettersGuessed == letters.length){
                             datasource.updateScore(pName, score);
@@ -196,6 +196,7 @@ public class GamePlayActivity extends AppCompatActivity {
                     }else{
                         //Guessed wrong letter
                         tryCount--;
+                        b.setEnabled(false);
                         updateHangmanImage();
 
                         //No tries left
@@ -213,6 +214,16 @@ public class GamePlayActivity extends AppCompatActivity {
                     }
                 }
             });
+        }
+    }
+
+    /**
+     * Resets the buttons that was set to inactive due to the wrong guess. 
+     */
+    private void resetTheKeyboard(){
+        for(int i = 0; i < keyboard.getChildCount(); i++){
+            View v = keyboard.getChildAt(i);
+            v.setEnabled(true);
         }
     }
 
