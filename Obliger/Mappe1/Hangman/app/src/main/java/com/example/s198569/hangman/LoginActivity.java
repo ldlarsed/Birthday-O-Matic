@@ -76,9 +76,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
-                        playGame.putExtra("pName", playerName);
-                        startActivity(playGame);
+                        startNewGame();
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
@@ -92,6 +90,15 @@ public class LoginActivity extends AppCompatActivity {
         builder.setCancelable(false);
         builder.setMessage("Play as " + playerName + "?").setPositiveButton("OK", dialogClickListener)
                 .setNegativeButton("Cancel", dialogClickListener).show();
+    }
+
+    /**
+     * Helper method to start a new game.
+     */
+    private void startNewGame(){
+        Intent playGame = new Intent(LoginActivity.this, GamePlayActivity.class);
+        playGame.putExtra("pName", playerName);
+        startActivity(playGame);
     }
 
     @Override
@@ -150,8 +157,9 @@ public class LoginActivity extends AppCompatActivity {
             EditText playerInput = (EditText) findViewById(R.id.edit_text_new_player);
             //Saves the name to the database and retrives it to verify that everything worked ok
             Player newPlayer = datasource.createPlayer(playerInput.getText().toString());
-
+            playerName = newPlayer.getName();
             toast = Toast.makeText(this, "Player " + newPlayer.getName() + " created", Toast.LENGTH_SHORT);
+            showContinueDialog();
         }else {
             toast = Toast.makeText(getApplicationContext(), "Enter valid user name", Toast.LENGTH_SHORT);
         }

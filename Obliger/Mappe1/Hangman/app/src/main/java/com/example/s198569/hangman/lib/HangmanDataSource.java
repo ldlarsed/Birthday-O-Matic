@@ -70,13 +70,13 @@ public class HangmanDataSource {
         values.put(HangmanDatabase.COLUMN_PNAME, name);
         values.put(HangmanDatabase.COLUMN_SCORE, 0);
 
+        long insertId = database.insert(HangmanDatabase.TABLE_PLAYERS, null, values);
 
-        if(database.insert(HangmanDatabase.TABLE_PLAYERS, null, values) < 0){
+        if(insertId < 0){
             Log.d("HANGMAN", "Coludnt insert");
         }else{
             Log.d("HANGMAN", "Insertion succesfull");
         }
-        long insertId = database.insert(HangmanDatabase.TABLE_PLAYERS, null, values);
 
         Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS,
                 allColumns, HangmanDatabase.COLUMN_ID + " = " + insertId, null,
