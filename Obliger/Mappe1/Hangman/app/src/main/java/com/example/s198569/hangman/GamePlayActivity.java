@@ -218,7 +218,7 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     /**
-     * Resets the buttons that was set to inactive due to the wrong guess. 
+     * Resets the buttons that was set to inactive due to the wrong guess.
      */
     private void resetTheKeyboard(){
         for(int i = 0; i < keyboard.getChildCount(); i++){
