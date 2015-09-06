@@ -1,18 +1,15 @@
 package com.example.s198569.hangman.lib;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.v4.widget.ContentLoadingProgressBar;
 import android.util.Log;
-import android.widget.Toast;
 
 public class HangmanDatabase extends SQLiteOpenHelper {
 
     public static final String TABLE_PLAYERS = "PLAYERS";
     public static final String COLUMN_ID = "_id";
-    public static final String COLUMN_NAME = "NAME";
+    public static final String COLUMN_PNAME = "PNAME";
     public static final String COLUMN_SCORE = "SCORE";
 
     private static final String DB_NAME = "hangmanDB";
@@ -22,7 +19,7 @@ public class HangmanDatabase extends SQLiteOpenHelper {
     //Creation of the database
     private static final String DATABASE_CREATE = "create table " + TABLE_PLAYERS + "(" +
             COLUMN_ID + " integer primary key autoincrement, " +
-            COLUMN_NAME + " text not null unique, " +
+            COLUMN_PNAME + " text not null, " +
             COLUMN_SCORE + " integer);";
 
 

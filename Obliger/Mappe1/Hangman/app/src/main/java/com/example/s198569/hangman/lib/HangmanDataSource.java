@@ -8,16 +8,14 @@ import android.database.sqlite.SQLiteException;
 import android.util.Log;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.jar.Attributes;
 
 public class HangmanDataSource {
 
     private SQLiteDatabase database;
     private HangmanDatabase dbHelper;
-    private String[] allColumns = {HangmanDatabase.COLUMN_ID, HangmanDatabase.COLUMN_NAME, HangmanDatabase.COLUMN_SCORE};
-    private String[] allPlayerNames = {HangmanDatabase.COLUMN_NAME};
+    private String[] allColumns = {HangmanDatabase.COLUMN_ID, HangmanDatabase.COLUMN_PNAME, HangmanDatabase.COLUMN_SCORE};
+    private String[] allPlayerNames = {HangmanDatabase.COLUMN_PNAME};
 
     public HangmanDataSource(Context context){
 
@@ -33,7 +31,7 @@ public class HangmanDataSource {
     }
 
     private int getTotalPlayerScore(String playerName){
-        String query = "SELECT * FROM PLAYERS WHERE NAME='"+playerName+"'";
+        String query = "SELECT * FROM PLAYERS WHERE PNAME='"+playerName+"'";
         Cursor c = database.rawQuery(query, new String[]{});
         c.moveToFirst();
         return c.getInt(2);
@@ -49,9 +47,9 @@ public class HangmanDataSource {
         newScore += scoreToAdd;
 
         ContentValues cv = new ContentValues();
-        //cv.put(HangmanDatabase.COLUMN_NAME, playerName);
+        //cv.put(HangmanDatabase.COLUMN_PNAME, playerName);
         cv.put(HangmanDatabase.COLUMN_SCORE, newScore);
-        database.update(HangmanDatabase.TABLE_PLAYERS, cv, HangmanDatabase.COLUMN_NAME + "='" + playerName + "'", null);
+        database.update(HangmanDatabase.TABLE_PLAYERS, cv, HangmanDatabase.COLUMN_PNAME + "='" + playerName + "'", null);
 
         //Alternative code to update the row with raw sql query. Not tested.
         //String updateSQL = "UPDATE PLAYERS SET SCORE = " + String.valueOf(newScore) + " WHERE NAME = "+ playerName;
@@ -69,7 +67,7 @@ public class HangmanDataSource {
      */
     public Player createPlayer(String name){
         ContentValues values = new ContentValues();
-        values.put(HangmanDatabase.COLUMN_NAME, name);
+        values.put(HangmanDatabase.COLUMN_PNAME, name);
         values.put(HangmanDatabase.COLUMN_SCORE, 0);
 
 
@@ -140,6 +138,10 @@ public class HangmanDataSource {
      */
     private Player cursorToPlayer(Cursor cursor){
         Player player = new Player();
+        Log.w("HANGMAN", "Antall rader: " + cursor.getCount());
+        Log.w("HANGMAN", "Antall kolonner: " + cursor.getColumnCount());
+        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getString(1));
+        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(2));
         player.setName(cursor.getString(1));
         player.setScore(cursor.getInt(2));
         return player;
