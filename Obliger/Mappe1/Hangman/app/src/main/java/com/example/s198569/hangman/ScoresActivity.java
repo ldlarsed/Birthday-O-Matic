@@ -69,8 +69,9 @@ public class ScoresActivity extends AppCompatActivity {
         float textSize = getResources().getDimensionPixelSize(R.dimen.default_text_size);
 
         addTextToRowWithValues(headerRow, getResources().getString(R.string.score_ranking), textColor, textSize);
-        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_score), textColor, textSize);
         addTextToRowWithValues(headerRow, getResources().getString(R.string.score_username), textColor, textSize);
+        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_score), textColor, textSize);
+
 
         scoreTable.addView(headerRow);
     }
@@ -82,14 +83,14 @@ public class ScoresActivity extends AppCompatActivity {
      * @param scoreRank
      * @param scorePlayerName
      */
-    private void insertScoreRow(final TableLayout scoreTable, String scoreValue, String scoreRank, String scorePlayerName){
+    private void insertScoreRow(final TableLayout scoreTable, String scoreRank, String scoreValue, String scorePlayerName){
         final TableRow newRow = new TableRow(this);
         int textColor = getResources().getColor(R.color.secondary_1_2);
         float textSize = getResources().getDimension(R.dimen.table_text);
 
-        addTextToRowWithValues(newRow, scorePlayerName, textColor, textSize);
-        addTextToRowWithValues(newRow, scoreValue, textColor, textSize);
         addTextToRowWithValues(newRow, scoreRank, textColor, textSize);
+        addTextToRowWithValues(newRow, scoreValue, textColor, textSize);
+        addTextToRowWithValues(newRow, scorePlayerName, textColor, textSize);
 
         scoreTable.addView(newRow);
     }
@@ -128,7 +129,7 @@ public class ScoresActivity extends AppCompatActivity {
                     String scoreValue = scores.getAttributeValue(null, "score");
                     String scorePlayerName = scores.getAttributeValue(null, "username");
                     String scorePlayerRank = scores.getAttributeValue(null, "rank");
-                    insertScoreRow(scoreTable, scorePlayerRank, scoreValue, scorePlayerName );
+                    insertScoreRow(scoreTable, scorePlayerRank, scorePlayerName, scoreValue);
                 }
             }
             eventType = scores.next();
