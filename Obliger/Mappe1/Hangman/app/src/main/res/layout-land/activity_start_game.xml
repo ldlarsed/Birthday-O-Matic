@@ -35,7 +35,7 @@
                 android:layout_height="100dp"
                 android:layout_below="@id/title_image"
                 android:layout_marginLeft="95dp"
-                android:layout_marginTop="-15dp"
+                android:layout_marginTop="-20dp"
                 android:paddingTop="0dp"
                 android:src="@drawable/hangman" />
 
