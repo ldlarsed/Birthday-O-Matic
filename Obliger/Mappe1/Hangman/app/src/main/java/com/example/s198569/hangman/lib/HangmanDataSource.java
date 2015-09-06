@@ -32,18 +32,28 @@ public class HangmanDataSource {
         database = dbHelper.getWritableDatabase();
     }
 
+    private int getTotalPlayerScore(String playerName){
+        String query = "SELECT * FROM PLAYERS WHERE NAME='"+playerName+"'";
+        Cursor c = database.rawQuery(query, new String[]{});
+        c.moveToFirst();
+        return c.getInt(2);
+    }
+
     /**
      * Updates the score for a specific player.
      * @param playerName
-     * @param newScore
+     * @param scoreToAdd
      */
-    public void updateScore(String playerName, int newScore){
+    public void updateScore(String playerName, int scoreToAdd){
+        int newScore = getTotalPlayerScore(playerName);
+        newScore += scoreToAdd;
 
         ContentValues cv = new ContentValues();
         //cv.put(HangmanDatabase.COLUMN_NAME, playerName);
-        cv.put("SCORE", 20);
-        database.update("PLAYERS", cv, "NAME='Luke'", null);
+        cv.put(HangmanDatabase.COLUMN_SCORE, newScore);
+        database.update(HangmanDatabase.TABLE_PLAYERS, cv, HangmanDatabase.COLUMN_NAME + "='" + playerName + "'", null);
 
+        //Alternative code to update the row with raw sql query. Not tested.
         //String updateSQL = "UPDATE PLAYERS SET SCORE = " + String.valueOf(newScore) + " WHERE NAME = "+ playerName;
         //database.execSQL(updateSQL);
     }
