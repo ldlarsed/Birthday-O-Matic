@@ -178,4 +178,22 @@ public class ScoresActivity extends AppCompatActivity {
             insertScoreRow(scoreTable, String.valueOf(rank++), p.getName(), String.valueOf(p.getScore()));
         }
     }
+
+    @Override
+    protected void onResume(){
+        datasource.open();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause(){
+        datasource.close();
+        super.onPause();
+    }
+
+    @Override
+    protected void onDestroy(){
+        datasource.close();
+        super.onDestroy();
+    }
 }

@@ -39,13 +39,13 @@ public class HangmanDataSource {
      */
     public void updateScore(String playerName, int newScore){
 
-        /*ContentValues cv = new ContentValues();
-        cv.put(HangmanDatabase.COLUMN_NAME, playerName);
-        cv.put(HangmanDatabase.COLUMN_SCORE, newScore);
-        database.update(HangmanDatabase.TABLE_PLAYERS, cv, )*/
+        ContentValues cv = new ContentValues();
+        //cv.put(HangmanDatabase.COLUMN_NAME, playerName);
+        cv.put("SCORE", 20);
+        database.update("PLAYERS", cv, "NAME='Luke'", null);
 
-        String updateSQL = "UPDATE PLAYERS SET SCORE = " + String.valueOf(newScore) + " WHERE NAME = "+ playerName;
-        database.execSQL(updateSQL);
+        //String updateSQL = "UPDATE PLAYERS SET SCORE = " + String.valueOf(newScore) + " WHERE NAME = "+ playerName;
+        //database.execSQL(updateSQL);
     }
 
     public void close() {

@@ -29,6 +29,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.s198569.hangman.lib.HangmanDataSource;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -47,12 +49,23 @@ public class GamePlayActivity extends AppCompatActivity {
     private ImageView hangmanImage;
     private String pName;
     private int lettersGuessed;
+    private HangmanDataSource datasource;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game_play);
+
+        /* Datasource connection */
+        datasource = new HangmanDataSource(this);
+        try {
+            datasource.open();
+        }catch (Exception e){
+            Toast toast = Toast.makeText(this, "Could not connect to the database.", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        /* End of database conncetion */
 
         //Initializes intent the starts this activity
         Intent intent = getIntent();
@@ -170,6 +183,7 @@ public class GamePlayActivity extends AppCompatActivity {
                         Log.w("HANGMAN", "letters.length: "+letters.length);
                         //Guessed all of the letters
                         if(lettersGuessed == letters.length){
+                            datasource.updateScore(pName, score);
                             wordsLayout.removeAllViewsInLayout();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -186,6 +200,7 @@ public class GamePlayActivity extends AppCompatActivity {
 
                         //No tries left
                         if(tryCount == 0) {
+                            datasource.updateScore(pName, score);
                             wordsLayout.removeAllViewsInLayout();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
