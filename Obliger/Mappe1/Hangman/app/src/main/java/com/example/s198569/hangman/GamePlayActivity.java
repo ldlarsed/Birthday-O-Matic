@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.Typeface;
@@ -21,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -58,6 +60,18 @@ public class GamePlayActivity extends AppCompatActivity {
         setPlayerName(pName);
         setKeyboard();
         newGame();
+    }
+
+    /**
+     * This one is overridden with purpose to listen to orientation changes and re-draw the keyboard
+     * layout if nescessary. Required changes are as well made inside the android manifest.
+     * @param newConfig
+     */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_game_play);
+        //setKeyboard();
     }
 
     /**
@@ -118,6 +132,8 @@ public class GamePlayActivity extends AppCompatActivity {
         Log.w("HANGMAN", "Antall EditText: " + lettersCount);
     }
 
+
+
     private void setKeyboard(){
         //Fetches the keyboard values for the default language
         String[] kb_values = getResources().getStringArray(R.array.alphabet);
@@ -132,7 +148,7 @@ public class GamePlayActivity extends AppCompatActivity {
 
         //Sets up the keyboard inside a gridview
         keyboard = (GridLayout) findViewById(R.id.keboard_layout);
-        for(String kb : kb_values){
+        for (String kb : kb_values){
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
