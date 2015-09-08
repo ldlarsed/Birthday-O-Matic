@@ -62,7 +62,7 @@ public class GamePlayActivity extends AppCompatActivity {
         datasource = new HangmanDataSource(this);
         try {
             datasource.open();
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast toast = Toast.makeText(this, "Could not connect to the database.", Toast.LENGTH_SHORT);
             toast.show();
         }
@@ -79,6 +79,7 @@ public class GamePlayActivity extends AppCompatActivity {
     /**
      * This one is overridden with purpose to listen to orientation changes and re-draw the keyboard
      * layout if nescessary. Required changes are as well made inside the android manifest.
+     *
      * @param newConfig
      */
     @Override
@@ -90,9 +91,10 @@ public class GamePlayActivity extends AppCompatActivity {
 
     /**
      * Sets the player name in the north west corner
+     *
      * @param n
      */
-    private void setPlayerName(String n){
+    private void setPlayerName(String n) {
         playerName = (TextView) findViewById(R.id.playerName);
         playerName.setText(n);
     }
@@ -100,7 +102,7 @@ public class GamePlayActivity extends AppCompatActivity {
     /**
      * Starts or resets the game.
      */
-    private void newGame(){
+    private void newGame() {
         score = 0;
         tryCount = 6;
         lettersGuessed = 0;
@@ -115,7 +117,7 @@ public class GamePlayActivity extends AppCompatActivity {
     /**
      * Fetces a random word from arrays.xml and creates a new EditText component that represents each letter in the word.
      */
-    private void setWord(){
+    private void setWord() {
         lettersCount = 0;
         edComponents = new ArrayList<>();
 
@@ -129,7 +131,7 @@ public class GamePlayActivity extends AppCompatActivity {
         letters = words[chosen_index].toCharArray();
 
         wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
-        for(char c : letters){
+        for (char c : letters) {
             final EditText et = new EditText(this);
             //et.setText(Character.toString(c));
             et.setEnabled(false);
@@ -147,8 +149,7 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
 
-
-    private void setKeyboard(){
+    private void setKeyboard() {
         //Fetches the keyboard values for the default language
         String[] kb_values = getResources().getStringArray(R.array.alphabet);
 
@@ -162,11 +163,11 @@ public class GamePlayActivity extends AppCompatActivity {
 
         //Sets up the keyboard inside a gridview
         keyboard = (GridLayout) findViewById(R.id.keboard_layout);
-        for (String kb : kb_values){
+        for (String kb : kb_values) {
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
-            b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth/8, screenWidth/8));
+            b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / 8, screenWidth / 8));
             keyboard.addView(b);
 
             //Listeners for each button
@@ -174,15 +175,15 @@ public class GamePlayActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     char c = b.getText().charAt(0);
-                    if(checkForLetter(c)){
+                    while (checkForLetter(c)) {
                         //When guessed correct letter
                         revealLetter(getLetterIndex(c), c);
-                        score+=10;
+                        score += 10;
                         lettersGuessed++;
                         scoreView.setText(Integer.toString(score));
 
                         //Guessed all of the letters
-                        if(lettersGuessed == letters.length){
+                        if (lettersGuessed == letters.length) {
                             datasource.updateScore(pName, score);
                             wordsLayout.removeAllViewsInLayout();
                             new Handler().postDelayed(new Runnable() {
@@ -193,24 +194,24 @@ public class GamePlayActivity extends AppCompatActivity {
                                 }
                             }, 200);
                         }
-                    }else{
-                        //Guessed wrong letter
-                        tryCount--;
-                        b.setEnabled(false);
-                        updateHangmanImage();
+                    }
 
-                        //No tries left
-                        if(tryCount == 0) {
-                            datasource.updateScore(pName, score);
-                            wordsLayout.removeAllViewsInLayout();
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String message = getResources().getString(R.string.game_fail);
-                                    showContinueDialog(message, score);
-                                }
-                            }, 200);
-                        }
+                    //Guessed wrong letter
+                    tryCount--;
+                    b.setEnabled(false);
+                    updateHangmanImage();
+
+                    //No tries left
+                    if (tryCount == 0) {
+                        datasource.updateScore(pName, score);
+                        wordsLayout.removeAllViewsInLayout();
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                String message = getResources().getString(R.string.game_fail);
+                                showContinueDialog(message, score);
+                            }
+                        }, 200);
                     }
                 }
             });
@@ -220,18 +221,18 @@ public class GamePlayActivity extends AppCompatActivity {
     /**
      * Resets the buttons that was set to inactive due to the wrong guess.
      */
-    private void resetTheKeyboard(){
-        for(int i = 0; i < keyboard.getChildCount(); i++){
+    private void resetTheKeyboard() {
+        for (int i = 0; i < keyboard.getChildCount(); i++) {
             View v = keyboard.getChildAt(i);
             v.setEnabled(true);
         }
     }
 
-    private void showContinueDialog(String message, int score){
+    private void showContinueDialog(String message, int score) {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                switch (which){
+                switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
                         newGame();
                         break;
@@ -255,8 +256,8 @@ public class GamePlayActivity extends AppCompatActivity {
     /**
      * Depending on tries left for players sets corresponding hangman image.
      */
-    private void updateHangmanImage(){
-        switch(tryCount){
+    private void updateHangmanImage() {
+        switch (tryCount) {
             case 5:
                 hangmanImage.setImageResource(R.drawable.hang1);
                 break;
@@ -283,32 +284,51 @@ public class GamePlayActivity extends AppCompatActivity {
 
     /**
      * Checks if letter exists i array.
+     *
      * @param letter
      * @return
      */
-    private boolean checkForLetter(char letter){
-        for(char c : letters)
-            if(c == letter) return true;
+    private boolean checkForLetter(char letter) {
+        for (char c : letters)
+            if (c == letter) return true;
         return false;
     }
 
     /**
-     * Returns index to the letter position. If not found returns -1.
+     * Checks for count of occurencies of a specific letter.
+     * Returns an integer array with indexes to this all of occurencies.
+     *
      * @param letter
      * @return
      */
-    private int getLetterIndex(char letter){
-        for(int i = 0; i < letters.length; i++)
-            if(letters[i] == letter) return i;
+    private int[] getLetterOccurencies(char letter) {
+        int[] idx = new int[letters.length];
+        int k = 0;
+        for (int i = 0; i < letters.length; i++)
+            if (letters[i] == letter)
+                idx[k++] = i;
+        return idx;
+    }
+
+    /**
+     * Returns index to the letter position. If not found returns -1.
+     *
+     * @param letter
+     * @return
+     */
+    private int getLetterIndex(char letter) {
+        for (int i = 0; i < letters.length; i++)
+            if (letters[i] == letter) return i;
         return -1;
     }
 
     /**
      * Reveals a letter with current position to the player.
+     *
      * @param idx
      */
-    private void revealLetter(int idx, char letter){
-        if(idx > letters.length -1) throw new IndexOutOfBoundsException();
+    private void revealLetter(int idx, char letter) {
+        if (idx > letters.length - 1) throw new IndexOutOfBoundsException();
         edComponents.get(idx).setText(Character.toString(letter));
         letters[idx] = 0; //removes letter if guessed correctly
     }
