@@ -178,7 +178,7 @@ public class GamePlayActivity extends AppCompatActivity {
                     while (checkForLetter(c)) {
                         //When guessed correct letter
                         revealLetter(getLetterIndex(c), c);
-                        score += 10;
+                        score += 1;
                         lettersGuessed++;
                         scoreView.setText(Integer.toString(score));
 
