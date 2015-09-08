@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.s198569.hangman.lib.HangmanDataSource;
+import com.example.s198569.hangman.lib.WordsProvider;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -51,6 +52,7 @@ public class GamePlayActivity extends AppCompatActivity {
     private int lettersGuessed;
     private HangmanDataSource datasource;
     private int wonInSession, lostInSession;
+    private WordsProvider wordsProvider;
 
 
     @Override
@@ -71,6 +73,7 @@ public class GamePlayActivity extends AppCompatActivity {
         //Initializes intent the starts this activity
         Intent intent = getIntent();
         this.pName = intent.getStringExtra("pName");
+        wordsProvider = new WordsProvider(this);
         setPlayerName(pName);
         setKeyboard();
         newGame();
@@ -122,13 +125,19 @@ public class GamePlayActivity extends AppCompatActivity {
         edComponents = new ArrayList<>();
 
         //Loads the available word list
-        //TODO: Find more effective way to get word directly from the xml array
-        String[] words = getResources().getStringArray(R.array.words);
+        /*String[] words = getResources().getStringArray(R.array.words);
         Random rand = new Random();
         int chosen_index = rand.nextInt((words.length - 1));
         Log.w("HANGMAN", "chosen_index: " + chosen_index);
         Log.w("HANGMAN", words[chosen_index]);
-        letters = words[chosen_index].toCharArray();
+        letters = words[chosen_index].toCharArray();*/
+
+        letters = wordsProvider.getNextWord();
+        Log.w("HANGMAN", letters.toString());
+        if (letters[0] == '0') {
+            Toast.makeText(this, "All words have been used up", Toast.LENGTH_SHORT).show();
+            Log.w("HANGMAN", "All words are used up");
+        }
 
         wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
         for (char c : letters) {
@@ -175,43 +184,45 @@ public class GamePlayActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     char c = b.getText().charAt(0);
-                    while (checkForLetter(c)) {
-                        //When guessed correct letter
-                        revealLetter(getLetterIndex(c), c);
-                        score += 1;
-                        lettersGuessed++;
-                        scoreView.setText(Integer.toString(score));
+                    if (checkForLetter(c)) {
+                        while (checkForLetter(c)) {
+                            //When guessed correct letter
+                            revealLetter(getLetterIndex(c), c);
+                            score += 1;
+                            lettersGuessed++;
+                            scoreView.setText(Integer.toString(score));
 
-                        //Guessed all of the letters
-                        if (lettersGuessed == letters.length) {
+                            //Guessed all of the letters
+                            if (lettersGuessed == letters.length) {
+                                datasource.updateScore(pName, score);
+                                wordsLayout.removeAllViewsInLayout();
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        String message = getResources().getString(R.string.game_success);
+                                        showContinueDialog(message, score);
+                                    }
+                                }, 200);
+                            }
+                        }
+                    } else {
+                        //Guessed wrong letter
+                        tryCount--;
+                        b.setEnabled(false);
+                        updateHangmanImage();
+
+                        //No tries left
+                        if (tryCount == 0) {
                             datasource.updateScore(pName, score);
                             wordsLayout.removeAllViewsInLayout();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
-                                    String message = getResources().getString(R.string.game_success);
+                                    String message = getResources().getString(R.string.game_fail);
                                     showContinueDialog(message, score);
                                 }
                             }, 200);
                         }
-                    }
-
-                    //Guessed wrong letter
-                    tryCount--;
-                    b.setEnabled(false);
-                    updateHangmanImage();
-
-                    //No tries left
-                    if (tryCount == 0) {
-                        datasource.updateScore(pName, score);
-                        wordsLayout.removeAllViewsInLayout();
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                String message = getResources().getString(R.string.game_fail);
-                                showContinueDialog(message, score);
-                            }
-                        }, 200);
                     }
                 }
             });
