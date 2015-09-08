@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Hangman</string>
+    <string name="action_settings">Instillinger</string>
+    <string name="err_scores">Feil ved behandling av poeng</string>
+    <string name="existing_player">Eksisterende spillere</string>
+    <string name="game_fail">Bedre flaks til neste gang.\n</string>
+    <string name="game_play_again">Ønsker å spille igjen?</string>
+    <string name="game_points_1">Du har scoret </string>
+    <string name="game_points_2">poeng.</string>
+    <string name="game_success">Gratulerer!\n</string>
+    <string name="hello_world">Hei Verlden!</string>
+    <string name="menu_help">Hjelp</string>
+    <string name="menu_play">Spill</string>
+    <string name="menu_quit">Avslutte</string>
+    <string name="menu_scores">Poeng</string>
+    <string name="menu_settings">Instillinger</string>
+    <string name="new_player">Ny Spiller</string>
+    <string name="player">Spiller</string>
+    <string name="regex_all_alphanumeric"></string>
+    <string name="score_all">All score</string>
+    <string name="score_no_scores">Ingen poeng registrert</string>
+    <string name="score_ranking">Rank</string>
+    <string name="score_score">Poeng</string>
+    <string name="score_username">Brukernavn</string>
+    <string name="score_wait_msg">Henter poengsummer</string>
+    <string name="score_wait_title">Laster applikasjon...</string>
+    <string name="setting_choose_language">Språk</string>
+    <string name="setting_choose_language_desc">Velg språk.</string>
+    <string name="setting_language_english">Engelsk</string>
+    <string name="setting_language_norwegian">Norsk</string>
+    <string name="setting_sound_toggle">Lyd</string>
+    <string name="setting_sound_toggle_desc">Lyder på / av</string>
+    <string name="title_activity_activity_scores"></string>
+</resources>

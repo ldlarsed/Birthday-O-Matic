@@ -30,6 +30,10 @@
             android:label="@string/title_activity_login"
             android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity
+            android:name=".HangmanPreferencesActivity"
+            android:label="HangmanPreferencesActivity" >
+        </activity>
     </application>
 
 </manifest>

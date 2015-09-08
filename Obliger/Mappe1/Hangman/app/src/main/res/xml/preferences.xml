@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <ListPreference
+        android:title="@string/setting_choose_language"
+        android:summary="@string/setting_choose_language_desc"
+        android:key="languageChooser"
+        android:defaultValue="1"
+        android:entries="@array/listLanguageItems"
+        android:entryValues="@array/listLanguageValues" />
+    <CheckBoxPreference
+        android:title="@string/setting_sound_toggle"
+        android:defaultValue="true"
+        android:summary="@string/setting_choose_language_desc"
+        android:key="soundOnOff" />
+</PreferenceScreen>

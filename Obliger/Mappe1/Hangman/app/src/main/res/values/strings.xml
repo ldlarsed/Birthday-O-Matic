@@ -2,7 +2,7 @@
     <string name="app_name">Hangman</string>
     <string name="action_settings">Settings</string>
     <string name="player">Player</string>
-    <string name="title_activity_game_play">GamePlay</string>
+    <string name="title_activity_game_play" translatable="false">GamePlay</string>
 
     <string name="new_player">New Player</string>
     <string name="existing_player">Existing Players</string>
@@ -20,20 +20,27 @@
     <string name="score_score">Score</string>
     <string name="score_wait_msg">Retrieving scores</string>
     <string name="score_wait_title">Loading...</string>
-    <string name="title_activity_activity_scores">activity_scores</string>
+    <string name="title_activity_activity_scores" translatable="false">activity_scores</string>
 
     <string name="hello_world">Hello world!</string>
 
-    <string name="exception">HANGMAN</string>
+    <string name="exception" translatable="false">HANGMAN</string>
     <string name="err_scores">Error while processing scores</string>
-    <string name="title_activity_login">LoginActivity</string>
+    <string name="title_activity_login" translatable="false">LoginActivity</string>
 
-    <string name="regex_all_alphanumeric">^[a-zøæåöäA-Zøæåäö0-9_]{3,15}$</string>
+    <string name="regex_all_alphanumeric" translatable="false">^[a-zøæåöäA-Zøæåäö0-9_]{3,15}$</string>
 
     <string name="game_fail">Better luck next time.\n</string>
     <string name="game_success">Congratulations!\n</string>
     <string name="game_points_1">You\'ve earned </string>
     <string name="game_points_2"> points.</string>
     <string name="game_play_again">Want to play again?</string>
+
+    <string name="setting_choose_language">Language</string>
+    <string name="setting_choose_language_desc">Choose the application language.</string>
+    <string name="setting_language_english">English</string>
+    <string name="setting_language_norwegian">Norwegian</string>
+    <string name="setting_sound_toggle">Sound</string>
+    <string name="setting_sound_toggle_desc">Toggle application sounds on/off.</string>
 
 </resources>
