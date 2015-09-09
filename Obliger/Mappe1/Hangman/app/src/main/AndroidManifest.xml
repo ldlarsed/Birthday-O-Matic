@@ -19,20 +19,23 @@
         <activity
             android:name=".GamePlayActivity"
             android:label="@string/title_activity_game_play"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize|locale">
         </activity>
         <activity
             android:name=".ScoresActivity"
-            android:label="@string/title_activity_activity_scores" >
+            android:label="@string/title_activity_activity_scores"
+            android:configChanges="locale|orientation">
         </activity>
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login"
-            android:windowSoftInputMode="stateHidden">
+            android:windowSoftInputMode="stateHidden"
+            android:configChanges="locale|orientation">
         </activity>
         <activity
             android:name=".HangmanPreferencesActivity"
-            android:label="HangmanPreferencesActivity" >
+            android:label="HangmanPreferencesActivity"
+            android:configChanges="locale|orientation">
         </activity>
     </application>
 

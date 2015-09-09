@@ -2,8 +2,12 @@ package com.example.s198569.hangman;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.Configuration;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,11 +22,15 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Locale;
+
 
 public class StartGameActivity extends ActionBarActivity {
 
     private ImageButton button_startGame;
     final Context context = this;
+    private String language;
+    public static boolean ENABLE_RESTART = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,24 +62,24 @@ public class StartGameActivity extends ActionBarActivity {
 
         //Listeners for Main Menu
         mainMenu.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id){
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position, long id) {
                 TextView textView = (TextView) itemClicked;
                 String strText = textView.getText().toString();
-                if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_play))){
+                if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_play))) {
                     //startActivity(new Intent(StartGameActivity.this, GamePlayActivity.class));
                     startActivity(new Intent(StartGameActivity.this, LoginActivity.class));
-                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_scores))){
+                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_scores))) {
                     //Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
                     //toast.show();
                     startActivity(new Intent(StartGameActivity.this, ScoresActivity.class));
-                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_settings))){
+                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_settings))) {
                     //Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
                     //toast.show();
                     startActivity(new Intent(StartGameActivity.this, HangmanPreferencesActivity.class));
-                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_help))){
+                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_help))) {
                     Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
                     toast.show();
-                }else if(strText.equalsIgnoreCase(getResources().getString(R.string.menu_quit))){
+                } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_quit))) {
                     finish();
                 }
             }
@@ -86,6 +94,12 @@ public class StartGameActivity extends ActionBarActivity {
         });
 
         /* End of Main Menu */
+
+        //Test if I can change language of main activity at boot
+        //checkLanguage();
+
+        //ENABLE_RESTART = true;
+        //restartMain();
 
     }
 
@@ -112,7 +126,53 @@ public class StartGameActivity extends ActionBarActivity {
     }
 
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        //restartMain();
+        if(ENABLE_RESTART)
+            restartMain();
+    }
+
+    private void checkLanguage() {
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String lang = sp.getString("languageChooser", "1");
+        Log.w("START GAME", "Detected language: " + lang);
+    }
+
+    private void changeLanguage(String localeString) {
+        Locale locale = new Locale(localeString);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getApplicationContext().getResources().updateConfiguration(config, null);
+
+        //finish();
+        //startActivity(getIntent());
+
+        //recreate();
+    }
+
+    public void restartMain() {
+        if (ENABLE_RESTART == true) {
+            Intent mainIntent = new Intent(this, StartGameActivity.class);
+            mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(mainIntent);
+            finish();
+        } else {
+            finish();
+        }
+        ENABLE_RESTART = false;
+    }
 
 }
