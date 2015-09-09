@@ -14,7 +14,7 @@ public class HangmanDataSource {
 
     private SQLiteDatabase database;
     private HangmanDatabase dbHelper;
-    private String[] allColumns = {HangmanDatabase.COLUMN_ID, HangmanDatabase.COLUMN_PNAME, HangmanDatabase.COLUMN_SCORE};
+    private String[] allColumns = {HangmanDatabase.COLUMN_ID, HangmanDatabase.COLUMN_PNAME, HangmanDatabase.COLUMN_SCORE, HangmanDatabase.COLUMN_WON, HangmanDatabase.COLUMN_LOST};
     private String[] allPlayerNames = {HangmanDatabase.COLUMN_PNAME};
 
     public HangmanDataSource(Context context){
@@ -30,6 +30,11 @@ public class HangmanDataSource {
         database = dbHelper.getWritableDatabase();
     }
 
+    /**
+     * Fetches total score for a specific player by name.
+     * @param playerName
+     * @return
+     */
     private int getTotalPlayerScore(String playerName){
         String query = "SELECT * FROM PLAYERS WHERE PNAME='"+playerName+"'";
         Cursor c = database.rawQuery(query, new String[]{});
@@ -38,22 +43,56 @@ public class HangmanDataSource {
     }
 
     /**
+     * Fetches total stats for a specific player by name.
+     * @param playerName
+     * @return
+     */
+    private int[] getTotalPlayerStats(String playerName){
+        String query = "SELECT * FROM PLAYERS WHERE PNAME='"+playerName+"'";
+        Cursor c = database.rawQuery(query, new String[]{});
+        c.moveToFirst();
+        int[] pStats = new int[] {c.getInt(2), c.getInt(3), c.getInt(4)};
+        return pStats;
+    }
+
+    /**
      * Updates the score for a specific player.
      * @param playerName
      * @param scoreToAdd
      */
     public void updateScore(String playerName, int scoreToAdd){
-        int newScore = getTotalPlayerScore(playerName);
-        newScore += scoreToAdd;
+        int currentScore = getTotalPlayerScore(playerName);
+        currentScore += scoreToAdd;
 
         ContentValues cv = new ContentValues();
         //cv.put(HangmanDatabase.COLUMN_PNAME, playerName);
-        cv.put(HangmanDatabase.COLUMN_SCORE, newScore);
+        cv.put(HangmanDatabase.COLUMN_SCORE, currentScore);
         database.update(HangmanDatabase.TABLE_PLAYERS, cv, HangmanDatabase.COLUMN_PNAME + "='" + playerName + "'", null);
 
         //Alternative code to update the row with raw sql query. Not tested.
-        //String updateSQL = "UPDATE PLAYERS SET SCORE = " + String.valueOf(newScore) + " WHERE NAME = "+ playerName;
+        //String updateSQL = "UPDATE PLAYERS SET SCORE = " + String.valueOf(currentScore) + " WHERE NAME = "+ playerName;
         //database.execSQL(updateSQL);
+    }
+
+    /**
+     * Updates all stats for a specific player given the player database lookup name.
+     * @param playerName
+     * @param scoreToAdd
+     * @param gamesWon
+     * @param gamesLost
+     */
+    public void updateStats(String playerName, int scoreToAdd, int gamesWon, int gamesLost){
+        int[] currentScore = getTotalPlayerStats(playerName);
+        currentScore[0] += scoreToAdd;
+        currentScore[1] += gamesWon;
+        currentScore[2] += gamesLost;
+
+        ContentValues cv = new ContentValues();
+        cv.put(HangmanDatabase.COLUMN_SCORE, currentScore[0]);
+        cv.put(HangmanDatabase.COLUMN_WON, currentScore[1]);
+        cv.put(HangmanDatabase.COLUMN_LOST, currentScore[2]);
+
+        database.update(HangmanDatabase.TABLE_PLAYERS, cv, HangmanDatabase.COLUMN_PNAME + "='" + playerName + "'", null);
     }
 
     public void close() {
@@ -69,6 +108,8 @@ public class HangmanDataSource {
         ContentValues values = new ContentValues();
         values.put(HangmanDatabase.COLUMN_PNAME, name);
         values.put(HangmanDatabase.COLUMN_SCORE, 0);
+        values.put(HangmanDatabase.COLUMN_WON, 0);
+        values.put(HangmanDatabase.COLUMN_LOST, 0);
 
         long insertId = database.insert(HangmanDatabase.TABLE_PLAYERS, null, values);
 
@@ -85,6 +126,7 @@ public class HangmanDataSource {
         cursor.moveToFirst();
         Player newPlayer = cursorToPlayer(cursor);
         cursor.close();
+
         return newPlayer;
     }
 
@@ -142,8 +184,12 @@ public class HangmanDataSource {
         Log.w("HANGMAN", "Antall kolonner: " + cursor.getColumnCount());
         Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getString(1));
         Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(2));
+        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(3));
+        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(4));
         player.setName(cursor.getString(1));
         player.setScore(cursor.getInt(2));
+        player.setWon(cursor.getInt(3));
+        player.setLost(cursor.getInt(4));
         return player;
     }
 

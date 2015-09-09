@@ -3,7 +3,7 @@ package com.example.s198569.hangman.lib;
 
 public class Player {
     private String name;
-    private int score;
+    private int score, won, lost;
 
     public int getScore() {
         return score;
@@ -21,11 +21,29 @@ public class Player {
         this.name = name;
     }
 
+    public int getLost() {
+        return lost;
+    }
+
+    public void setLost(int lost) {
+        this.lost = lost;
+    }
+
+    public int getWon() {
+        return won;
+    }
+
+    public void setWon(int won) {
+        this.won = won;
+    }
+
     @Override
     public String toString() {
         return "Player{" +
-                "name='" + name + '\'' +
+                "lost=" + lost +
+                ", name='" + name + '\'' +
                 ", score=" + score +
+                ", won=" + won +
                 '}';
     }
 }

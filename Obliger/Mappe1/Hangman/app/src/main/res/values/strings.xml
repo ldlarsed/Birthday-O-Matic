@@ -18,6 +18,8 @@
     <string name="score_username">Username</string>
     <string name="score_ranking">Rank</string>
     <string name="score_score">Score</string>
+    <string name="score_games_won">Won</string>
+    <string name="score_games_lost">Lost</string>
     <string name="score_wait_msg">Retrieving scores</string>
     <string name="score_wait_title">Loading...</string>
     <string name="title_activity_activity_scores" translatable="false">activity_scores</string>

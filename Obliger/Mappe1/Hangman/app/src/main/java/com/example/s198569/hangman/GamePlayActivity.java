@@ -26,24 +26,33 @@ import com.example.s198569.hangman.lib.HangmanDataSource;
 import com.example.s198569.hangman.lib.WordsProvider;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class GamePlayActivity extends AppCompatActivity {
 
+    //Layouts
     private RelativeLayout gameLayout;
-    private TextView playerName;
-    private char[] letters;
     private LinearLayout wordsLayout;
     private GridLayout keyboard;
-    private int lettersCount;
+
+    //GUI components
+    private TextView playerName;
+    private TextView gameScoreView, sessionScoreView;
+    private TextView gamesWonView, gamesLostView;
+    private ImageView hangmanImage;
     private ArrayList<EditText> edComponents; //Current collection of letter placeholders
+
+    //Game variables
+    private int lettersCount;
+    private char[] letters;
     private int gameScore, sessionScore;
     private int tryCount;
-    private TextView scoreView;
-    private ImageView hangmanImage;
     private String pName;
     private int lettersGuessed;
-    private HangmanDataSource datasource;
     private int gamesWon, gamesLost;
+
+    //Game objects
+    private HangmanDataSource datasource;
     private WordsProvider wordsProvider;
 
 
@@ -69,6 +78,9 @@ public class GamePlayActivity extends AppCompatActivity {
         setPlayerName(pName);
         setKeyboard();
         newGame();
+        sessionScoreView = (TextView) findViewById(R.id.sessionScore);
+        gamesWonView = (TextView) findViewById(R.id.gamesWon);
+        gamesLostView = (TextView) findViewById(R.id.gamesLost);
     }
 
     /**
@@ -103,8 +115,10 @@ public class GamePlayActivity extends AppCompatActivity {
         lettersGuessed = 0;
         setWord();
         resetTheKeyboard();
-        scoreView = (TextView) findViewById(R.id.playerScore);
-        scoreView.setText(String.valueOf(gameScore));
+
+        gameScoreView = (TextView) findViewById(R.id.playerScore);
+        gameScoreView.setText(String.valueOf(gameScore));
+
         hangmanImage = (ImageView) findViewById(R.id.hangman_image);
         hangmanImage.setImageResource(R.drawable.hang0);
     }
@@ -125,7 +139,7 @@ public class GamePlayActivity extends AppCompatActivity {
         letters = words[chosen_index].toCharArray();*/
 
         letters = wordsProvider.getNextWord();
-        Log.w("HANGMAN", letters.toString());
+        Log.w("HANGMAN", Arrays.toString(letters));
         if (letters[0] == '0') {
             Toast.makeText(this, "All words have been used up", Toast.LENGTH_SHORT).show();
             Log.w("HANGMAN", "All words are used up");
@@ -183,12 +197,15 @@ public class GamePlayActivity extends AppCompatActivity {
                             gameScore++;
                             sessionScore++;
                             lettersGuessed++;
-                            scoreView.setText(Integer.toString(gameScore));
+                            gameScoreView.setText(Integer.toString(gameScore));
+                            sessionScoreView.setText(Integer.toString(sessionScore));
 
                             //Guessed all of the letters
                             if (lettersGuessed == letters.length) {
                                 gamesWon++;
-                                datasource.updateScore(pName, gameScore);
+                                //datasource.updateScore(pName, gameScore); //depriciated
+                                datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
+                                gamesWonView.setText(Integer.toString(gamesWon));
                                 wordsLayout.removeAllViewsInLayout();
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -208,7 +225,9 @@ public class GamePlayActivity extends AppCompatActivity {
                         //No tries left
                         if (tryCount == 0) {
                             gamesLost++;
-                            datasource.updateScore(pName, gameScore);
+                            //datasource.updateScore(pName, gameScore); //depriciated
+                            datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
+                            gamesLostView.setText(Integer.toString(gamesLost));
                             wordsLayout.removeAllViewsInLayout();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
