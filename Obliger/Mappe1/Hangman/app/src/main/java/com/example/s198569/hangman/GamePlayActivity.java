@@ -1,28 +1,21 @@
 package com.example.s198569.hangman;
 
-import android.app.ActionBar;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
-import android.media.Image;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridLayout;
-import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -33,7 +26,6 @@ import com.example.s198569.hangman.lib.HangmanDataSource;
 import com.example.s198569.hangman.lib.WordsProvider;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class GamePlayActivity extends AppCompatActivity {
 
@@ -44,14 +36,14 @@ public class GamePlayActivity extends AppCompatActivity {
     private GridLayout keyboard;
     private int lettersCount;
     private ArrayList<EditText> edComponents; //Current collection of letter placeholders
-    private int score;
+    private int gameScore, sessionScore;
     private int tryCount;
     private TextView scoreView;
     private ImageView hangmanImage;
     private String pName;
     private int lettersGuessed;
     private HangmanDataSource datasource;
-    private int wonInSession, lostInSession;
+    private int gamesWon, gamesLost;
     private WordsProvider wordsProvider;
 
 
@@ -106,13 +98,13 @@ public class GamePlayActivity extends AppCompatActivity {
      * Starts or resets the game.
      */
     private void newGame() {
-        score = 0;
+        gameScore = 0;
         tryCount = 6;
         lettersGuessed = 0;
         setWord();
         resetTheKeyboard();
         scoreView = (TextView) findViewById(R.id.playerScore);
-        scoreView.setText(String.valueOf(score));
+        scoreView.setText(String.valueOf(gameScore));
         hangmanImage = (ImageView) findViewById(R.id.hangman_image);
         hangmanImage.setImageResource(R.drawable.hang0);
     }
@@ -188,19 +180,21 @@ public class GamePlayActivity extends AppCompatActivity {
                         while (checkForLetter(c)) {
                             //When guessed correct letter
                             revealLetter(getLetterIndex(c), c);
-                            score += 1;
+                            gameScore++;
+                            sessionScore++;
                             lettersGuessed++;
-                            scoreView.setText(Integer.toString(score));
+                            scoreView.setText(Integer.toString(gameScore));
 
                             //Guessed all of the letters
                             if (lettersGuessed == letters.length) {
-                                datasource.updateScore(pName, score);
+                                gamesWon++;
+                                datasource.updateScore(pName, gameScore);
                                 wordsLayout.removeAllViewsInLayout();
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
                                         String message = getResources().getString(R.string.game_success);
-                                        showContinueDialog(message, score);
+                                        showContinueDialog(message, gameScore);
                                     }
                                 }, 200);
                             }
@@ -213,13 +207,14 @@ public class GamePlayActivity extends AppCompatActivity {
 
                         //No tries left
                         if (tryCount == 0) {
-                            datasource.updateScore(pName, score);
+                            gamesLost++;
+                            datasource.updateScore(pName, gameScore);
                             wordsLayout.removeAllViewsInLayout();
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
                                     String message = getResources().getString(R.string.game_fail);
-                                    showContinueDialog(message, score);
+                                    showContinueDialog(message, gameScore);
                                 }
                             }, 200);
                         }
@@ -228,6 +223,7 @@ public class GamePlayActivity extends AppCompatActivity {
             });
         }
     }
+
 
     /**
      * Resets the buttons that was set to inactive due to the wrong guess.
