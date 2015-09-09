@@ -69,7 +69,7 @@ public class GamePlayActivity extends AppCompatActivity {
             Toast toast = Toast.makeText(this, "Could not connect to the database.", Toast.LENGTH_SHORT);
             toast.show();
         }
-        /* End of database conncetion */
+        /* End of database connection */
 
         //Initializes intent the starts this activity
         Intent intent = getIntent();
@@ -81,6 +81,8 @@ public class GamePlayActivity extends AppCompatActivity {
         sessionScoreView = (TextView) findViewById(R.id.sessionScore);
         gamesWonView = (TextView) findViewById(R.id.gamesWon);
         gamesLostView = (TextView) findViewById(R.id.gamesLost);
+
+        Log.w("HANGMAN", "ORIENTATION: "+String.valueOf(getResources().getConfiguration().orientation));
     }
 
     /**
@@ -124,7 +126,7 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     /**
-     * Fetces a random word from arrays.xml and creates a new EditText component that represents each letter in the word.
+     * Fetches a random word from arrays.xml and creates a new EditText component that represents each letter in the word.
      */
     private void setWord() {
         lettersCount = 0;
@@ -164,17 +166,24 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
 
+    private void setButtonOrientation(Button b){
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int screenHeight = displaymetrics.heightPixels;
+        int screenWidth = displaymetrics.widthPixels;
+
+        if(getResources().getConfiguration().orientation == 1)
+            b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / (keyboard.getColumnCount() +1), screenWidth / (keyboard.getColumnCount() +1)));
+        else
+            b.setLayoutParams(new LinearLayout.LayoutParams((screenWidth/2) / (keyboard.getColumnCount() - 1), (screenHeight/2) / (keyboard.getRowCount()-1)));
+    }
+
     private void setKeyboard() {
         //Fetches the keyboard values for the default language
         String[] kb_values = getResources().getStringArray(R.array.alphabet);
 
         gameLayout = (RelativeLayout) findViewById(R.id.gameplay_layout);
 
-        //TODO: Move to standalone static class
-        DisplayMetrics displaymetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
-        int screenHeight = displaymetrics.heightPixels;
-        int screenWidth = displaymetrics.widthPixels;
 
         //Sets up the keyboard inside a gridview
         keyboard = (GridLayout) findViewById(R.id.keboard_layout);
@@ -182,7 +191,9 @@ public class GamePlayActivity extends AppCompatActivity {
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
-            b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / 8, screenWidth / 8));
+            //b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / (keyboard.getColumnCount() +1), screenWidth / (keyboard.getColumnCount() +1)));
+            //b.setLayoutParams(new LinearLayout.LayoutParams((screenWidth/2) / (keyboard.getColumnCount() - 1), (screenHeight/2) / (keyboard.getRowCount()-1)));
+            setButtonOrientation(b);
             keyboard.addView(b);
 
             //Listeners for each button
