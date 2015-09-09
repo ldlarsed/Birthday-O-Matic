@@ -11,16 +11,22 @@ public class HangmanDatabase extends SQLiteOpenHelper {
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_PNAME = "PNAME";
     public static final String COLUMN_SCORE = "SCORE";
+    public static final String COLUMN_WON = "WON";
+    public static final String COLUMN_LOST = "LOST";
 
     private static final String DB_NAME = "hangmanDB";
     private static final int DB_VERSION = 1;
 
 
     //Creation of the database
-    private static final String DATABASE_CREATE = "create table " + TABLE_PLAYERS + "(" +
-            COLUMN_ID + " integer primary key autoincrement, " +
-            COLUMN_PNAME + " text not null, " +
-            COLUMN_SCORE + " integer);";
+    private static final String DATABASE_CREATE =
+            "create table " + TABLE_PLAYERS + "(" +
+                    COLUMN_ID + " integer primary key autoincrement, " +
+                    COLUMN_PNAME + " text not null, " +
+                    COLUMN_SCORE + " integer, " +
+                    COLUMN_WON + " integer, " +
+                    COLUMN_LOST + " integer" +
+                    ");";
 
 
     public HangmanDatabase(Context context) {
@@ -31,7 +37,7 @@ public class HangmanDatabase extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         try {
             db.execSQL(DATABASE_CREATE);
-        }catch (Exception e){
+        } catch (Exception e) {
             Log.d("HANGMAN", "Database cannot be created");
         }
     }

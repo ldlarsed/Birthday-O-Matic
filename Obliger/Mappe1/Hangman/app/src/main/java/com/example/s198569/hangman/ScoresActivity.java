@@ -46,8 +46,8 @@ public class ScoresActivity extends AppCompatActivity {
             Toast.makeText(this, "No registered players yet", Toast.LENGTH_SHORT).show();
         }else {
             String allFolks = "";
-            for(Player p : registeredPlayers){
-                allFolks += p.getName() + " " + p.getScore() + "\n";
+            for(Player p : registeredPlayers){  //mainly for debugging
+                allFolks += p.getName() + " " + p.getScore() + " " + p.getWon() + " " + p.getLost() +  "\n";
             }
             Toast.makeText(this, allFolks, Toast.LENGTH_SHORT).show();
         }
@@ -102,7 +102,8 @@ public class ScoresActivity extends AppCompatActivity {
         addTextToRowWithValues(headerRow, getResources().getString(R.string.score_ranking), textColor, textSize);
         addTextToRowWithValues(headerRow, getResources().getString(R.string.score_username), textColor, textSize);
         addTextToRowWithValues(headerRow, getResources().getString(R.string.score_score), textColor, textSize);
-
+        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_games_won), textColor, textSize);
+        addTextToRowWithValues(headerRow, getResources().getString(R.string.score_games_lost), textColor, textSize);
 
         scoreTable.addView(headerRow);
     }
@@ -114,7 +115,7 @@ public class ScoresActivity extends AppCompatActivity {
      * @param scoreRank
      * @param scorePlayerName
      */
-    private void insertScoreRow(final TableLayout scoreTable, String scoreRank, String scoreValue, String scorePlayerName){
+    private void insertScoreRow(final TableLayout scoreTable, String scoreRank, String scoreValue, String scorePlayerName, String gamesWon, String gamesLost){
         final TableRow newRow = new TableRow(this);
         int textColor = getResources().getColor(R.color.secondary_1_2);
         float textSize = getResources().getDimension(R.dimen.table_text);
@@ -122,6 +123,8 @@ public class ScoresActivity extends AppCompatActivity {
         addTextToRowWithValues(newRow, scoreRank, textColor, textSize);
         addTextToRowWithValues(newRow, scoreValue, textColor, textSize);
         addTextToRowWithValues(newRow, scorePlayerName, textColor, textSize);
+        addTextToRowWithValues(newRow, gamesWon, textColor, textSize);
+        addTextToRowWithValues(newRow, gamesLost, textColor, textSize);
 
         scoreTable.addView(newRow);
     }
@@ -175,7 +178,7 @@ public class ScoresActivity extends AppCompatActivity {
     private void showScores(final TableLayout scoreTable, ArrayList<Player> sortedPlayers){
         int rank = 1;
         for(Player p : sortedPlayers){
-            insertScoreRow(scoreTable, String.valueOf(rank++), p.getName(), String.valueOf(p.getScore()));
+            insertScoreRow(scoreTable, String.valueOf(rank++), p.getName(), String.valueOf(p.getScore()), String.valueOf(p.getWon()), String.valueOf(p.getLost()));
         }
     }
 
