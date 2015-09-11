@@ -27,10 +27,17 @@ import java.util.Locale;
 
 public class StartGameActivity extends ActionBarActivity {
 
+    //Constants
+    public static final String LANGUAGE = "SAVED_LANGUAGE";
+
+    //Instance variables
     private ImageButton button_startGame;
     final Context context = this;
     private String language;
     public static boolean ENABLE_RESTART = false;
+
+    //Objects
+    SharedPreferences langPrefs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,7 +147,12 @@ public class StartGameActivity extends ActionBarActivity {
     protected void onRestart() {
         super.onRestart();
         //restartMain();
-        if(ENABLE_RESTART)
+
+        langPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        language = langPrefs.getString("LANGUAGE", "");
+        Log.w("START GAME", "Detected language: " + language);
+
+        if (ENABLE_RESTART)
             restartMain();
     }
 
@@ -157,8 +169,8 @@ public class StartGameActivity extends ActionBarActivity {
         config.locale = locale;
         getApplicationContext().getResources().updateConfiguration(config, null);
 
-        //finish();
-        //startActivity(getIntent());
+        finish();
+        startActivity(getIntent());
 
         //recreate();
     }
@@ -175,4 +187,19 @@ public class StartGameActivity extends ActionBarActivity {
         ENABLE_RESTART = false;
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        langPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        language = langPrefs.getString("LANGUAGE", "");
+        outState.putString(LANGUAGE, language);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        language = savedInstanceState.getString(LANGUAGE);
+    }
 }

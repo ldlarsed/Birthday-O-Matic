@@ -18,7 +18,7 @@
     <string name="new_player">Ny Spiller</string>
     <string name="player">Spiller</string>
     <string name="regex_all_alphanumeric"></string>
-    <string name="score_all">All score</string>
+    <string name="score_all">Alle poeng</string>
     <string name="score_no_scores">Ingen poeng registrert</string>
     <string name="score_ranking">Rank</string>
     <string name="score_score">Poeng</string>
@@ -32,4 +32,11 @@
     <string name="setting_sound_toggle">Lyd</string>
     <string name="setting_sound_toggle_desc">Lyder på / av</string>
     <string name="title_activity_activity_scores"></string>
+    <string name="score_games_lost">Tapt</string>
+    <string name="score_games_won">Vunnet</string>
+    <string name="warning_language">Advarsel! Draker venter lengre frem!\n\n
+        Etter funksjonen kan du endre søknad språk uten å endre noen lokalisering setting for hele systemet.
+        Mens funksjonelt mulig det er rent eksperimentelle.
+        Bruk denne innstillingen på egen risiko, og husk at søknaden språk vil automatisk bli endret tilbake til standard språk (engelsk) på skjermretningen endring.         
+        Den anbefalte måten å endre søknaden språket er i Android-systemet lokaliseringsinnstillingene.</string>
 </resources>
