@@ -78,6 +78,7 @@ public class GamePlayActivity extends AppCompatActivity {
         //Initializes intent the starts this activity
         Intent intent = getIntent();
         this.pName = intent.getStringExtra("pName");
+        kb_values = getResources().getStringArray(R.array.alphabet);
         initializesGUIComponents();
         wordsProvider = new WordsProvider(this);
         setPlayerName(pName);
@@ -217,12 +218,12 @@ public class GamePlayActivity extends AppCompatActivity {
      * Starts or resets the game.
      */
     private void newGame() {
-        initializesGUIComponents();
+        //initializesGUIComponents();
         gameScore = 0;
         tryCount = 6;
         lettersGuessed = 0;
         //Fetches the keyboard values for the default language
-        kb_values = getResources().getStringArray(R.array.alphabet);
+
         keybUsed = new boolean[kb_values.length];
         setKeyboard();
         setWord();
@@ -281,12 +282,12 @@ public class GamePlayActivity extends AppCompatActivity {
     private void setKeyboard() {
 
 
+
         for (String kb : kb_values) {
-            int i = 0;
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
-            keybUsed[i++] = false;
+            //keybUsed[i++] = false;
             //b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / (keyboard.getColumnCount() +1), screenWidth / (keyboard.getColumnCount() +1)));
             //b.setLayoutParams(new LinearLayout.LayoutParams((screenWidth/2) / (keyboard.getColumnCount() - 1), (screenHeight/2) / (keyboard.getRowCount()-1)));
             setButtonOrientation(b);
@@ -317,7 +318,11 @@ public class GamePlayActivity extends AppCompatActivity {
                                 //datasource.updateScore(pName, gameScore); //depriciated
                                 datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
                                 gamesWonView.setText(Integer.toString(gamesWon));
+                                //Cleanup
                                 wordsLayout.removeAllViewsInLayout();
+                                edComponents.clear();
+                                wordsLayout.removeAllViews();
+
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
                                     public void run() {
@@ -341,7 +346,12 @@ public class GamePlayActivity extends AppCompatActivity {
                             //datasource.updateScore(pName, gameScore); //depriciated
                             datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
                             gamesLostView.setText(Integer.toString(gamesLost));
+
+                            //Cleanup
                             wordsLayout.removeAllViewsInLayout();
+                            edComponents.clear();
+                            wordsLayout.removeAllViews();
+
                             new Handler().postDelayed(new Runnable() {
                                 @Override
                                 public void run() {
