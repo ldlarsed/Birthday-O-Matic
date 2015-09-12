@@ -18,3 +18,28 @@
 
 \section{Lagring av brukerdata}
 Lagring av brukerdata på enheten blir foretatt gjennom bruk av SQLite database. 
+
+\chapter{Utfordringer}
+\section{Rotasjon}
+Her skal man forklare forskjellen mellom å lagre status av skjermen på den gamle måten og den nye i systemet. Hvordan de forskjellige komponentene lastes om. 
+\begin{lstlisting}[language=Java]
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putString(PLAYERNAME, pName);
+        outState.putInt(LETTERSCOUNT, lettersCount);
+        outState.putCharArray(LETTERS, letters);
+        outState.putInt(GAMESCORE, gameScore);
+        outState.putInt(SESSIONSCORE, sessionScore);
+        outState.putInt(TRYCOUNT, tryCount);
+        outState.putInt(LETTERSGUESSED, lettersGuessed);
+        outState.putInt(GAMESWON, gamesWon);
+        outState.putInt(GAMESLOST, gamesLost);
+
+        Toast.makeText(this, "Data er lagret", Toast.LENGTH_SHORT).show();
+
+    }
+\end{lstlisting}
+
+\section{SQLite}

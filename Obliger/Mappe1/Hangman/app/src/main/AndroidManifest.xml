@@ -19,7 +19,8 @@
         <activity
             android:name=".GamePlayActivity"
             android:label="@string/title_activity_game_play"
-            android:configChanges="orientation|screenSize|locale">
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            >
         </activity>
         <activity
             android:name=".ScoresActivity"

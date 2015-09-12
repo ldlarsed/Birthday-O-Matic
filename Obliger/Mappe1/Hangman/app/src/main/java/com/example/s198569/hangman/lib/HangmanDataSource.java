@@ -180,12 +180,12 @@ public class HangmanDataSource {
      */
     private Player cursorToPlayer(Cursor cursor){
         Player player = new Player();
-        Log.w("HANGMAN", "Antall rader: " + cursor.getCount());
-        Log.w("HANGMAN", "Antall kolonner: " + cursor.getColumnCount());
-        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getString(1));
-        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(2));
-        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(3));
-        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(4));
+//        Log.w("HANGMAN", "Antall rader: " + cursor.getCount());
+//        Log.w("HANGMAN", "Antall kolonner: " + cursor.getColumnCount());
+//        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getString(1));
+//        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(2));
+//        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(3));
+//        Log.w("HANGMAN", "cursor.getInt(2) " + cursor.getInt(4));
         player.setName(cursor.getString(1));
         player.setScore(cursor.getInt(2));
         player.setWon(cursor.getInt(3));
