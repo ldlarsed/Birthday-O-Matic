@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -141,9 +142,11 @@ public class GamePlayActivity extends AppCompatActivity {
             et.setTextSize(15);
             et.setWidth(53);
             et.setHintTextColor(getResources().getColor(R.color.secondary_2_2));
+            et.setBackgroundResource(R.drawable.edit_text_background);
 
             edComponents.add(et);
             wordsLayout.addView(et);
+            lettersCount++;
         }
 
         for (int i = 0; i < lettersOriginal.length; i++) {
@@ -257,7 +260,9 @@ public class GamePlayActivity extends AppCompatActivity {
             et.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
             et.setTextSize(15);
             et.setWidth(53);
-            et.setHintTextColor(getResources().getColor(R.color.secondary_2_2));
+            et.setHintTextColor(getResources().getColor(R.color.secondary_2_1));
+            //et.getBackground().setColorFilter(getResources().getColor(R.color.secondary_1_2), PorterDuff.Mode.SRC_ATOP);
+            et.setBackgroundResource(R.drawable.edit_text_background);
 
             edComponents.add(et);
             wordsLayout.addView(et);

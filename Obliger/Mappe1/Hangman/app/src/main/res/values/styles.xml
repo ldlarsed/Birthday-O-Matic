@@ -12,6 +12,7 @@
         <item name="android:textColorPrimary">@color/secondary_2_2</item>
         <item name="android:textColorPrimaryDisableOnly">@color/secondary_2_2</item>
         <item name="android:keyTextColor">@color/primary_1</item>
+        <item name="android:textColorHint">@color/secondary_2_2</item>
     </style>
 
 </resources>
