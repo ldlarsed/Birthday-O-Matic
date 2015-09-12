@@ -5,10 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Typeface;
-import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Menu;
@@ -31,17 +30,9 @@ import java.util.Arrays;
 
 public class GamePlayActivity extends AppCompatActivity {
 
-    public static final String TRYCOUNT = "TRYCOUNT";
-    public static final String PLAYERNAME = "PLAYERNAME";
-    public static final String LETTERSCOUNT = "LETTERSCOUNT";
-    public static final String LETTERS = "LETTERS";
-    public static final String GAMESCORE = "GAMESCORE";
-    public static final String SESSIONSCORE = "SESSIONSCORE";
-    public static final String LETTERSGUESSED = "LETTERSGUESSED";
-    public static final String GAMESWON = "GAMESWON";
-    public static final String GAMESLOST = "GAMESLOST";
     //Layouts
     private RelativeLayout gameLayout;
+    private GridLayout layoutInfo;
     private LinearLayout wordsLayout;
     private GridLayout keyboard;
 
@@ -54,7 +45,9 @@ public class GamePlayActivity extends AppCompatActivity {
 
     //Game variables
     private int lettersCount;
-    private char[] letters;
+    String[] kb_values;
+    private boolean[] keybUsed;
+    private char[] letters, lettersOriginal;
     private int gameScore, sessionScore;
     private int tryCount;
     private String pName;
@@ -65,11 +58,6 @@ public class GamePlayActivity extends AppCompatActivity {
     private HangmanDataSource datasource;
     private WordsProvider wordsProvider;
 
-
-    public GamePlayActivity() {
-
-
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,17 +74,15 @@ public class GamePlayActivity extends AppCompatActivity {
         }
         /* End of database connection */
 
+
         //Initializes intent the starts this activity
         Intent intent = getIntent();
         this.pName = intent.getStringExtra("pName");
+        initializesGUIComponents();
         wordsProvider = new WordsProvider(this);
         setPlayerName(pName);
-        setKeyboard();
-        newGame();
 
-        sessionScoreView = (TextView) findViewById(R.id.sessionScore);
-        gamesWonView = (TextView) findViewById(R.id.gamesWon);
-        gamesLostView = (TextView) findViewById(R.id.gamesLost);
+        newGame();
 
         Log.w("HANGMAN", "ORIENTATION: " + String.valueOf(getResources().getConfiguration().orientation));
     }
@@ -130,71 +116,91 @@ public class GamePlayActivity extends AppCompatActivity {
         super.onConfigurationChanged(newConfig);
         setContentView(R.layout.activity_game_play);
 
-        Toast.makeText(this, "Game score er: "+gameScore, Toast.LENGTH_SHORT).show();
-        hangmanImage = (ImageView) findViewById(R.id.hangman_image);
+        //Re-initializes all components
+        initializesGUIComponents();
         updateHangmanImage();
-        setKeyboard();
-
-        setPlayerName(pName);
-    }
-
-    /**
-     * Helper method to extract current resource id of the drawable object.
-     *
-     * @param iv
-     * @return
-     */
-    private int getDrawableID(ImageView iv) {
-        return (Integer) iv.getTag();
-    }
 
 
-    /**
-     * Saves the state of all variables on rotation change
-     *
-     * @param outState
-     */
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString(PLAYERNAME, pName);
-        outState.putInt(LETTERSCOUNT, lettersCount);
-        outState.putCharArray(LETTERS, letters);
-        outState.putInt(GAMESCORE, gameScore);
-        outState.putInt(SESSIONSCORE, sessionScore);
-        outState.putInt(TRYCOUNT, tryCount);
-        outState.putInt(LETTERSGUESSED, lettersGuessed);
-        outState.putInt(GAMESWON, gamesWon);
-        outState.putInt(GAMESLOST, gamesLost);
-
-        Toast.makeText(this, "Data er lagret", Toast.LENGTH_SHORT).show();
-
-    }
-
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-
-        pName = savedInstanceState.getString(PLAYERNAME);
-        lettersCount = savedInstanceState.getInt(LETTERSCOUNT);
-        letters = savedInstanceState.getCharArray(LETTERS);
-        gameScore = savedInstanceState.getInt(GAMESCORE);
-        sessionScore = savedInstanceState.getInt(SESSIONSCORE);
-        tryCount = savedInstanceState.getInt(TRYCOUNT);
-        lettersGuessed = savedInstanceState.getInt(LETTERSGUESSED);
-        gamesWon = savedInstanceState.getInt(GAMESWON);
-        gamesLost = savedInstanceState.getInt(GAMESLOST);
-
-        updateHangmanImage();
-        Toast.makeText(this, "Restoring game score: "+gameScore, Toast.LENGTH_SHORT).show();
-
+        //Re-populating all stats with saved state data
         playerName.setText(pName);
         gameScoreView.setText(String.valueOf(gameScore));
         sessionScoreView.setText(String.valueOf(sessionScore));
-        gameScoreView.setText(String.valueOf(gamesWon));
-        sessionScoreView.setText(String.valueOf(sessionScore));
+        gamesWonView.setText(String.valueOf(gamesWon));
+        gamesLostView.setText(String.valueOf(gamesLost));
+
+        edComponents.clear();
+        wordsLayout.removeAllViews();
+
+        for (char c : letters) {
+            final EditText et = new EditText(this);
+            //et.setText(Character.toString(c));
+            et.setEnabled(false);
+            et.setTextColor(getResources().getColor(R.color.secondary_2_2));
+            et.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+            et.setTextSize(15);
+            et.setWidth(53);
+            et.setHintTextColor(getResources().getColor(R.color.secondary_2_2));
+
+            edComponents.add(et);
+            wordsLayout.addView(et);
+        }
+
+        for (int i = 0; i < lettersOriginal.length; i++) {
+            if (letters[i] == 0)
+                revealLetter(i, lettersOriginal[i]);
+        }
+
+        setKeyboard();
+        Toast.makeText(this, Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show();
+        markUsedKeys();
+
+    }
+
+    /**
+     * Disables previously used keys. Use after screen rotation is completed.
+     */
+    private void markUsedKeys() {
+        if (keyboard != null) {
+            for (int i = 0; i < keyboard.getChildCount(); i++) {
+                if (keybUsed[i])
+                    keyboard.getChildAt(i).setEnabled(false);
+            }
+        }
+    }
+
+    /**
+     * Returns child index of specific button.
+     *
+     * @param c
+     * @return
+     */
+    private int getKeyIDX(char c) {
+        for (int i = 0; i < keyboard.getChildCount(); i++) {
+            //TODO: Den finner ikke første knappen som er A
+            if (((Button) keyboard.getChildAt(i)).getText().charAt(0) == c)
+                return i;
+        }
+
+        return -1;
+    }
+
+
+    /**
+     * This method initializes all the components hence android 13 onConfigurationChanged
+     * must be used. Therefore after change of screen orientation all changes will be lost
+     * and must be re-initialized and re-populated to the previous state on screen rotation.
+     */
+    private void initializesGUIComponents() {
+        gameLayout = (RelativeLayout) findViewById(R.id.gameplay_layout);
+        layoutInfo = (GridLayout) findViewById(R.id.layout_info);
+        playerName = (TextView) findViewById(R.id.playerName);
+        gameScoreView = (TextView) findViewById(R.id.playerScore);
+        hangmanImage = (ImageView) findViewById(R.id.hangman_image);
+        wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
+        keyboard = (GridLayout) findViewById(R.id.keboard_layout);
+        sessionScoreView = (TextView) findViewById(R.id.sessionScore);
+        gamesWonView = (TextView) findViewById(R.id.gamesWon);
+        gamesLostView = (TextView) findViewById(R.id.gamesLost);
     }
 
     /**
@@ -211,18 +217,20 @@ public class GamePlayActivity extends AppCompatActivity {
      * Starts or resets the game.
      */
     private void newGame() {
+        initializesGUIComponents();
         gameScore = 0;
         tryCount = 6;
         lettersGuessed = 0;
+        //Fetches the keyboard values for the default language
+        kb_values = getResources().getStringArray(R.array.alphabet);
+        keybUsed = new boolean[kb_values.length];
+        setKeyboard();
         setWord();
         resetTheKeyboard();
-
-        gameScoreView = (TextView) findViewById(R.id.playerScore);
         gameScoreView.setText(String.valueOf(gameScore));
-
-        hangmanImage = (ImageView) findViewById(R.id.hangman_image);
         hangmanImage.setImageResource(R.drawable.hang0);
     }
+
 
     /**
      * Fetches a random word from arrays.xml and creates a new EditText component that represents each letter in the word.
@@ -231,14 +239,6 @@ public class GamePlayActivity extends AppCompatActivity {
         lettersCount = 0;
         edComponents = new ArrayList<>();
 
-        //Loads the available word list
-        /*String[] words = getResources().getStringArray(R.array.words);
-        Random rand = new Random();
-        int chosen_index = rand.nextInt((words.length - 1));
-        Log.w("HANGMAN", "chosen_index: " + chosen_index);
-        Log.w("HANGMAN", words[chosen_index]);
-        letters = words[chosen_index].toCharArray();*/
-
         letters = wordsProvider.getNextWord();
         Log.w("HANGMAN", Arrays.toString(letters));
         if (letters[0] == '0') {
@@ -246,7 +246,8 @@ public class GamePlayActivity extends AppCompatActivity {
             Log.w("HANGMAN", "All words are used up");
         }
 
-        wordsLayout = (LinearLayout) findViewById(R.id.word_layout);
+        lettersOriginal = letters.clone();
+
         for (char c : letters) {
             final EditText et = new EditText(this);
             //et.setText(Character.toString(c));
@@ -278,18 +279,14 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     private void setKeyboard() {
-        //Fetches the keyboard values for the default language
-        String[] kb_values = getResources().getStringArray(R.array.alphabet);
-
-        gameLayout = (RelativeLayout) findViewById(R.id.gameplay_layout);
 
 
-        //Sets up the keyboard inside a gridview
-        keyboard = (GridLayout) findViewById(R.id.keboard_layout);
         for (String kb : kb_values) {
+            int i = 0;
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
+            keybUsed[i++] = false;
             //b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / (keyboard.getColumnCount() +1), screenWidth / (keyboard.getColumnCount() +1)));
             //b.setLayoutParams(new LinearLayout.LayoutParams((screenWidth/2) / (keyboard.getColumnCount() - 1), (screenHeight/2) / (keyboard.getRowCount()-1)));
             setButtonOrientation(b);
@@ -300,10 +297,14 @@ public class GamePlayActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     char c = b.getText().charAt(0);
+
+
                     if (checkForLetter(c)) {
                         while (checkForLetter(c)) {
                             //When guessed correct letter
                             revealLetter(getLetterIndex(c), c);
+                            b.setEnabled(false);
+                            keybUsed[getKeyIDX(c)] = true;
                             gameScore++;
                             sessionScore++;
                             lettersGuessed++;
@@ -330,6 +331,8 @@ public class GamePlayActivity extends AppCompatActivity {
                         //Guessed wrong letter
                         tryCount--;
                         b.setEnabled(false);
+                        keybUsed[getKeyIDX(c)] = true;
+                        Toast.makeText(getApplicationContext(), Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show();
                         updateHangmanImage();
 
                         //No tries left

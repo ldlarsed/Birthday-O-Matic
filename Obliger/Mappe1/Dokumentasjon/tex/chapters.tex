@@ -42,4 +42,31 @@ Her skal man forklare forskjellen mellom å lagre status av skjermen på den gam
     }
 \end{lstlisting}
 
+\begin{lstlisting}
+ @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+
+        pName = savedInstanceState.getString(PLAYERNAME);
+        lettersCount = savedInstanceState.getInt(LETTERSCOUNT);
+        letters = savedInstanceState.getCharArray(LETTERS);
+        gameScore = savedInstanceState.getInt(GAMESCORE);
+        sessionScore = savedInstanceState.getInt(SESSIONSCORE);
+        tryCount = savedInstanceState.getInt(TRYCOUNT);
+        lettersGuessed = savedInstanceState.getInt(LETTERSGUESSED);
+        gamesWon = savedInstanceState.getInt(GAMESWON);
+        gamesLost = savedInstanceState.getInt(GAMESLOST);
+
+        updateHangmanImage();
+        Toast.makeText(this, "Restoring game score: "+gameScore, Toast.LENGTH_SHORT).show();
+
+        playerName.setText(pName);
+        gameScoreView.setText(String.valueOf(gameScore));
+        sessionScoreView.setText(String.valueOf(sessionScore));
+        gameScoreView.setText(String.valueOf(gamesWon));
+        sessionScoreView.setText(String.valueOf(sessionScore));
+    }
+\end{lstlisting}
+
 \section{SQLite}
