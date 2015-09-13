@@ -1,19 +1,23 @@
 <resources>
+    <!-- General strings -->
     <string name="app_name">Hangman</string>
     <string name="action_settings">Settings</string>
     <string name="player">Player</string>
     <string name="title_activity_game_play" translatable="false">GamePlay</string>
 
+    <!-- Headings -->
     <string name="new_player">New Player</string>
     <string name="new_player_button">Register and Play</string>
     <string name="existing_player">Existing Players</string>
 
+    <!-- Menu items -->
     <string name="menu_play">Play Game</string>
     <string name="menu_scores">View Scores</string>
     <string name="menu_settings">Settings</string>
     <string name="menu_help">Help</string>
     <string name="menu_quit">Quit</string>
 
+    <!-- Score related strings -->
     <string name="score_all">All Scores</string>
     <string name="score_no_scores">No scores yet</string>
     <string name="score_username">Username</string>
@@ -25,20 +29,29 @@
     <string name="score_wait_title">Loading...</string>
     <string name="title_activity_activity_scores" translatable="false">activity_scores</string>
 
+    <!-- Internal application literals -->
     <string name="hello_world">Hello world!</string>
-
     <string name="exception" translatable="false">HANGMAN</string>
-    <string name="err_scores">Error while processing scores</string>
     <string name="title_activity_login" translatable="false">LoginActivity</string>
 
+    <!-- Error and informative messages -->
+    <string name="err_scores">Error while processing scores.</string>
+    <string name="err_no_registered_players">No registered players.</string>
+    <string name="err_no_database_connection">Could not connect to the database.</string>
+    <string name="warning_language">Warning! Dragons ahead!\n\nThis is an aplha feature. Application language should be changed in system settings.
+    Please confirm to continue.</string>
+
+    <!-- Regex rules -->
     <string name="regex_all_alphanumeric" translatable="false">^[a-zøæåöäA-Zøæåäö0-9_]{3,15}$</string>
 
+    <!-- Game statistics -->
     <string name="game_fail">Better luck next time.\n</string>
     <string name="game_success">Congratulations!\n</string>
     <string name="game_points_1">You\'ve earned </string>
     <string name="game_points_2"> points.</string>
     <string name="game_play_again">Want to play again?</string>
 
+    <!-- Language and Settings -->
     <string name="setting_choose_language">Language</string>
     <string name="setting_choose_language_desc">Choose the application language.</string>
     <string name="setting_language_english">English</string>
@@ -46,7 +59,6 @@
     <string name="setting_sound_toggle">Sound</string>
     <string name="setting_sound_toggle_desc">Toggle application sounds on/off.</string>
 
-    <string name="warning_language">Warning! Dragons ahead!\n\nThis is an aplha feature. Application language should be changed in system settings.
-    Please confirm to continue.</string>
+
 
 </resources>

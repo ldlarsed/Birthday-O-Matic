@@ -36,4 +36,6 @@
     <string name="score_games_won">Vunnet</string>
     <string name="warning_language">Advarsel! Fare for Kræsj\n\nSpråk til applikasjonen bør endres i systeminstillinger. Vennligst bekreft dersom du ønsker å gå videre.</string>
     <string name="new_player_button">Registrer og Start</string>
+    <string name="err_no_database_connection">Klarte ikke å koble til databasen.</string>
+    <string name="err_no_registered_players">Ingen registrerte spillere.</string>
 </resources>

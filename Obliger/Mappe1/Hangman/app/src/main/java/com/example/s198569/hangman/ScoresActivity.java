@@ -1,15 +1,11 @@
 package com.example.s198569.hangman;
 
 import android.content.res.XmlResourceParser;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -20,7 +16,6 @@ import com.example.s198569.hangman.lib.Player;
 
 import org.xmlpull.v1.XmlPullParserException;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 public class ScoresActivity extends AppCompatActivity {
@@ -36,34 +31,33 @@ public class ScoresActivity extends AppCompatActivity {
         datasource = new HangmanDataSource(this);
         try {
             datasource.open();
-        }catch (Exception e){
-            Toast toast = Toast.makeText(this, "Could not connect to the database.", Toast.LENGTH_SHORT);
+        } catch (Exception e) {
+            Toast toast = Toast.makeText(this, getResources().getString(R.string.err_no_database_connection), Toast.LENGTH_SHORT);
             toast.show();
         }
         /* End of database conncetion */
 
          /* Existing Players List*/
         ArrayList<Player> registeredPlayers = (ArrayList<Player>) datasource.getAllPlayers();
-        if(registeredPlayers == null){
-            Toast.makeText(this, "No registered players yet", Toast.LENGTH_SHORT).show();
-        }else {
+        if (registeredPlayers == null) {
+            Toast.makeText(this, getResources().getString(R.string.err_no_registered_players), Toast.LENGTH_SHORT).show();
+        } else {
             String allFolks = "";
-            for(Player p : registeredPlayers){  //mainly for debugging
-                allFolks += p.getName() + " " + p.getScore() + " " + p.getWon() + " " + p.getLost() +  "\n";
+            for (Player p : registeredPlayers) {  //mainly for debugging
+                allFolks += p.getName() + " " + p.getScore() + " " + p.getWon() + " " + p.getLost() + "\n";
             }
-            Toast.makeText(this, allFolks, Toast.LENGTH_SHORT).show();
         }
         /* End of existing players list */
 
         /* Setting the mockup scores */
         TableLayout scores = (TableLayout) findViewById(R.id.layout_scores_table);
-        XmlResourceParser mockupScores = getResources().getXml(R.xml.scores);
-        
+        XmlResourceParser mockupScores = getResources().getXml(R.xml.scores);   //used for debugging
+
         setHeaderRow(scores);
-        try{
+        try {
             //showScores(scores, mockupScores);
             showScores(scores, registeredPlayers);
-        }catch (Exception e){
+        } catch (Exception e) {
             Toast toast = Toast.makeText(this, getResources().getString(R.string.err_scores), Toast.LENGTH_SHORT);
             toast.show();
             Log.e(getResources().getString(R.string.exception), getResources().getString(R.string.err_scores), e);
@@ -94,11 +88,12 @@ public class ScoresActivity extends AppCompatActivity {
 
     /**
      * Set up the first row in a table
+     *
      * @param scoreTable
      */
-    private void setHeaderRow(TableLayout scoreTable){
+    private void setHeaderRow(TableLayout scoreTable) {
         final TableRow headerRow = new TableRow(this);
-        headerRow.setPadding(0,5,0,5);
+        headerRow.setPadding(0, 5, 0, 5);
         int textColor = getResources().getColor(R.color.secondary_2_1);
         float textSize = getResources().getDimensionPixelSize(R.dimen.default_text_size);
 
@@ -113,14 +108,15 @@ public class ScoresActivity extends AppCompatActivity {
 
     /**
      * Inserts the score rows
+     *
      * @param scoreTable
      * @param scoreValue
      * @param scoreRank
      * @param scorePlayerName
      */
-    private void insertScoreRow(final TableLayout scoreTable, String scoreRank, String scoreValue, String scorePlayerName, String gamesWon, String gamesLost){
+    private void insertScoreRow(final TableLayout scoreTable, String scoreRank, String scoreValue, String scorePlayerName, String gamesWon, String gamesLost) {
         final TableRow newRow = new TableRow(this);
-        newRow.setPadding(1,1,1,1);
+        newRow.setPadding(1, 1, 1, 1);
         int textColor = getResources().getColor(R.color.secondary_1_2);
         float textSize = getResources().getDimension(R.dimen.table_text);
 
@@ -135,12 +131,13 @@ public class ScoresActivity extends AppCompatActivity {
 
     /**
      * Helper method that adds a single row to the end of the current table view
+     *
      * @param tableRow
      * @param text
      * @param textColor
      * @param textSize
      */
-    private void addTextToRowWithValues(final TableRow tableRow, String text, int textColor, float textSize){
+    private void addTextToRowWithValues(final TableRow tableRow, String text, int textColor, float textSize) {
         TextView textView = new TextView(this);
         textView.setTextSize(textSize);
         textView.setTextColor(textColor);
@@ -176,30 +173,31 @@ public class ScoresActivity extends AppCompatActivity {
 
     /**
      * Sets a table from a sorted list of player objects. Sorted after the score rank.
+     *
      * @param scoreTable
      * @param sortedPlayers
      */
-    private void showScores(final TableLayout scoreTable, ArrayList<Player> sortedPlayers){
+    private void showScores(final TableLayout scoreTable, ArrayList<Player> sortedPlayers) {
         int rank = 1;
-        for(Player p : sortedPlayers){
+        for (Player p : sortedPlayers) {
             insertScoreRow(scoreTable, String.valueOf(rank++), p.getName(), String.valueOf(p.getScore()), String.valueOf(p.getWon()), String.valueOf(p.getLost()));
         }
     }
 
     @Override
-    protected void onResume(){
+    protected void onResume() {
         datasource.open();
         super.onResume();
     }
 
     @Override
-    protected void onPause(){
+    protected void onPause() {
         datasource.close();
         super.onPause();
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         datasource.close();
         super.onDestroy();
     }
