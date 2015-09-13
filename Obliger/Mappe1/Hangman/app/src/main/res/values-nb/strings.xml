@@ -21,7 +21,7 @@
     <string name="score_all">Alle poeng</string>
     <string name="score_no_scores">Ingen poeng registrert</string>
     <string name="score_ranking">Rank</string>
-    <string name="score_score">Poeng</string>
+    <string name="score_score">Poeng:&#160;</string>
     <string name="score_username">Brukernavn</string>
     <string name="score_wait_msg">Henter poengsummer</string>
     <string name="score_wait_title">Laster applikasjon...</string>
@@ -32,10 +32,14 @@
     <string name="setting_sound_toggle">Lyd</string>
     <string name="setting_sound_toggle_desc">Lyder på / av</string>
     <string name="title_activity_activity_scores"></string>
-    <string name="score_games_lost">Tapt</string>
-    <string name="score_games_won">Vunnet</string>
+    <string name="score_games_lost">Tapt:&#160;</string>
+    <string name="score_games_won">Vunnet:&#160;</string>
     <string name="warning_language">Advarsel! Fare for Kræsj\n\nSpråk til applikasjonen bør endres i systeminstillinger. Vennligst bekreft dersom du ønsker å gå videre.</string>
     <string name="new_player_button">Registrer og Start</string>
     <string name="err_no_database_connection">Klarte ikke å koble til databasen.</string>
     <string name="err_no_registered_players">Ingen registrerte spillere.</string>
+    <string name="dialog_cancel">Avbryt</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_play_as">Spille som&#160;</string>
+    <string name="score_total">Totalt:&#160;</string>
 </resources>

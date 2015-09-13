@@ -88,8 +88,8 @@ public class LoginActivity extends AppCompatActivity {
 
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false);
-        builder.setMessage("Play as " + playerName + "?").setPositiveButton("OK", dialogClickListener)
-                .setNegativeButton("Cancel", dialogClickListener).show();
+        builder.setMessage(getResources().getString(R.string.dialog_play_as) + playerName + "?").setPositiveButton(getResources().getString(R.string.dialog_ok), dialogClickListener)
+                .setNegativeButton(getResources().getString(R.string.dialog_cancel), dialogClickListener).show();
     }
 
     /**

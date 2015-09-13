@@ -22,12 +22,18 @@
     <string name="score_no_scores">No scores yet</string>
     <string name="score_username">Username</string>
     <string name="score_ranking">Rank</string>
-    <string name="score_score">Score</string>
-    <string name="score_games_won">Won</string>
-    <string name="score_games_lost">Lost</string>
+    <string name="score_score">Score:&#160;</string>
+    <string name="score_total">Total:&#160;</string>
+    <string name="score_games_won">Won:&#160;</string>
+    <string name="score_games_lost">Lost:&#160;</string>
     <string name="score_wait_msg">Retrieving scores</string>
     <string name="score_wait_title">Loading...</string>
     <string name="title_activity_activity_scores" translatable="false">activity_scores</string>
+
+    <!-- Dialogs -->
+    <string name="dialog_play_as">Play as&#160;</string>
+    <string name="dialog_ok">OK</string>
+    <string name="dialog_cancel">Cancel</string>
 
     <!-- Internal application literals -->
     <string name="hello_world">Hello world!</string>
@@ -58,7 +64,6 @@
     <string name="setting_language_norwegian">Norwegian</string>
     <string name="setting_sound_toggle">Sound</string>
     <string name="setting_sound_toggle_desc">Toggle application sounds on/off.</string>
-
 
 
 </resources>

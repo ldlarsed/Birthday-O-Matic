@@ -38,7 +38,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Score: "
+                android:text="@string/score_score"
                 android:shadowColor="@color/secondary_1_4"
                 android:shadowDx="3"
                 android:shadowDy="3"
@@ -62,7 +62,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Total: "
+                android:text="@string/score_total"
                 android:shadowColor="@color/secondary_1_4"
                 android:shadowDx="3"
                 android:shadowDy="3"
