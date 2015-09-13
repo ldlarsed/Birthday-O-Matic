@@ -39,10 +39,12 @@
         <Button
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
             android:layout_below="@+id/edit_text_new_player"
-            android:text="@string/menu_play"
-            android:onClick="onPlayGameButtonClick"/>
+            android:text="@string/new_player_button"
+            android:onClick="onPlayGameButtonClick"
+            style="@style/button"
+            android:textColor="@color/secondary_2_1"
+            />
 
     </RelativeLayout>
 

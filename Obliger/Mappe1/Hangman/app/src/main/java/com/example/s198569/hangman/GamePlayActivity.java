@@ -288,9 +288,7 @@ public class GamePlayActivity extends AppCompatActivity {
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
-            //keybUsed[i++] = false;
-            //b.setLayoutParams(new LinearLayout.LayoutParams(screenWidth / (keyboard.getColumnCount() +1), screenWidth / (keyboard.getColumnCount() +1)));
-            //b.setLayoutParams(new LinearLayout.LayoutParams((screenWidth/2) / (keyboard.getColumnCount() - 1), (screenHeight/2) / (keyboard.getRowCount()-1)));
+
             setButtonOrientation(b);
             keyboard.addView(b);
 

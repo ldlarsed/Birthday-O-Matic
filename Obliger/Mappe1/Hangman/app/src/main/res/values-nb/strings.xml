@@ -5,13 +5,13 @@
     <string name="err_scores">Feil ved behandling av poeng</string>
     <string name="existing_player">Eksisterende spillere</string>
     <string name="game_fail">Bedre flaks til neste gang.\n</string>
-    <string name="game_play_again">Ønsker å spille igjen?</string>
+    <string name="game_play_again">Spille på nytt?</string>
     <string name="game_points_1">Du har scoret </string>
     <string name="game_points_2">poeng.</string>
     <string name="game_success">Gratulerer!\n</string>
     <string name="hello_world">Hei Verlden!</string>
     <string name="menu_help">Hjelp</string>
-    <string name="menu_play">Spill</string>
+    <string name="menu_play">Start</string>
     <string name="menu_quit">Avslutte</string>
     <string name="menu_scores">Poeng</string>
     <string name="menu_settings">Instillinger</string>
@@ -34,9 +34,6 @@
     <string name="title_activity_activity_scores"></string>
     <string name="score_games_lost">Tapt</string>
     <string name="score_games_won">Vunnet</string>
-    <string name="warning_language">Advarsel! Draker venter lengre frem!\n\n
-        Etter funksjonen kan du endre søknad språk uten å endre noen lokalisering setting for hele systemet.
-        Mens funksjonelt mulig det er rent eksperimentelle.
-        Bruk denne innstillingen på egen risiko, og husk at søknaden språk vil automatisk bli endret tilbake til standard språk (engelsk) på skjermretningen endring.         
-        Den anbefalte måten å endre søknaden språket er i Android-systemet lokaliseringsinnstillingene.</string>
+    <string name="warning_language">Advarsel! Fare for Kræsj\n\nSpråk til applikasjonen bør endres i systeminstillinger. Vennligst bekreft dersom du ønsker å gå videre.</string>
+    <string name="new_player_button">Registrer og Start</string>
 </resources>

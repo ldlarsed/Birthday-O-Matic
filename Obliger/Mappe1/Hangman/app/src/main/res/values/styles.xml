@@ -6,6 +6,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/primary_0</item>
         <item name="android:buttonStyle">@style/button</item>
+        <item name="colorControlActivated">@color/secondary_2_2</item>
     </style>
 
 

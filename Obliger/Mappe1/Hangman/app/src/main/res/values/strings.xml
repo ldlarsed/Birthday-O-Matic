@@ -5,6 +5,7 @@
     <string name="title_activity_game_play" translatable="false">GamePlay</string>
 
     <string name="new_player">New Player</string>
+    <string name="new_player_button">Register and Play</string>
     <string name="existing_player">Existing Players</string>
 
     <string name="menu_play">Play Game</string>
@@ -45,10 +46,7 @@
     <string name="setting_sound_toggle">Sound</string>
     <string name="setting_sound_toggle_desc">Toggle application sounds on/off.</string>
 
-    <string name="warning_language">Warning! Dragons ahead!\n\n Following feature allows you to change the
-    application language without changing any localization setting for the whole system. While functionally possible
-    it is purely experimental. Use this setting at own risk and keep in mind that application language will automatically be changed
-        back to the standard language (English) on screen orientation change.
-        The recommended way to change the application language is in the android system localization settings. </string>
+    <string name="warning_language">Warning! Dragons ahead!\n\nThis is an aplha feature. Application language should be changed in system settings.
+    Please confirm to continue.</string>
 
 </resources>
