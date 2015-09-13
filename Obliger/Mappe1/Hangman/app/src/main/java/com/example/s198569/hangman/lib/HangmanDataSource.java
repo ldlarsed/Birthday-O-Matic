@@ -12,13 +12,12 @@ import java.util.List;
 
 public class HangmanDataSource {
 
-    private SQLiteDatabase database;
-    private HangmanDatabase dbHelper;
+    private SQLiteDatabase database;    //SQLite database
+    private HangmanDatabase dbHelper;   //Own datasource
     private String[] allColumns = {HangmanDatabase.COLUMN_ID, HangmanDatabase.COLUMN_PNAME, HangmanDatabase.COLUMN_SCORE, HangmanDatabase.COLUMN_WON, HangmanDatabase.COLUMN_LOST};
     private String[] allPlayerNames = {HangmanDatabase.COLUMN_PNAME};
 
     public HangmanDataSource(Context context){
-
         dbHelper = new HangmanDatabase(context);
     }
 
@@ -131,13 +130,14 @@ public class HangmanDataSource {
     }
 
     /**
-     * Returns an ArrayList of players stored in database.
+     * Returns an ArrayList of players stored in database. Is used to show the scores for all players. Results are sorted by the
+     * total score for the user.
      * @return
      */
     public List<Player> getAllPlayers(){
         List<Player> players = new ArrayList<Player>();
 
-        Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS, allColumns, null, null, null, null, null);
+        Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS, allColumns, null, null, null, null, HangmanDatabase.COLUMN_SCORE + " DESC");
         if(cursor == null ) return null;
         cursor.moveToFirst();
 

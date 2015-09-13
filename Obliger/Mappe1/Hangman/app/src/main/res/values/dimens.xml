@@ -8,5 +8,5 @@
     <dimen name="new_player_text_size">28dp</dimen>
     <dimen name="existing_player_text_size">22dp</dimen>
     <dimen name="stats_text">16dp</dimen>
-    <dimen name="table_text">8dp</dimen>
+    <dimen name="table_text">10dp</dimen>
 </resources>

@@ -4,8 +4,10 @@ import android.content.res.XmlResourceParser;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TableLayout;
@@ -56,7 +58,7 @@ public class ScoresActivity extends AppCompatActivity {
         /* Setting the mockup scores */
         TableLayout scores = (TableLayout) findViewById(R.id.layout_scores_table);
         XmlResourceParser mockupScores = getResources().getXml(R.xml.scores);
-
+        
         setHeaderRow(scores);
         try{
             //showScores(scores, mockupScores);
@@ -96,6 +98,7 @@ public class ScoresActivity extends AppCompatActivity {
      */
     private void setHeaderRow(TableLayout scoreTable){
         final TableRow headerRow = new TableRow(this);
+        headerRow.setPadding(0,5,0,5);
         int textColor = getResources().getColor(R.color.secondary_2_1);
         float textSize = getResources().getDimensionPixelSize(R.dimen.default_text_size);
 
@@ -117,6 +120,7 @@ public class ScoresActivity extends AppCompatActivity {
      */
     private void insertScoreRow(final TableLayout scoreTable, String scoreRank, String scoreValue, String scorePlayerName, String gamesWon, String gamesLost){
         final TableRow newRow = new TableRow(this);
+        newRow.setPadding(1,1,1,1);
         int textColor = getResources().getColor(R.color.secondary_1_2);
         float textSize = getResources().getDimension(R.dimen.table_text);
 
@@ -130,7 +134,7 @@ public class ScoresActivity extends AppCompatActivity {
     }
 
     /**
-     * Helper method thath adds a single row to the end of the current table view
+     * Helper method that adds a single row to the end of the current table view
      * @param tableRow
      * @param text
      * @param textColor
