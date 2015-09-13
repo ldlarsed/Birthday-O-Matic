@@ -287,7 +287,6 @@ public class GamePlayActivity extends AppCompatActivity {
     private void setKeyboard() {
 
 
-
         for (String kb : kb_values) {
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));

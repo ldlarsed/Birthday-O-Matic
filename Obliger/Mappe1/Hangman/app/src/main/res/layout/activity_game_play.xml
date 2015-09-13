@@ -44,7 +44,7 @@
                 android:shadowDy="3"
                 android:shadowRadius="5"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size"/>
+                android:textSize="@dimen/stats_text"/>
 
             <TextView
                 android:id="@+id/playerScore"
@@ -57,7 +57,7 @@
                 android:shadowRadius="5"
                 android:text="0"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size" />
+                android:textSize="@dimen/stats_text" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
                 android:shadowDy="3"
                 android:shadowRadius="5"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size"/>
+                android:textSize="@dimen/stats_text"/>
 
             <TextView
                 android:id="@+id/sessionScore"
@@ -81,7 +81,7 @@
                 android:shadowRadius="5"
                 android:text="0"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size" />
+                android:textSize="@dimen/stats_text" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
                 android:shadowDy="3"
                 android:shadowRadius="5"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size"/>
+                android:textSize="@dimen/stats_text"/>
 
             <TextView
                 android:id="@+id/gamesWon"
@@ -105,7 +105,7 @@
                 android:shadowRadius="5"
                 android:text="0"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size" />
+                android:textSize="@dimen/stats_text" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -116,7 +116,7 @@
                 android:shadowDy="3"
                 android:shadowRadius="5"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size"/>
+                android:textSize="@dimen/stats_text"/>
 
             <TextView
                 android:id="@+id/gamesLost"
@@ -129,7 +129,7 @@
                 android:shadowRadius="5"
                 android:text="0"
                 android:textColor="@color/secondary_2_2"
-                android:textSize="@dimen/existing_player_text_size" />
+                android:textSize="@dimen/stats_text" />
         </GridLayout>
     </GridLayout>
 
@@ -150,7 +150,8 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         android:paddingBottom="20dp"
-        android:paddingTop="20dp"></LinearLayout>
+        android:paddingTop="20dp"
+        ></LinearLayout>
 
 
     <GridLayout
@@ -158,11 +159,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="false"
-        android:layout_alignParentTop="false"
-        android:layout_centerVertical="true"
         android:columnCount="7"
-        android:gravity="bottom|end"></GridLayout>
+        android:gravity="center"></GridLayout>
 
 
 </RelativeLayout>
