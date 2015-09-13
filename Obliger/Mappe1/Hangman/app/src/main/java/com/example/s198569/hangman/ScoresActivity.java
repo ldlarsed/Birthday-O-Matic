@@ -94,7 +94,7 @@ public class ScoresActivity extends AppCompatActivity {
     private void setHeaderRow(TableLayout scoreTable) {
         final TableRow headerRow = new TableRow(this);
         headerRow.setPadding(0, 5, 0, 5);
-        int textColor = getResources().getColor(R.color.secondary_2_1);
+        int textColor = getResources().getColor(R.color.secondary_2_2);
         float textSize = getResources().getDimensionPixelSize(R.dimen.default_text_size);
 
         addTextToRowWithValues(headerRow, getResources().getString(R.string.score_ranking), textColor, textSize);

@@ -13,12 +13,14 @@
         android:entryValues="@array/listLanguageValues"
         android:key="languageChooser"
         android:summary="@string/setting_choose_language_desc"
-        android:title="@string/setting_choose_language" />
+        android:title="@string/setting_choose_language"
+        />
     <CheckBoxPreference
+        android:id="@+id/language_chooser_checkBox"
         android:defaultValue="true"
         android:key="soundOnOff"
         android:summary="@string/setting_sound_toggle_desc"
-        android:title="@string/setting_sound_toggle" />
+        android:title="@string/setting_sound_toggle"/>
 
 
 </PreferenceScreen>
