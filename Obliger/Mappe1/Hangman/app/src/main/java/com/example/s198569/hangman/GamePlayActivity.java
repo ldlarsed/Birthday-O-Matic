@@ -184,7 +184,6 @@ public class GamePlayActivity extends AppCompatActivity {
             if (((Button) keyboard.getChildAt(i)).getText().charAt(0) == c)
                 return i;
         }
-
         return -1;
     }
 
@@ -285,8 +284,6 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     private void setKeyboard() {
-
-
         for (String kb : kb_values) {
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
@@ -499,12 +496,10 @@ public class GamePlayActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
