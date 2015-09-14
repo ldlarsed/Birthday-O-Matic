@@ -7,5 +7,23 @@
         <item>ANDROID</item>
         <item>COMPUTER</item>
         <item>PHONE</item>
+        <item>CAT</item>
+        <item>DOG</item>
+        <item>HANGMAN</item>
+        <item>BIRD</item>
+        <item>TEA</item>
+        <item>SKY</item>
+        <item>DANCE</item>
+        <item>DINNER</item>
+        <item>SUPPER</item>
+        <item>MOTORCYCLE</item>
+        <item>GIRAFFE</item>
+        <item>LION</item>
+        <item>PIZZA</item>
+        <item>CARROT</item>
+        <item>HAMBURGER</item>
+        <item>GAME</item>
+        <item>STRAWBERRY</item>
+        <item>TURTLE</item>
     </string-array>
 </resources>
