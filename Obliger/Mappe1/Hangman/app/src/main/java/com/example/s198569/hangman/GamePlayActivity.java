@@ -53,6 +53,7 @@ public class GamePlayActivity extends AppCompatActivity {
     private String pName;
     private int lettersGuessed;
     private int gamesWon, gamesLost;
+    private String outMessage;
 
     //Game objects
     private HangmanDataSource datasource;
@@ -153,7 +154,7 @@ public class GamePlayActivity extends AppCompatActivity {
                 revealLetter(i, lettersOriginal[i]);
         }
 
-        setKeyboard();
+        setUpKeyboardAndListen();
         Toast.makeText(this, Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show();
         markUsedKeys();
 
@@ -226,7 +227,7 @@ public class GamePlayActivity extends AppCompatActivity {
         cleanupKeyboard();
         //Fetches the keyboard values for the default language
         keybUsed = new boolean[kb_values.length];
-        setKeyboard();
+        setUpKeyboardAndListen();
         setWord();
         //resetTheKeyboard();
         gameScoreView.setText(String.valueOf(gameScore));
@@ -269,7 +270,11 @@ public class GamePlayActivity extends AppCompatActivity {
         Log.w("HANGMAN", "Antall EditText: " + lettersCount);
     }
 
-
+    /**
+     * Sets up the keyboard dimensions depending on the rotation of the screen. Since the
+     * keyboard is dynamically set up it has to be re-created on each screen rotation.
+     * @param b
+     */
     private void setKeyboardDimension(Button b) {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -282,7 +287,11 @@ public class GamePlayActivity extends AppCompatActivity {
             b.setLayoutParams(new LinearLayout.LayoutParams((screenWidth / 2) / (keyboard.getColumnCount() - 1), (screenHeight / 2) / (keyboard.getRowCount() - 1)));
     }
 
-    private void setKeyboard() {
+
+    /**
+     * Sets up the keyboard and listeners for each button.
+     */
+    private void setUpKeyboardAndListen() {
         for (String kb : kb_values) {
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
@@ -315,15 +324,11 @@ public class GamePlayActivity extends AppCompatActivity {
                                 datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
                                 gamesWonView.setText(Integer.toString(gamesWon));
 
-                                edComponents.clear();
+                                clearKeyboardButtonReferences();
 
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        String message = getResources().getString(R.string.game_success);
-                                        showContinueDialog(message, gameScore);
-                                    }
-                                }, 200);
+                                //Sets the correct message to the user and pops up the continue dialog
+                                outMessage = getResources().getString(R.string.game_success);
+                                delayAction(200);
                             }
                         }
                     } else {
@@ -338,19 +343,14 @@ public class GamePlayActivity extends AppCompatActivity {
                         //No tries left
                         if (tryCount == 0) {
                             gamesLost++;
-                            //datasource.updateScore(pName, gameScore); //depreciated
                             datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
                             gamesLostView.setText(Integer.toString(gamesLost));
 
-                            edComponents.clear();
+                            clearKeyboardButtonReferences();
 
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    String message = getResources().getString(R.string.game_fail);
-                                    showContinueDialog(message, gameScore);
-                                }
-                            }, 200);
+                            //Sets the correct message to the user and pops up the continue dialog
+                            outMessage = getResources().getString(R.string.game_fail);
+                            delayAction(200);
                         }
                     }
                 }
@@ -359,11 +359,16 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     /**
+     * Clears the references array list of all the buttons it contains.
+     */
+    private void clearKeyboardButtonReferences() {
+        edComponents.clear();
+    }
+
+    /**
      * Cleans up and resets the keyboard in between sessions.
      */
     private void cleanupKeyboard() {
-        wordsLayout.removeAllViewsInLayout();
-        //edComponents.clear();
         wordsLayout.removeAllViews();
         keyboard.removeAllViews();
     }
@@ -482,6 +487,16 @@ public class GamePlayActivity extends AppCompatActivity {
         if (idx > letters.length - 1) throw new IndexOutOfBoundsException();
         edComponents.get(idx).setText(Character.toString(letter));
         letters[idx] = 0; //removes letter if guessed correctly
+    }
+
+    private void delayAction(int msec){
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //String message = getResources().getString(R.string.game_success);
+                showContinueDialog(outMessage, gameScore);
+            }
+        }, msec);
     }
 
     @Override
