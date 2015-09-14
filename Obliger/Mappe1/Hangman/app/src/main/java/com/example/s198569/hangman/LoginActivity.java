@@ -117,6 +117,7 @@ public class LoginActivity extends AppCompatActivity {
     protected void onDestroy(){
         datasource.close();
         super.onDestroy();
+        finish();
     }
 
     @Override

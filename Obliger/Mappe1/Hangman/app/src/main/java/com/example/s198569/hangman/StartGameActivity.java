@@ -168,6 +168,7 @@ public class StartGameActivity extends ActionBarActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        finishAffinity();
     }
 
     @Override

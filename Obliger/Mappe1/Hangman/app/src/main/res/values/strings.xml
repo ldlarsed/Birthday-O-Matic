@@ -49,7 +49,7 @@
     Please confirm to continue.</string>
 
     <!-- Regex rules -->
-    <string name="regex_all_alphanumeric" translatable="false">^[a-zøæåöäA-ZØÆåäö0-9_]{3,15}$</string>
+    <string name="regex_all_alphanumeric">^[a-zøæåöäA-ZØÆåäö0-9_]{3,15}$</string>
 
     <!-- Game statistics -->
     <string name="game_fail">Better luck next time.\n</string>

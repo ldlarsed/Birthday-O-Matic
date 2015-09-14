@@ -200,5 +200,6 @@ public class ScoresActivity extends AppCompatActivity {
     protected void onDestroy() {
         datasource.close();
         super.onDestroy();
+        finish();
     }
 }

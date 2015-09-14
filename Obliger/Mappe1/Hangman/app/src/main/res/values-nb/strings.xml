@@ -17,7 +17,7 @@
     <string name="menu_settings">Instillinger</string>
     <string name="new_player">Ny Spiller</string>
     <string name="player">Spiller</string>
-    <string name="regex_all_alphanumeric"></string>
+    <string name="regex_all_alphanumeric">^[a-zøæåöäA-ZØÆåäö0-9_]{3,15}$</string>
     <string name="score_all">Alle poeng</string>
     <string name="score_no_scores">Ingen poeng registrert</string>
     <string name="score_ranking">Rank</string>

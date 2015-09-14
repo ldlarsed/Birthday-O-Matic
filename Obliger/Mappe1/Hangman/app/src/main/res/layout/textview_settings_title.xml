@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="20px"
-        android:text="Settings"
+        android:text="@string/action_settings"
         android:textSize="@dimen/menu_item_size"
         android:layout_gravity="center_horizontal"
         android:gravity="center"

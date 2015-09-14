@@ -101,4 +101,10 @@ public class HangmanPreferencesActivity extends PreferenceActivity {
         startActivity(i);
 
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        finish();
+    }
 }

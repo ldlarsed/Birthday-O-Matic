@@ -108,7 +108,7 @@ public class GamePlayActivity extends AppCompatActivity {
     protected void onDestroy() {
         datasource.close();
         super.onDestroy();
-        finishAffinity();
+        finish();
     }
 
     /**
