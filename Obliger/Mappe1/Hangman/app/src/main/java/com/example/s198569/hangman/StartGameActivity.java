@@ -104,7 +104,7 @@ public class StartGameActivity extends ActionBarActivity {
         /* End of Main Menu */
 
         //Test if I can change language of main activity at boot
-        //checkLanguage();
+        checkLanguage();
 
         //ENABLE_RESTART = true;
         //restartMain();

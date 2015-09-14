@@ -55,7 +55,6 @@ public class HangmanPreferencesActivity extends PreferenceActivity {
         else
             locale_language = "nb_NO";
         changeLanguage(locale_language);
-        //change_language(locale_language);
     }
 
     private void languageWarning() {
