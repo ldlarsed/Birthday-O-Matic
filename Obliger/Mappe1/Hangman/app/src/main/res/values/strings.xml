@@ -22,10 +22,10 @@
     <string name="score_no_scores">No scores yet</string>
     <string name="score_username">Username</string>
     <string name="score_ranking">Rank</string>
-    <string name="score_score">Score:&#160;</string>
-    <string name="score_total">Total:&#160;</string>
-    <string name="score_games_won">Won:&#160;</string>
-    <string name="score_games_lost">Lost:&#160;</string>
+    <string name="score_score">Score&#160;</string>
+    <string name="score_total">Total&#160;</string>
+    <string name="score_games_won">Won&#160;</string>
+    <string name="score_games_lost">Lost&#160;</string>
     <string name="score_wait_msg">Retrieving scores</string>
     <string name="score_wait_title">Loading...</string>
     <string name="title_activity_activity_scores" translatable="false">activity_scores</string>
@@ -49,7 +49,7 @@
     Please confirm to continue.</string>
 
     <!-- Regex rules -->
-    <string name="regex_all_alphanumeric" translatable="false">^[a-zøæåöäA-Zøæåäö0-9_]{3,15}$</string>
+    <string name="regex_all_alphanumeric" translatable="false">^[a-zøæåöäA-ZØÆåäö0-9_]{3,15}$</string>
 
     <!-- Game statistics -->
     <string name="game_fail">Better luck next time.\n</string>
