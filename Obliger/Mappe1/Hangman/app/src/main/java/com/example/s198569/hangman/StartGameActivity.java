@@ -97,10 +97,11 @@ public class StartGameActivity extends ActionBarActivity {
                     //toast.show();
                     startActivity(new Intent(StartGameActivity.this, HangmanPreferencesActivity.class));
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_help))) {
-                    Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
-                    toast.show();
+                    //Toast toast = Toast.makeText(context, "Not implemented", Toast.LENGTH_SHORT);
+                    //toast.show();
+                    startActivity(new Intent(StartGameActivity.this, HelpActivity.class));
                 } else if (strText.equalsIgnoreCase(getResources().getString(R.string.menu_quit))) {
-                    finish();
+                    finishAffinity();
                 }
             }
         });

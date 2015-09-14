@@ -65,6 +65,31 @@
     <string name="setting_language_norwegian">Norwegian</string>
     <string name="setting_sound_toggle">Sound</string>
     <string name="setting_sound_toggle_desc">Toggle application sounds on/off.</string>
+    <string name="title_activity_help">HelpActivity</string>
 
+    <!-- Longer text and descriptions -->
+    <string name="help_text">
+        <![CDATA[
+        <html>
+        <body>
+        <h2>Rules</h2>
+        <p>
+        The word to guess is represented by a row of boxes, representing each letter of the word.
+        Words you cannot use include proper nouns such as names, places, and brands.
+        If the guessing player suggests a letter which occurs in the word, the letter will be reveled on its correct positions.
+        If the suggested letter or number does not occur in the word, application will draw one element of a hanged man stick figure as a tally mark.
+        Player scores one point per correctly guessed letter.
+        If player guesses all letters the game is won.
+        </p>
+        <h2>About</h2>
+        <h4>Hangman</h4>
+        Version 1.0 <br>
+        This is a student assignment at HiOA<br>
+        <h4>Author</h4>
+        Lukas David Larsed s198569@stud.hioa.no
+        </body>
+        </html>
+        ]]>
+    </string>
 
 </resources>

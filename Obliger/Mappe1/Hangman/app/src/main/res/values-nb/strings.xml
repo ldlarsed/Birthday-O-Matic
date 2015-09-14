@@ -43,4 +43,29 @@
     <string name="dialog_play_as">Spille som&#160;</string>
     <string name="score_total">Totalt&#160;</string>
     <string name="info_no_more_letters">Ingen flere ord er tilgjengelige.</string>
+    <string name="help_text">
+        <![CDATA[
+        <html>
+        <body>         
+        <h2>Regler</h2>
+        <p>
+        Ordet å gjette er representert ved en rekke av bokser, som representerer hver bokstav i ordet.
+        Ord du kan ikke bruke inkludere egennavn som navn, steder og merkevarer.
+        Hvis gjetter spilleren antyder et brev som oppstår i ordet, vil brevet bli fråtset på sine riktige posisjoner.
+        Hvis den foreslåtte bokstav eller et tall ikke forekommer i ordet, vil søknaden trekke en del av en hengt mann pinne figur som et telleapparat mark.
+        Spiller scorer ett poeng per riktig gjettet brev. Hvis spilleren gjetter alle bokstavene i kampen er vunnet.
+        </p>
+        <h2>Om</h2>
+        <h4>Hangman</h4>
+        Versjon 1.0
+        <br>
+        Dette er en studentoppgave ved HiOA
+        <br>
+        <h4>Forfatter</h4>
+        Lukas David Larsed s198569@stud.hioa.no
+        </body>
+        </html>
+        ]]>
+        </string>
+
 </resources>
