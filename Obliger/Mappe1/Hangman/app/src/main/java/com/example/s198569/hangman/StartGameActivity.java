@@ -36,6 +36,7 @@ public class StartGameActivity extends ActionBarActivity {
     final Context context = this;
     private String language;
     public static boolean ENABLE_RESTART = false;
+    private String appLocale;       //Used to save the language of a running application
 
     //Objects
     SharedPreferences langPrefs;
@@ -44,7 +45,18 @@ public class StartGameActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start_game);
+        initilizeGuiComponents();
+        appLocale = getResources().getConfiguration().locale.getDisplayLanguage();
 
+        //Test if I can change language of main activity at boot
+        //checkLanguage();
+
+
+        //ENABLE_RESTART = true;
+        //restartMain();
+    }
+
+    private void initilizeGuiComponents() {
         //Starting the title animation for the title and hangman figure
         ImageView title_image = (ImageView) findViewById(R.id.title_image);
         Animation titleAnimation = AnimationUtils.loadAnimation(this, R.anim.title_anim);
@@ -100,14 +112,33 @@ public class StartGameActivity extends ActionBarActivity {
                 return (event.getAction() == MotionEvent.ACTION_MOVE);
             }
         });
+    }
 
-        /* End of Main Menu */
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_start_game);
 
-        //Test if I can change language of main activity at boot
-        checkLanguage();
+        initilizeGuiComponents();
 
-        //ENABLE_RESTART = true;
-        //restartMain();
+        Log.w("HANGMAN", "appLocale "+appLocale);
+        String currentLocale = getResources().getConfiguration().locale.getDisplayLanguage();
+        Log.w("HANGMAN", "currentLocale "+currentLocale);
+
+
+        if(!appLocale.equals(currentLocale)){
+            switch (appLocale){
+                case "norsk bokmål":
+                    changeLanguage("nb_NO");
+                    break;
+                case "English":
+                    changeLanguage("en_US");
+                    break;
+                default:
+                    changeLanguage("en_US");
+                    break;
+            }
+        }
 
     }
 
@@ -163,6 +194,15 @@ public class StartGameActivity extends ActionBarActivity {
         Log.w("START GAME", "Detected language: " + lang);
     }
 
+    /**
+     * Checks current language that is saved in shared preferences.
+     * @return String
+     */
+    private int getCurrentLanguage(){
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        return Integer.parseInt(sp.getString("languageChooser", "1"));
+    }
+
     private void changeLanguage(String localeString) {
         Locale locale = new Locale(localeString);
         Locale.setDefault(locale);
@@ -176,11 +216,15 @@ public class StartGameActivity extends ActionBarActivity {
         //recreate();
     }
 
+    /**
+     * Restarts the main method to set the language changes.
+     */
     public void restartMain() {
         if (ENABLE_RESTART == true) {
             Intent mainIntent = new Intent(this, StartGameActivity.class);
             mainIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             startActivity(mainIntent);
+            appLocale = getResources().getConfiguration().locale.getDisplayLanguage();
             finish();
         } else {
             finish();
