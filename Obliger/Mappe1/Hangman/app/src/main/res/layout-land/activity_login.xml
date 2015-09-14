@@ -49,8 +49,10 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edit_text_new_player"
                 android:onClick="onPlayGameButtonClick"
-                android:text="@string/menu_play"
-                android:width="160dp"/>
+                android:text="@string/new_player_button"
+                android:width="160dp"
+                style="@style/button"
+                android:textColor="@color/secondary_2_1"/>
 
         </RelativeLayout>
 
