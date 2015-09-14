@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -180,7 +179,6 @@ public class GamePlayActivity extends AppCompatActivity {
      */
     private int getKeyIDX(char c) {
         for (int i = 0; i < keyboard.getChildCount(); i++) {
-            //TODO: Den finner ikke første knappen som er A
             if (((Button) keyboard.getChildAt(i)).getText().charAt(0) == c)
                 return i;
         }
@@ -224,12 +222,13 @@ public class GamePlayActivity extends AppCompatActivity {
         gameScore = 0;
         tryCount = 6;
         lettersGuessed = 0;
-        //Fetches the keyboard values for the default language
 
+        cleanupKeyboard();
+        //Fetches the keyboard values for the default language
         keybUsed = new boolean[kb_values.length];
         setKeyboard();
         setWord();
-        resetTheKeyboard();
+        //resetTheKeyboard();
         gameScoreView.setText(String.valueOf(gameScore));
         hangmanImage.setImageResource(R.drawable.hang0);
     }
@@ -271,7 +270,7 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
 
-    private void setButtonOrientation(Button b) {
+    private void setKeyboardDimension(Button b) {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int screenHeight = displaymetrics.heightPixels;
@@ -288,8 +287,8 @@ public class GamePlayActivity extends AppCompatActivity {
             final Button b = new Button(this);
             b.setTextColor(getResources().getColor(R.color.secondary_2_1));
             b.setText(kb);
+            setKeyboardDimension(b);
 
-            setButtonOrientation(b);
             keyboard.addView(b);
 
             //Listeners for each button
@@ -297,7 +296,6 @@ public class GamePlayActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     char c = b.getText().charAt(0);
-
 
                     if (checkForLetter(c)) {
                         while (checkForLetter(c)) {
@@ -314,13 +312,10 @@ public class GamePlayActivity extends AppCompatActivity {
                             //Guessed all of the letters
                             if (lettersGuessed == letters.length) {
                                 gamesWon++;
-                                //datasource.updateScore(pName, gameScore); //depriciated
                                 datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
                                 gamesWonView.setText(Integer.toString(gamesWon));
-                                //Cleanup
-                                wordsLayout.removeAllViewsInLayout();
+
                                 edComponents.clear();
-                                wordsLayout.removeAllViews();
 
                                 new Handler().postDelayed(new Runnable() {
                                     @Override
@@ -337,6 +332,7 @@ public class GamePlayActivity extends AppCompatActivity {
                         b.setEnabled(false);
                         keybUsed[getKeyIDX(c)] = true;
                         Toast.makeText(getApplicationContext(), Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show();
+
                         updateHangmanImage();
 
                         //No tries left
@@ -346,10 +342,7 @@ public class GamePlayActivity extends AppCompatActivity {
                             datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
                             gamesLostView.setText(Integer.toString(gamesLost));
 
-                            //Cleanup
-                            wordsLayout.removeAllViewsInLayout();
                             edComponents.clear();
-                            wordsLayout.removeAllViews();
 
                             new Handler().postDelayed(new Runnable() {
                                 @Override
@@ -363,6 +356,16 @@ public class GamePlayActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    /**
+     * Cleans up and resets the keyboard in between sessions.
+     */
+    private void cleanupKeyboard() {
+        wordsLayout.removeAllViewsInLayout();
+        //edComponents.clear();
+        wordsLayout.removeAllViews();
+        keyboard.removeAllViews();
     }
 
 
