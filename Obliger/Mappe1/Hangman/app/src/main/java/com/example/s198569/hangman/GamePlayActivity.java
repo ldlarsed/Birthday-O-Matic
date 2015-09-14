@@ -342,7 +342,7 @@ public class GamePlayActivity extends AppCompatActivity {
                         //No tries left
                         if (tryCount == 0) {
                             gamesLost++;
-                            //datasource.updateScore(pName, gameScore); //depriciated
+                            //datasource.updateScore(pName, gameScore); //depreciated
                             datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
                             gamesLostView.setText(Integer.toString(gamesLost));
 
