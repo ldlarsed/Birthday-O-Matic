@@ -28,36 +28,39 @@ import com.example.s198569.hangman.lib.WordsProvider;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * GamePlayActivity class. Controls the whole game play logic and visual components.
+ */
 public class GamePlayActivity extends AppCompatActivity {
 
     //Layouts
-    private RelativeLayout gameLayout;
-    private GridLayout layoutInfo;
-    private LinearLayout wordsLayout;
-    private GridLayout keyboard;
+    private RelativeLayout gameLayout;  //Overall activity layout
+    private GridLayout layoutInfo;      //Statistics layout
+    private LinearLayout wordsLayout;   //Layout for the word to guess
+    private GridLayout keyboard;        //Layout for the keyboard buttons
 
     //GUI components
-    private TextView playerName;
-    private TextView gameScoreView, sessionScoreView;
-    private TextView gamesWonView, gamesLostView;
-    private ImageView hangmanImage;
-    private ArrayList<EditText> edComponents; //Current collection of letter placeholders
+    private TextView playerName;        //Player name
+    private TextView gameScoreView, sessionScoreView;       //View for game score and overall session score
+    private TextView gamesWonView, gamesLostView;           //View for the games won and lost in session
+    private ImageView hangmanImage;                         //View for the hangman image
+    private ArrayList<EditText> edComponents;               //Current collection of letter placeholders. Used as references.
 
     //Game variables
-    private int lettersCount;
-    String[] kb_values;
-    private boolean[] keybUsed;
-    private char[] letters, lettersOriginal;
-    private int gameScore, sessionScore;
-    private int tryCount;
-    private String pName;
-    private int lettersGuessed;
-    private int gamesWon, gamesLost;
-    private String outMessage;
+    private int lettersCount;   //Counts the letters in current game word
+    String[] kb_values;         //Keyboard letter values. Used to store current locale alphabet.
+    private boolean[] keybUsed; //Boolean indicators for used keyboard letters. Used to recreate the state of the keyboard after rotation.
+    private char[] letters, lettersOriginal;        //Containers for all chars of the word that is being guessed. Each right guessed letter is being removed from letters, lettersOriginal is used to recreate the letters array after the screen rotation.
+    private int gameScore, sessionScore;        //Self explanatory
+    private int tryCount;       //Self explanatory
+    private String pName;       //Self explanatory
+    private int lettersGuessed;     //Self explanatory
+    private int gamesWon, gamesLost;        //Self explanatory
+    private String outMessage;      //Class variable for different messages that are shown to user after a completed round.
 
     //Game objects
-    private HangmanDataSource datasource;
-    private WordsProvider wordsProvider;
+    private HangmanDataSource datasource;       //DAO for the SQLite connection. Used to update user score in database after each completed game round.
+    private WordsProvider wordsProvider;        //Words provider that provides unique words from arrays.xml
 
 
     @Override
@@ -70,7 +73,7 @@ public class GamePlayActivity extends AppCompatActivity {
         try {
             datasource.open();
         } catch (Exception e) {
-            Toast toast = Toast.makeText(this, "Could not connect to the database.", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this, getResources().getString(R.string.err_no_database_connection), Toast.LENGTH_SHORT);
             toast.show();
         }
         /* End of database connection */
@@ -86,7 +89,7 @@ public class GamePlayActivity extends AppCompatActivity {
 
         newGame();
 
-        Log.w("HANGMAN", "ORIENTATION: " + String.valueOf(getResources().getConfiguration().orientation));
+        //Log.w(getResources().getString(R.string.exception), "ORIENTATION: " + String.valueOf(getResources().getConfiguration().orientation)); //Used for debugging
     }
 
     @Override
@@ -105,6 +108,7 @@ public class GamePlayActivity extends AppCompatActivity {
     protected void onDestroy() {
         datasource.close();
         super.onDestroy();
+        finishAffinity();
     }
 
     /**
@@ -133,21 +137,7 @@ public class GamePlayActivity extends AppCompatActivity {
         edComponents.clear();
         wordsLayout.removeAllViews();
 
-        for (char c : letters) {
-            final EditText et = new EditText(this);
-            //et.setText(Character.toString(c));
-            et.setEnabled(false);
-            et.setTextColor(getResources().getColor(R.color.secondary_2_2));
-            et.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
-            et.setTextSize(15);
-            et.setWidth(53);
-            et.setHintTextColor(getResources().getColor(R.color.secondary_2_2));
-            et.setBackgroundResource(R.drawable.edit_text_background);
-
-            edComponents.add(et);
-            wordsLayout.addView(et);
-            lettersCount++;
-        }
+        createLettersToGuess();
 
         for (int i = 0; i < lettersOriginal.length; i++) {
             if (letters[i] == 0)
@@ -155,7 +145,7 @@ public class GamePlayActivity extends AppCompatActivity {
         }
 
         setUpKeyboardAndListen();
-        Toast.makeText(this, Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show(); //For debugging shows all boolean contents of keyboard references
         markUsedKeys();
 
     }
@@ -219,7 +209,6 @@ public class GamePlayActivity extends AppCompatActivity {
      * Starts or resets the game.
      */
     private void newGame() {
-        //initializesGUIComponents();
         gameScore = 0;
         tryCount = 6;
         lettersGuessed = 0;
@@ -229,7 +218,6 @@ public class GamePlayActivity extends AppCompatActivity {
         keybUsed = new boolean[kb_values.length];
         setUpKeyboardAndListen();
         setWord();
-        //resetTheKeyboard();
         gameScoreView.setText(String.valueOf(gameScore));
         hangmanImage.setImageResource(R.drawable.hang0);
     }
@@ -243,31 +231,33 @@ public class GamePlayActivity extends AppCompatActivity {
         edComponents = new ArrayList<>();
 
         letters = wordsProvider.getNextWord();
-        Log.w("HANGMAN", Arrays.toString(letters));
+        Log.w(getResources().getString(R.string.exception), Arrays.toString(letters)); //Show new word in log view
         if (letters[0] == '0') {
-            Toast.makeText(this, "All words have been used up", Toast.LENGTH_SHORT).show();
-            Log.w("HANGMAN", "All words are used up");
+            Toast.makeText(this, getResources().getString(R.string.info_no_more_letters), Toast.LENGTH_SHORT).show();
+            Log.w(getResources().getString(R.string.exception), getResources().getString(R.string.info_no_more_letters));
         }
 
         lettersOriginal = letters.clone();
 
+        createLettersToGuess();
+
+    }
+
+    private void createLettersToGuess(){
         for (char c : letters) {
             final EditText et = new EditText(this);
-            //et.setText(Character.toString(c));
             et.setEnabled(false);
             et.setTextColor(getResources().getColor(R.color.secondary_2_2));
             et.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
             et.setTextSize(15);
             et.setWidth(53);
             et.setHintTextColor(getResources().getColor(R.color.secondary_2_1));
-            //et.getBackground().setColorFilter(getResources().getColor(R.color.secondary_1_2), PorterDuff.Mode.SRC_ATOP);
             et.setBackgroundResource(R.drawable.edit_text_background);
 
             edComponents.add(et);
             wordsLayout.addView(et);
             lettersCount++;
         }
-        Log.w("HANGMAN", "Antall EditText: " + lettersCount);
     }
 
     /**
@@ -318,7 +308,7 @@ public class GamePlayActivity extends AppCompatActivity {
                             gameScoreView.setText(Integer.toString(gameScore));
                             sessionScoreView.setText(Integer.toString(sessionScore));
 
-                            //Guessed all of the letters
+                            //Guessed all of the letters. Game won.
                             if (lettersGuessed == letters.length) {
                                 gamesWon++;
                                 datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
@@ -336,11 +326,11 @@ public class GamePlayActivity extends AppCompatActivity {
                         tryCount--;
                         b.setEnabled(false);
                         keybUsed[getKeyIDX(c)] = true;
-                        Toast.makeText(getApplicationContext(), Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getApplicationContext(), Arrays.toString(keybUsed), Toast.LENGTH_SHORT).show(); //Used for debugging purposes
 
                         updateHangmanImage();
 
-                        //No tries left
+                        //No tries left. Game lost.
                         if (tryCount == 0) {
                             gamesLost++;
                             datasource.updateStats(pName, gameScore, gamesWon, gamesLost);
@@ -384,6 +374,11 @@ public class GamePlayActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * After the game is won or lost this one is popped up and shown to the user.
+     * @param message
+     * @param score
+     */
     private void showContinueDialog(String message, int score) {
         DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
             @Override
@@ -451,8 +446,8 @@ public class GamePlayActivity extends AppCompatActivity {
     }
 
     /**
-     * Checks for count of occurencies of a specific letter.
-     * Returns an integer array with indexes to this all of occurencies.
+     * Checks for count of occurrences of a specific letter.
+     * Returns an integer array with indexes to this all of occurrences.
      *
      * @param letter
      * @return
@@ -489,6 +484,12 @@ public class GamePlayActivity extends AppCompatActivity {
         letters[idx] = 0; //removes letter if guessed correctly
     }
 
+    /**
+     * Delays an action with extra thread. When user fails on identifying the word it the last leg
+     * of hangman is drown. This the delays the lost game dialog for few milliseconds in order to
+     * make it possible for the user to the updated hangman image.
+     * @param msec
+     */
     private void delayAction(int msec){
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -518,6 +519,5 @@ public class GamePlayActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }

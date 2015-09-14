@@ -44,6 +44,7 @@
     <string name="err_scores">Error while processing scores.</string>
     <string name="err_no_registered_players">No registered players.</string>
     <string name="err_no_database_connection">Could not connect to the database.</string>
+    <string name="info_no_more_letters">There are no more words available.</string>
     <string name="warning_language">Warning! Dragons ahead!\n\nThis is an aplha feature. Application language should be changed in system settings.
     Please confirm to continue.</string>
 
