@@ -113,9 +113,9 @@ public class HangmanDataSource {
         long insertId = database.insert(HangmanDatabase.TABLE_PLAYERS, null, values);
 
         if(insertId < 0){
-            Log.d("HANGMAN", "Coludnt insert");
+            Log.d("HANGMAN", "Could not insert into table.");
         }else{
-            Log.d("HANGMAN", "Insertion succesfull");
+            Log.d("HANGMAN", "Insertion into table successful");
         }
 
         Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS,

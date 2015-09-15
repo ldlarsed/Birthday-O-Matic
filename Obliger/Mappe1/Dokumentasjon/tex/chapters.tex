@@ -223,7 +223,7 @@ Klassen representerer en abstraksjon av spiller i spillet som brukes for å midl
 \subsection{\texttt{HangmanDatabase.java}}
 Applikasjonen benytter seg av en SQLite database for å ta vare på navn til spillere og total opptjent poengsum for hver enkel spiller. Det lagres også totalt antall spill som hver bruker har vunnet og tapt. Hvordan tabellen i databasen blir dannet presenteres i kodeeksempel \ref{code:tabell_opp}.
 
-\begin{lstlisting}[language=Java, caption=Script for opprettelse av tabell., label=code:tabell_opp]
+\begin{lstlisting}[language=Java, caption=Script for opprettelse av tabell, label=code:tabell_opp]
  private static final String DATABASE_CREATE =
             "create table " + TABLE_PLAYERS + "(" +
                     COLUMN_ID + " integer primary key autoincrement, " +
@@ -236,8 +236,48 @@ Applikasjonen benytter seg av en SQLite database for å ta vare på navn til spi
 
 
 \subsection{\texttt{HangmanDataSource.java}}
+Klassen inneholder en hjelpemetode \texttt{cursorToPlayer} som tar in parameter cursor og henter inn datafelt som plasseres i spilleobjektet. Kodeeksempel \ref{code:cursor_help}
 
+\begin{lstlisting}[language=Java, caption=Hjelpemetode for plasering av cursor, label=code:cursor_help]
+private Player cursorToPlayer(Cursor cursor){
+        Player player = new Player();
+        player.setName(cursor.getString(1));
+        player.setScore(cursor.getInt(2));
+        player.setWon(cursor.getInt(3));
+        player.setLost(cursor.getInt(4));
+        return player;
+    }
+\end{lstlisting}
 
+I kodeeksempel \ref{code:tabell_ny_spiller} presenteres det kode som sørger for å opprettelse av en ny spiller i tabellen. Etter innsetting i tabellen benyttes det \texttt{insertId} variabel som blir returnert fra insert metoden til databasen. Denne id benyttes deretter for å finne frem til riktig spiller i tabellen, det vil si at den spiller som blir dannet der blir også returnert fra databasen og med hjelp av eksempel \ref{code:cursor_help} blir det dannet et spiller objekt som returneres tilbake. Slik tilnærmingsmåte sørger for at spilleren blir lagt inn i databasen ettersom det benyttes felt som er lagret i databasen og ikke de felt som allerede eksisterer i det aktive objektet.
+
+\begin{lstlisting}[language=Java, caption=Metode for oppretting av en ny spiller i tabellen, label=code:tabell_ny_spiller]
+public Player createPlayer(String name){
+        ContentValues values = new ContentValues();
+        values.put(HangmanDatabase.COLUMN_PNAME, name);
+        values.put(HangmanDatabase.COLUMN_SCORE, 0);
+        values.put(HangmanDatabase.COLUMN_WON, 0);
+        values.put(HangmanDatabase.COLUMN_LOST, 0);
+
+        long insertId = database.insert(HangmanDatabase.TABLE_PLAYERS, null, values);
+
+        if(insertId < 0){
+            Log.d("HANGMAN", "Could not insert into table.");
+        }else{
+            Log.d("HANGMAN", "Insertion into table successful");
+        }
+
+        Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS,
+                allColumns, HangmanDatabase.COLUMN_ID + " = " + insertId, null,
+                null, null, null);
+
+        cursor.moveToFirst();
+        Player newPlayer = cursorToPlayer(cursor);
+        cursor.close();
+
+        return newPlayer;
+    }
+\end{lstlisting}
 
 
 \section{Internasjonalisering}
