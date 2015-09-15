@@ -217,9 +217,14 @@ Klassen representerer en abstraksjon av spiller i spillet som brukes for å midl
 
 \end{landscape}
 
+
+
 \chapter{Presentasjon av løsninger}
 
+\textbf{\emph{I følgende avsnitt presenteres det kodeeksempel over de viktigste løsninger fra applikasjonens klasser. For innføring i resterende klasser i metoder henvises det til den innleverte kildekoden.}}
+
 \section{Lagring av data}
+
 \subsection{\texttt{HangmanDatabase.java}}
 Applikasjonen benytter seg av en SQLite database for å ta vare på navn til spillere og total opptjent poengsum for hver enkel spiller. Det lagres også totalt antall spill som hver bruker har vunnet og tapt. Hvordan tabellen i databasen blir dannet presenteres i kodeeksempel \ref{code:tabell_opp}.
 
@@ -279,9 +284,109 @@ public Player createPlayer(String name){
     }
 \end{lstlisting}
 
+For å hente \textit{High Score} liste benyttes det kode som er presentert i kodeeksempel \ref{code:tabell_alle_spillere}. I presentert eksempel blir spillere hentet inn til peker og sortert direkte i pekeren etter poengkolonnen. Så lenge det eksisterer data som kan plasseres i pekeren opprettes det nye spiller objekter fra data som finnes i databasen og til slutt returneres det en sortert listen med spiller objekter.
+
+\begin{lstlisting}[language=Java, caption=Innheting av alle spiller og sortering, label=code:tabell_alle_spillere]
+public List<Player> getAllPlayers(){
+        List<Player> players = new ArrayList<Player>();
+
+        Cursor cursor = database.query(HangmanDatabase.TABLE_PLAYERS, allColumns, null, null, null, null, HangmanDatabase.COLUMN_SCORE + " DESC");
+        if(cursor == null ) return null;
+        cursor.moveToFirst();
+
+        while(!cursor.isAfterLast()){
+            Player player = cursorToPlayer(cursor);
+            players.add(player);
+            cursor.moveToNext();
+        }
+
+        cursor.close();
+        return players;
+    }
+\end{lstlisting}
+
 
 \section{Internasjonalisering}
+I klassen \texttt{HangmanPreferencesActivity.java} blir det endret språk utefra valg til brukeren. Dette blir gjennomført gjennom å oppdatere lokale innstillinger til applikasjonen samt lagret i \texttt{SharedPreferences} hvilket språk som skal benyttes, kodeeksempel \ref{code:bytte_sprak}. Deretter startes hovedaktivitet på nytt for å ta i bruk endringer. Ettersom det blir lagret i felles innstillinger hvilket språk som skal benyttes i applikasjonen er den verdien tilgjengelig for alle aktiviteter. Derfor etter bytte av orientering av skjermen vil applikasjonen blir startet om og systemet kommer til å forsøke å sette samme språk på applikasjonen som det er definiert på systemet. 
+
+\begin{lstlisting}[language=Java, caption=Metode for språkbytte, label=code:bytte_sprak]
+    private void changeLanguage(String locale_language) {
+        Locale locale = new Locale(locale_language);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getApplicationContext().getResources().updateConfiguration(config, null);
+
+        //Saving the chosen language to open it up inside the main activity
+        SharedPreferences.Editor spEdit = prefs.edit();
+        spEdit.putString(LANGUAGE, locale_language);
+        spEdit.apply();
+
+        //Starting main activity
+        StartGameActivity.ENABLE_RESTART = true;
+        Intent i = new Intent(this, StartGameActivity.class);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        startActivity(i);
+    }
+\end{lstlisting}
+
+Dette forebygges gjennom at kontrollere den verdi som er lagret i felles innstillinger med dem som applikasjonen kjører etter rotasjon av skjerm gjennom:
+\begin{lstlisting}[language=Java]
+getResources().getConfiguration().locale.getDisplayLanguage() 
+\end{lstlisting}
+Dersom den lagrede veriden overensstemmer ikke med den aktuelle verdien for språket fremtvinges en omstart av aktiviteten med nytt språk med hjelp av kode i eksempel \ref{code:bytte_sprak_rotasjon}.
+
+\begin{lstlisting}[language=Java, caption=Språkkontroll etter rotasjon, label=code:bytte_sprak_rotasjon]
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_start_game);
+
+        initilizeGuiComponents();
+
+        Log.w("HANGMAN", "appLocale "+appLocale);
+        String currentLocale = getResources().getConfiguration().locale.getDisplayLanguage();
+        Log.w("HANGMAN", "currentLocale "+currentLocale);
+
+        if(!appLocale.equals(currentLocale)){
+            switch (appLocale){
+                case "norsk bokmal":
+                    changeLanguage("nb_NO");
+                    break;
+                case "English":
+                    changeLanguage("en_US");
+                    break;
+                default:
+                    changeLanguage("en_US");
+                    break;
+            }
+        }
+    }
+\end{lstlisting}
+
+
+Etter at språk er endret endres også alle dynamiske komponenter som f.eks. tastatur som blir opprettet fra lokalisert xml fil hvilken hentes fra \texttt{values/alphabet.xml} samt \texttt{values-nb/alphabet.xml}. Denne filen ligger til grunn den endring som foretas i tastaturet som presenteres i figur \ref{fig:aktiviteter_spill_internasjonalisering}.
+
+\begin{figure}[ht]
+    \centering
+   \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/losninger/1.png}
+        \caption{Engelsk versjon}
+        \label{fig:aktivitet_engelsk}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/losninger/2.png}
+        \caption{Norsk versjon}
+        \label{fig:aktivitet_norsk}
+    \end{subfigure}
+    \caption{Internasjonalisering av spillaktivitet}
+    \label{fig:aktiviteter_spill_internasjonalisering}
+\end{figure}
+
+
+
 \section{Grafiske komponenter}
+De brukes noen komponenter som er opprettet gjennom en egen. 
+
 
 
 \chapter{Utfordringer}
