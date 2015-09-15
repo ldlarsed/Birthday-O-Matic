@@ -12,19 +12,28 @@
 \end{itemize}
 
 
-\section{Hva har jeg lært meg}
+\section{Hva er implementert og hva har jeg lært meg?}
 Jeg har aldri før utviklet for Android derfor er alle komponenter som jeg bruker i applikasjonen nye for meg. Jeg hatt som mål å strekke meg noe utøver de krav som er beskrevet i oppgavebeskrivelsen. Følgende liste er et sammendrag over de komponenter som er implementert i applikasjonen utøver de som vært introdusert i forelesningene:
-\begin{enumerate}
-\item Lagring og lesing av data i appens interne \texttt{SQLite} database.
-\item Endring og  av komponenter. Eksempel på dette er egne stiler som er brukt i f.eks. \texttt{GamePlayActivity} der det er opprettet egne stiler både for knapper og \texttt{EditText} som benyttes til å vise ord som skal gjettes.
-\item Bruk av \texttt{PreferanceActivity} for å vise innstillinger for applikasjonen på en oversiktlig og ryddig måte. 
-\item Opprette grafiske komponenter på en dynamisk måte. Eksempel på dette er tastatur som blir satt opp avhengig av det språk som er valgt for systemet eller applikasjonen (tastaturet blir satt opp fra et predefinert xml fil som inneholder alle bokstaver fra det språket). 
-\item Endre språk i applikasjonen uten at språk for systemet blitt endret. Det valgte språket blir også bevart dersom applikasjonen roteres. 
-\end{enumerate}
+
+\begin{description}
+
+\item[SQLite] Lagring og lesing av data i appens interne \texttt{SQLite} database.
+
+\item[Styles] Egne stiler for flere komponenter. Eksempel på dette er egne stiler som er brukt i f.eks. \texttt{GamePlayActivity} der det er opprettet egne stiler både for knapper og \texttt{EditText} som benyttes til å vise ord som skal gjettes.
+
+\item[Native preferances] Bruk av \texttt{PreferanceActivity} for å vise innstillinger for applikasjonen på en oversiktlig og ryddig måte. 
+
+\item[Dynamiske komponenter] Opprette grafiske komponenter på en dynamisk måte. Eksempel på dette er tastatur som blir satt opp avhengig av det språk som er valgt for systemet eller applikasjonen (tastaturet blir satt opp fra et predefinert xml fil som inneholder alle bokstaver fra det språket). Alt dette skjer i samme aktivitet, det brukes ingen hardkoding av aktiviteter.
+
+\item[Endring av språk fra app] Endre språk i applikasjonen uten at språk for systemet blitt endret. Det valgte språket blir også bevart dersom applikasjonen roteres. 
+
+\item[Animasjoner] På hovedaktiviteten vises det en animasjon av en «Hangman» som er opprettet manuelt i xml resurser (se \texttt{res $\rightarrow$ anim}). Det er også brukt xml animasjoner på logo slik at den blir vist sakte fra gjennomsiktig bakgrunn (\textit{fade}).
+
+\end{description}
 
 
 
-\chapter{Bruksanvisning}
+\chapter{Bruksanvisning og aktiviteter}
 I følgende kapittel beskrives det hvordan det er tenkt at spillet skal brukes samt en enkel navigasjon mellom applikasjonens skjermbilder. 
 
 \section{Oppstart av applikasjonen}
@@ -32,7 +41,7 @@ Når applikasjonen startes blir brukeren presentert av skjermbilde presentert i 
 \begin{figure}[ht]
 \centering
  \includegraphics[scale=0.25]{./img/bruksanvisning/1.png}
- \caption{Startskjerm.}
+ \caption{Startskjerm for Hangman}
  \label{fig:activity_front}
 \end{figure}
 
@@ -54,12 +63,12 @@ Spilleren blir presentert med et skjermbilde for å starte nytt spill , figur \r
     \centering
     \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/2.png}
-        \caption{Registrering.}
+        \caption{Registrering}
         \label{fig:registrering}
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/3.png}
-        \caption{Ny spiller registrert.}
+        \caption{Ny spiller registrert}
         \label{fig:ny_spiller}
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
@@ -81,24 +90,159 @@ Etter et spilleren har gjettet alle ord og vunnet eller ha misslykket med å avs
     \end{subfigure}
     \begin{subfigure}[b]{0.3\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/6.png}
-        \caption{Nytt spill.}
+        \caption{Nytt spill}
         \label{fig:nyt_spill_samme_okt}
     \end{subfigure}
-    \caption{Nytt spill i samme økt.}\label{fig:new_game_activities}
+    \caption{Nytt spill i samme økt}\label{fig:new_game_activities}
 \end{figure}
 
+
 \section{Innstillinger}
+I oppgaven skal det implementeres mulighet til endring av språk i applikasjonen uten en endring av systeminnstillinger. For å implementere slik funksjonalitet er det brukt \texttt{PreferenceActivity} som tillater en ryddig oppsamling av alle innstillinger som skal brukes i applikasjonen. Aktivitet med innstillinger startes har hoved menyen med \texttt{Settings} hvilken deretter starter aktivitet som presenteres i figur \ref{fig:innstllinger_oversikt}. Her blir det presentert en liste med alle mulige innstillinger i applikasjonen (anm. innstilling av skru på og av lyd er foreløpig ikke implementert ettersom det er ingen lydeffekter som er implementert i den versjonen). Brukeren har dog mulighet å endre språk for hele applikasjonen og blir presentert med en liste av alle aktuelt tilgjengelige språk, figur \ref{fig:innstllinger_velg_sprak}. Dersom brukeren velger et annet språk enn hva som er aktivt blir det presentert en kort advarsel om at dette er en \textit{alpha} funksjonalitet, figur \ref{fig:innstillinger_advarsel}. Jeg har valgt å varsle brukeren om dette ettersom det er en ikke anbefalt måte å endre språk på i en kjørende applikasjon. Det er noe som skal helt gjøres fra systemets språkinnstillinger ettersom Android systemet er satt opp på en måte som forsøker starte alle nye aktiviteter i det språk som er aktivt i systemet. Dette danner noen utfordringer under blant annet rotasjon av skjermen da det må lages spesiell kode i hver aktivitet som tar høyde for at applikasjonen kommer til å forsøke å overgå til standardspråk etter at orienteringen er endret.
+
+
+\begin{figure}[ht]
+    \centering
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/bruksanvisning/7.png}
+        \caption{Oversikt}
+        \label{fig:innstllinger_oversikt}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/bruksanvisning/8.png}
+        \caption{Valg av språk}
+        \label{fig:innstllinger_velg_sprak}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/bruksanvisning/9.png}
+        \caption{Advarsel}
+        \label{fig:innstillinger_advarsel}
+    \end{subfigure}
+    \caption{Innstillinger}\label{fig:innstillinger}
+\end{figure}
+
+Etter at språk blir endret blir aktiviteten med innstillinger lukket og fokus flyttes automatisk til hovedaktiviteten der alle grafiske komponenter blir opprettet på nytt med et nytt språk. Språkendringen gjelder også spillaktivitet der det dynamisk blir opprettet nytt tastatur med spesifikke tegn for språket (dersom nødvendig) og ordlisten i spillet blir skiftet ut slik at spillet kan tas på det språk som brukeren har valgt, figur \ref{fig:spill_norsk}. Konfigurasjon for tastatur er lagret i \texttt{res $\rightarrow$ values $\rightarrow$ alphabet.xml}.
+
+\begin{figure}[ht]
+    \centering
+   \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/bruksanvisning/10.png}
+        \caption{Språk endret}
+        \label{fig:innstillinger_endret}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/bruksanvisning/11.png}
+        \caption{Nytt språk i spillet}
+        \label{fig:spill_norsk}
+    \end{subfigure}
+    \caption{Språkinnstillinger endret}\label{fig:innstillinger_endret_norsk}
+\end{figure}
+
+
+
+\section{Øvrige aktiviteter}
+De øvrige aktiviteter som er implementert er (1) aktivitet for oversikt over poeng sammenstilling for alle registrerte spillere og (2) en aktivitet som viser hjelp og regler for spillet. Aktivitet for «High Score» viser alle registrerte spillere og sorterer resultat synkende fra de brukere som har høgste score i spillet, figur \ref{fig:aktivitet_score}. Aktivitet for «Hjelp» er satt opp av vanlig \texttt{TextView} og i tillegg tekst som vises blir formatert med hjelp av html tagger, figur \ref{fig:aktivitet_hjelp}. Begge aktivitetene blir endret hvis brukeren bytter språk i applikasjonen eller i systemet. 
+
+\begin{figure}[ht]
+    \centering
+   \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/bruksanvisning/12.png}
+        \caption{High score}
+        \label{fig:aktivitet_score}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/bruksanvisning/13.png}
+        \caption{Hjelp}
+        \label{fig:aktivitet_hjelp}
+    \end{subfigure}
+    \caption{Øvrige aktiviteter}\label{fig:aktiviteter_ovrige}
+\end{figure}
+
+
+
+\chapter{Klasser og struktur}
+
+\begin{description}
+\item[\underline{\texttt{StartGameActivity}}] Klasse som har ansvar for å starte hovedaktiviteten i applikasjonen. 
+
+\begin{description}
+
+\item[\texttt{LoginActivity}]
+Denne klassen sørger for å opprette nye brukere eller å logge på eksisterende brukeres som allerede er registrert i spiller. Klassen har en leseforbindelse med databasen. 
+
+\item[\texttt{GamePlayActivity}]
+Dette er den største klassen i applikasjonen. Klassen sørger for å opprette en ny økt med spill og kjøre kontinuerlige spillomganger frem til brukeren velger å avslutte eller at ordene tar slutt.
+
+\item[\texttt{HangmanPreferencesActivity}]
+Klassen brukes til å starte aktiviteten til innstillinger for programmet. Klassen inneholder klikklytter til listen av innstillinger samt trigger eventuelle dialoger for å skifte språk som vises til brukeren. Dersom språk blir endret lagres det en flagg i \texttt{SharedPreferences} og hoved aktiviteten startes på nytt. 
+
+\item[\texttt{ScoresActivity}]
+Klassen har som oppgave å gjøre en forespørsel til DAO klassen\footnote{\texttt{HangmanDataSource}} med hensikt å hente inn en liste over eksisterende brukere og sortere de synkende etter totalt antall opptjente poeng (\textit{leaderboard}).
+
+\item[\texttt{HelpActivity}]
+Klassen viser en statisk tekst over spileregler og noen informasjon om applikasjonen. Teksten hentes fra \texttt{strings.xml} og blir internt formatert med html tagger. 
+
+\end{description}
+
+\item[\underline{\texttt{lib}}] 
+Pakke med hjelpeklasser. Her er det samlet alle klasser som brukes i form av hjelpeklasser for applikasjonen. 
+\begin{description}
+
+\item[\texttt{HangmanDatabase}]
+Klassen instanser \texttt{SQLite} database gjennom å arve klassen \texttt{SQLiteOpenHelper}. Klassen brukes til å opprette tabellen i databasen samt har \textit{override} for alle nødvendige metoder som kreves av klassen som arves.
+
+\item[\texttt{HangmanDataSource}]
+Dette er hjelpklassen som instanserer \texttt{HangmanDatabase} og implementerer alle nødvendige metoder som brukes til lesing, skriving og henting og behandling av den data som blir hentet fra databasen. Eksempel på dette er oppdatering av spiller score, henting av alle spillere på tabellform og diverse data om spillerne.
+
+\item[\texttt{WordsProvider}]
+Klassen brukes til å hente alle tilgjengelige ord til det språk som er valgt i applikasjonen. Klassen benytter seg av \texttt{Collections} klassen i Java slik at alle ord blir lastet inn fra \texttt{res $\rightarrow$ values $\rightarrow$ arrays.xml}. Klassen bruker internt en \texttt{ArrayList} i hvilken alle ord fra filen blir plasser. Listen blir randomisert for hver ny økt med hjelp av \texttt{Collections.shuffle()} slik at rekkefølgen blir alltid forskjellig. 
+
+
+\item[\texttt{Player}]
+Klassen representerer en abstraksjon av spiller i spillet som brukes for å midlertidig lagre alle nødvendige data om spilleren. \texttt{Player} objekt blir opprettet hver gang det registreres ny spiller eller hentes inn en eksisterende fra databasen. Spiller objektene tas vare på så lenge spilleøkte varer, så snart det avsluttes at spill i samme økt. For hvert nytt spill blir spillerens rad oppdatert i databasen med nye poeng som brukeren har tjent opp i spillet.
+
+\end{description}
+
+
+\end{description}
+
+
+\begin{landscape}
+\begin{figure}[ht]
+\centering
+ \includegraphics[width=\hsize]{./uml/classdiagram.png}
+ \caption{Klassediagram}
+ \label{fig:klassediagram}
+\end{figure}
+
+\end{landscape}
+
+\chapter{Presentasjon av løsninger}
+
+\section{Lagring av data}
+\subsection{\texttt{HangmanDatabase.java}}
+Applikasjonen benytter seg av en SQLite database for å ta vare på navn til spillere og total opptjent poengsum for hver enkel spiller. Det lagres også totalt antall spill som hver bruker har vunnet og tapt. Hvordan tabellen i databasen blir dannet presenteres i kodeeksempel \ref{code:tabell_opp}.
+
+\begin{lstlisting}[language=Java, caption=Script for opprettelse av tabell., label=code:tabell_opp]
+ private static final String DATABASE_CREATE =
+            "create table " + TABLE_PLAYERS + "(" +
+                    COLUMN_ID + " integer primary key autoincrement, " +
+                    COLUMN_PNAME + " text not null, " +
+                    COLUMN_SCORE + " integer, " +
+                    COLUMN_WON + " integer, " +
+                    COLUMN_LOST + " integer" +
+                    ");";
+\end{lstlisting}
+
+
+\subsection{\texttt{HangmanDataSource.java}}
 
 
 
 
+\section{Internasjonalisering}
+\section{Grafiske komponenter}
 
-\chapter{Arkitektur og struktur}
-
-\chapter{Kode og løsninger}
-
-\section{Lagring av brukerdata}
-Lagring av brukerdata på enheten blir foretatt gjennom bruk av SQLite database. 
 
 \chapter{Utfordringer}
 \section{Rotasjon}
@@ -150,7 +294,4 @@ Her skal man forklare forskjellen mellom å lagre status av skjermen på den gam
     }
 \end{lstlisting}
 
-\section{SQLite}
-
-\chapter{Lagring av data}
 
