@@ -162,6 +162,9 @@ De øvrige aktiviteter som er implementert er (1) aktivitet for oversikt over po
 
 \chapter{Klasser og struktur}
 
+\emph{I følgende avsnitt presenteres en oversikt over alle klasser i applikasjonen. Dette blir presentert i både listen under med kort beskrivelse og forklaring for hver klasse, samt et uml klassediagram i figur \ref{fig:klassediagram}, side \pageref{fig:klassediagram}.}
+\\
+
 \begin{description}
 \item[\underline{\texttt{StartGameActivity}}] Klasse som har ansvar for å starte hovedaktiviteten i applikasjonen. 
 
@@ -220,9 +223,7 @@ Klassen representerer en abstraksjon av spiller i spillet som brukes for å midl
 
 
 \chapter{Presentasjon av løsninger}
-
-\textbf{\emph{I følgende avsnitt presenteres det kodeeksempel over de viktigste løsninger fra applikasjonens klasser. For innføring i resterende klasser i metoder henvises det til den innleverte kildekoden.}}
-
+\emph{I følgende avsnitt presenteres det kodeeksempel over de viktigste løsninger fra applikasjonens klasser, konfigurasjon bestående av xml filer samt grafiske gui elementer. For innføring i detaljerte løsningen og fremgangsmåter refereres til den innleverte kildekoden.}
 \section{Lagring av data}
 
 \subsection{\texttt{HangmanDatabase.java}}
@@ -388,7 +389,7 @@ Etter at språk er endret endres også alle dynamiske komponenter som f.eks. tas
 
 Det er ingen applikasjon som kan blir riktig fremgangsrik på kun god funksjonalitet. Det er utrolig viktig med god GUI som ikke er fremtrengende med er bra nok for å gjøre jobben sin. Jeg har ingen direkte erfaring i UX-design men har gjort flere forsøk for å gjøre applikasjonen å «stikke» ut fra mengden og være litt unik. Følgende avsnitt beskriver de tiltak og forsøk som ligger til grunn for design og valg som er tatt.
 
-\subsection{Fargetema}
+\subsection{Fargetema} \label{sub:farger}
 Fargetema som er valgt til applikasjonen er basert på \texttt{triad} fargebase. Valg av farger er gjort med hjelp av webtjeneste \textit{Paletton} og den originale fargevalget er lagret under følgende \href{http://paletton.com/#uid=3470u0krausgVEBm0wFuzpjybk1}{link}.
 
 \begin{figure}[ht]
@@ -583,7 +584,9 @@ I eksempel \ref{xml:stil_knapper_link} og \ref{xml:stil_knapper_stil} vises alle
 </shape>
 \end{lstlisting}
 
-\subsection{Animasjoner}
+\subsection{Animasjoner} \label{sub:animasjoner}
+Animasjoner er satt opp med hjelp av xml konfigurasjon, disse blir brukt i samband med at applikasjon starter på første aktiviteten. Det som blir animert er tittelen og hangman figuren som skal gi inntrykk av å bli «hengt» fra overskriften, se figur \ref{fig:hangman_animasjon}.
+
 
 \begin{figure}[ht]
     \centering
@@ -600,6 +603,7 @@ I eksempel \ref{xml:stil_knapper_link} og \ref{xml:stil_knapper_stil} vises alle
     \label{fig:hangman_animasjon}
 \end{figure}
 
+Overskriften blir animert med én toningseffekt og hangman får en animasjon som skal påminne om en pendel bevegelse fra venstre til høyre så lenge første aktiviteten er aktiv i applikasjonen. Kode for konfigurasjon av disse to animasjoner er splittet i to separate filer onder \texttt{anim} resurser og presenteres i sin helhet i kodeeksempel \ref{xml:animasjoner}.
 
 \begin{lstlisting}[language=XML, caption=Konfigurasjon for samtlige animasjoner i startskjerm, label=xml:animasjoner]
 <?xml version="1.0" encoding="utf-8"?>
@@ -647,6 +651,8 @@ I eksempel \ref{xml:stil_knapper_link} og \ref{xml:stil_knapper_stil} vises alle
 
 \subsection{Illustrasjoner}
 
+Under spillets gang hver gang spiller gjetter feil bokstav vil det fremkomme en ny del av hangman figuren. Figuren består av totalt sju bilder som blir skiftet ut i en \texttt{ImageView} komponent. For at illustrasjonen ikke skal bevege seg kommer er den laget i en «lerret» av samme størrelse i alle figurer (opprettet i Inkscape), se figur \ref{fig:hangman_progresjon}.
+
 \begin{figure}[ht]
     \centering
    \begin{subfigure}[b]{0.1\textwidth}
@@ -676,10 +682,75 @@ I eksempel \ref{xml:stil_knapper_link} og \ref{xml:stil_knapper_stil} vises alle
 
 \subsection{Designprinsipper fra \texttt{developer.android.com}}
 
+Oppgaveteksten fremfører at man skal spesifisere hvilke designprinsipper som ligger til grunn for applikasjonen som man kan lese om på \href{http://developer.android.com/design/index.html}{developer.android.com}.
+Følgende siden viser til mesteparten anbefalinger for \textit{material design} som er det nye grafiske grensesnittet tilgjengelig fra API 21 (Lollipop). Even om i prinsipp detter grensesnittet skal være kompatibelt med v7 bibliotek\footnote{\href{http://developer.android.com/tools/support-library/features.html\#v7-appcompat}{http://developer.android.com/tools/support-library/features.html\#v7-appcompat}} 
+er den ikke tatt i bruk i denne applikasjon fordi det jeg ansåg ikke at slik rammeverk er relatert til spill.
+Imidlertid er det mulig å relatere noen av de designprinsipper som beskrives på siden direkte til denne appen. Disse er da blant annet: 
 
-\chapter{Utfordringer og mulige forbedringer}
-\section{Rotasjon}
-\section{Internasjonalisering}
+\begin{enumerate}
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/usability/accessibility.html}{Tilgjengelighet}}}
+Fargevalget som er tatt for applikasjonen er testet slik at fargen som brukes vil også fungere for brukere med fargeblindhet. Dette er både gjennomført i nettjenesten\footnote{Dette kan testes gjennom å gå til \href{http://paletton.com/\#uid=3470u0krausgVEBm0wFuzpjybk1}{paletton.com} og velge \textit{color simulation}} som bruktes for å velge farger og direkte på en fysisk enhet. Testene var gjennomført på en Nexus 4 enhet med API 22 som tillater endring av fargerom for å visualisere fargeblindhet. Det er testet for både rød-grønn og blå-gul versjoner av fargeblindhet hvilket i teorien viste at alle komponenter i det brukte fargetemaet er godt synlige. Det var dessverre ikke mulig å ta skjermebild av testen ettersom simulasjonen er en \textit{«overlay»} som legges rett på fysisk ouput til skjerm og ikke på applikasjonsnivå. 
+
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/animation/authentic-motion.html}{Animasjon og transisjoner}}}
+Som tidligere beskrevet i avsnitt \ref{sub:animasjoner} benyttes animasjon på startaktiviteten for både overskrift og hangman figur. Det brukes også standard transmisjoner i alle komponenter som representeres av \texttt{ListView} komponenter. Slike komponenter benyttes blant annet meny til på start aktiviteten og for valg av eksisterende spillere. se figur \ref{fig:design_trans}.
+
+
+\item \textbf{\textsl{Farger}}
+Som de anbefales i \href{https://www.google.com/design/spec/style/color.html}{design manualen} skal man benytte seg av flere toner av de farger som brukes. Som tidligere nevnt i avsnitt \ref{sub:farger} er det brukt totalt tre grunnfarger (complement triad farger). Hver enkel av disse farger er deretter «splittet» i flere undertoner i resurser \texttt{colors.xml} og presenteres i eksempel \ref{xml:colors}, side \pageref{xml:colors}.
+
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/layout/principles.html}{Layout}}}
+Ifølge manualen skal applikasjonen være tilpasset til forskjellige skjermstørrelser og ulike pikseldensiteter. Hangman applikasjonen er dessverre kun tilpasset skjermstørrelsen til en Nexus S enhet. På grunn av vanskelighetsnivå kommer det til å legges større vekt på slik tilpassing i etterkommende innleveringer i faget. 
+Den generelle layouten som følges i alle aktiviteter i applikasjoner er en sentrert layout som er brukt for stående orientering. Dette er godt synlig på både startskjerm, login aktivitet samt selve spilleaktivitet der både hangmanbilde, tastatur og alle komponenter er orientert rundt en sentral linje. Alle liggende aktiviteter benytter seg av en layout som er orientert mer til høyre side slik at inntasting av bokstaver kan gjøres med høyre hånd.
+
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/components/bottom-sheets.html}{Komponenter}}}
+Etter anbefalinger fra manualen er det brukt marginer for alle komponenter slik at disse er plassert på en rimelig avstand fra skjermens kanter og til hverandre. Dette ble oppnådd gjennom at man benyttet seg av relativ layout og grid layout på innsiden av denne. I xml filer der komponentene plasseres ut statisk er de balansert med hjelp av bruk av margin og padding spesifikasjoner. Der det kun benyttes relativ layout brukes de spesifikasjoner at komponentene skal plasseres i forhold til hverandre f.esk. under en spesifikk komponent eller på toppen eller bunn av skjermen. 
+
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/patterns/app-structure.html}{Struktur}}}
+Her utgår er det gjort forsøk på at applikasjonen skal være ganske intuitivt å bruker. Fra startskjermen skal det være veldig enkelt for brukeren å navigere seg fre og til bake mellom aktivitetene. Det er ikke brukt noen spesielle komponenter i applikasjonen foruten den navigasjonen som er innebygget i hardware i testenheten Nexus S. I store sammendrag er det brukt den enkleste formen av navigasjon der brukeren kan kun navigere på en linjer måte mellom aktivitetene. Det finnes ingen sidemenyer eller andre komponenter som kan plukkes frem via en menyknapp (slik som material design tilbyr) uten brukeren kan kun navigere frem eller tilbake. Det eneste aktiviteten som bryter detter er dialogen som tillater språkskifte for applikasjonen ettersom ved et språkskifte blir aktiviteten for systeminnstillinger avsluttet og startaktiviteten starter på nytt. 
+
+\end{enumerate} 
+
+
+\begin{figure}[float]
+    \centering
+   \begin{subfigure}[b]{0.25\textwidth}
+        \includegraphics[width=\textwidth]{./img/design/d1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.25\textwidth}
+        \includegraphics[width=\textwidth]{./img/design/d2.png}
+    \end{subfigure}
+    \caption{Eksempel over transmisjoner brukt \texttt{ListView} elementer}
+    \label{fig:design_trans}
+\end{figure}
+
+
+\chapter{Utfordringer}
+\emph{I dette kapitlet beskrives de utfordringer og ting som er ønskevert til å gjøre bedre.}
+
+\section{Rotasjon og internasjonalisering}
+Android rammeverket har et veldig godt støtte for skifting av rotasjon. Dersom det benyttes statiske komponenter som er definert i xml er rotasjon ingen utfordring så lenge man definerer alternative skjermbilder for alternativ layout. Samme tilnærming kan gjøres dersom man skal benytte seg av nytt språk i aktiviteten. Alle komponenter kan da endres enkelt gjennom strings.xml i alternativt språk. Dersom noen komponenter må tilpasses lokalisering f.eks. at teksten skal flyte fra høyre til venstre kan det opprettes alternative skjermbilder for en eller flere språkgrupper. 
+
+I denne oppgave har den første utfordringen gjort seg kjent gjennom at i spillaktiviteten brukes det to dynamiske aktiviteter som ikke er definert i xml kode med blir satt opp og fylt opp direkte fra Java kode. Disse komponenter er boksene med bokstaver og tastatur. Dette designvalget ble tatt for at applikasjonen skulle skalere uavhengig hvilket språk som vil bli benyttet i applikasjonen i fremtiden. For at få et lokalt tilpasset tastatur trenger man in prinsipp legge inn en ny xml fil med lokalt alfabet som heter alphabet.xml (den må i tillegg plasseres i mappe med suffiks som overensstemmer med språket på tastaturet) og velge dette språket i systemet. Det blir automatisk valgt riktig språk og nytt tastatur er opprettet. 
+
+Dynamiske komponenter danner trøbbel så snart man endrer orientering på skjermen. Fordi at disse blir ikke håndtert av rammeverket. Dette kan enkelt løses gjennom å lagre tilstand til disse i en lempelig metode og gjenopprette disse etter at rotasjonen er gjennomført. Et krav for applikasjonen var at brukeren skal kunne skifte språk inne i applikasjonens innstillinger eller meny. Dette blir en utfordring dersom applikasjonen skal klare av følgende bruksmønster:
+\begin{enumerate}
+\item Brukeren endrer språk i på i applikasjonen, systemspråk forblir uforandret. Vi er nå i en situasjon der systemspråk og og språk i appen er forskjellige. 
+\item Brukeren starter et nytt spill og roterer skjermen. 
+\item Systemet starter om aktiviteten og kjører \texttt{onCreate(Bundle savedInstanceState)}. Aktiviteten går tilbake til språk som er satt opp på systemet. 
+\end{enumerate}
+
+\subsection{Mulig løsning}
+Dette er den første løsningen som ble testet uten noen større fremgang eller stabilitet i applikasjonen. 
+\begin{enumerate}
+\item Etter skifte av språk, lagre det språk som det ble skiftet til i \texttt{SharedPreferences}.
+\item Dersom det initialiseres en skjermrotasjon ta vare på alle nødvendige komponenter, objekter og variabler i \texttt{onSaveInstanceState(Bundle outState)} og deretter instansiere de på nytt med hjelp av \texttt{onRestoreInstanceState(Bundle savedInstanceState)}.
+\item Etter skjermrotasjon kjører \texttt{onCreate(Bundle savedInstanceState)} applikasjonen skifter språk tilbake til valgt systemspråk. 
+\item Det må tvinges frem på nytt et bytte av språk i den kjørende aktiviteten og en omstart av denne for å skifte språk på nytt. Det medfører at applikasjonen kjører \texttt{onCreate()} på nytt og koden går i en evig loop som krever en del ukonvensjonelle løsninger for at får det til å fungere. 
+\end{enumerate}
+
+\subsection{Fungerende løsning}
+Følgende løsning er det den som er tatt i bruk og viser seg i de fleste fall ganske stabil. Denne løsninger 
+
 \section{Arkitektur}
 
 
