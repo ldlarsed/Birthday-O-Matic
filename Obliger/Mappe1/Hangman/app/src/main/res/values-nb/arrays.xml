@@ -5,7 +5,6 @@
         <item>BIL</item>
         <item>MUSIKK</item>
         <item>ANDROID</item>
-        <item>DATAMASKIN</item>
         <item>TELEFON</item>
         <item>KATT</item>
         <item>HUND</item>
@@ -15,15 +14,12 @@
         <item>HIMMEL</item>
         <item>DANSE</item>
         <item>MIDDAG</item>
-        <item>KVELDSMAT</item>
-        <item>MOTORSYKKEL</item>
         <item>GIRAFF</item>
         <item>LØVE</item>
         <item>PIZZA</item>
         <item>GULEROT</item>
-        <item>HAMBURGER</item>
         <item>SPILL</item>
         <item>JORDBÆR</item>
-        <item>SKØLDPADDE</item>
+        <item>RADIO</item>
     </string-array>
 </resources>

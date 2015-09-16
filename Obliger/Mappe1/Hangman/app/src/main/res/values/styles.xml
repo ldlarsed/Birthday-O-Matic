@@ -12,8 +12,6 @@
         <item name="android:textColorSecondary">@color/secondary_1_2</item>
         <item name="android:textColorTertiary">@color/secondary_1_2</item>
         <item name="colorAccent">@color/secondary_1_2</item>
-
-
     </style>
 
 

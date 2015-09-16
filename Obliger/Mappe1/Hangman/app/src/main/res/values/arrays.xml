@@ -16,14 +16,14 @@
         <item>DANCE</item>
         <item>DINNER</item>
         <item>SUPPER</item>
-        <item>MOTORCYCLE</item>
         <item>GIRAFFE</item>
         <item>LION</item>
         <item>PIZZA</item>
         <item>CARROT</item>
         <item>HAMBURGER</item>
         <item>GAME</item>
-        <item>STRAWBERRY</item>
+        <item>BEER</item>
         <item>TURTLE</item>
+        <item>RADIO</item>
     </string-array>
 </resources>

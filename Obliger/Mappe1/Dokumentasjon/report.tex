@@ -59,7 +59,7 @@
    captionpos=t
 }
 
-\lstdefinestyle{java1}{
+\lstdefinestyle{Java}{
   language=Java,
   basicstyle={\ttfamily\footnotesize},
   numberstyle={\ttfamily\footnotesize},
@@ -76,7 +76,7 @@
   stepnumber=1,
   tabsize=2
 }
-\lstset{style=java1,
+\lstset{style=Java,
 literate=%
 {æ}{{\ae}}1
 {å}{{\aa}}1
@@ -85,8 +85,26 @@ literate=%
 {Å}{{\AA}}1
 {Ø}{{\O}}1
 }
-\renewcommand\lstlistingname{Eksempel}
-\renewcommand\lstlistlistingname{Eksempler}
+
+\definecolor{gray}{rgb}{0.4,0.4,0.4}
+\definecolor{darkblue}{rgb}{0.0,0.0,0.6}
+\definecolor{cyan}{rgb}{0.0,0.6,0.6}
+
+
+\lstdefinelanguage{XML}
+{
+  morestring=[b]",
+  morestring=[s]{>}{<},
+  morecomment=[s]{<?}{?>},
+  stringstyle=\color{black},
+  identifierstyle=\color{darkblue},
+  keywordstyle=\color{cyan},
+  morekeywords={xmlns,version,type}% list your attributes here
+}
+
+
+\renewcommand\lstlistingname{Kodeeksempel}
+\renewcommand\lstlistlistingname{Kodeeksempler}
 
 
 \usepackage{fancyhdr}
@@ -118,11 +136,11 @@ literate=%
 \tableofcontents
 \lstlistoflistings
 \listoffigures
-\listoftables
+%\listoftables
 
 
 \input{./tex/chapters.tex}
-\input{./tex/example_chapter.tex}
+%\input{./tex/example_chapter.tex}
 %\input{./tex/introduksjon/introduksjon.tex}
 %\input{./tex/prosessdokumentasjon/prosessdokumentasjon.tex}
 %\input{./tex/produktdokumentasjon/produktdokumentasjon.tex}

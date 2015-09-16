@@ -384,59 +384,302 @@ Etter at språk er endret endres også alle dynamiske komponenter som f.eks. tas
 
 
 
-\section{Grafiske komponenter}
-De brukes noen komponenter som er opprettet gjennom en egen. 
+\section{GUI komponenter}
+
+Det er ingen applikasjon som kan blir riktig fremgangsrik på kun god funksjonalitet. Det er utrolig viktig med god GUI som ikke er fremtrengende med er bra nok for å gjøre jobben sin. Jeg har ingen direkte erfaring i UX-design men har gjort flere forsøk for å gjøre applikasjonen å «stikke» ut fra mengden og være litt unik. Følgende avsnitt beskriver de tiltak og forsøk som ligger til grunn for design og valg som er tatt.
+
+\subsection{Fargetema}
+Fargetema som er valgt til applikasjonen er basert på \texttt{triad} fargebase. Valg av farger er gjort med hjelp av webtjeneste \textit{Paletton} og den originale fargevalget er lagret under følgende \href{http://paletton.com/#uid=3470u0krausgVEBm0wFuzpjybk1}{link}.
+
+\begin{figure}[ht]
+\centering
+ \includegraphics[scale=0.25]{./img/gui/4.png}
+ \caption{Fargevalg baser på \textit{Triad} fargepalett.}
+ \label{fig:gui_colors}
+\end{figure}
+
+
+Det valgte fargetemaet bruke i flere tonevariasjoner utover alle komponentene i applikasjonen. De hex koder som er valgt for variasjonene er lagret i \texttt{colors.xml} og presentert i eksempel \ref{xml:colors}.
+
+\begin{lstlisting}[language=XML, caption=Fargepalett i colors.xml, label=xml:colors]
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="primary_0">#3D2CA8</color>
+    <color name="primary_1">#796CC8</color>
+    <color name="primary_2">#5648B2</color>
+    <color name="primary_3">#28188C</color>
+    <color name="primary_4">#1B0D6F</color>
+
+    <color name="secondary_1_0">#F3EA25</color>
+    <color name="secondary_1_1">#FFF978</color>
+    <color name="secondary_1_2">#FFF750</color>
+    <color name="secondary_1_3">#CAC109</color>
+    <color name="secondary_1_4">#A09900</color>
+
+    <color name="secondary_2_0">#F3A525</color>
+    <color name="secondary_2_1">#FFCC78</color>
+    <color name="secondary_2_2">#FFBD50</color>
+    <color name="secondary_2_3">#CA8109</color>
+    <color name="secondary_2_4">#A06400</color>
+
+</resources>
+\end{lstlisting}
 
 
 
-\chapter{Utfordringer}
+
+
+
+\subsection{Custom stiler}
+De brukes noen komponenter som er opprettet med hjelp av egendefinerte stiler. Eksempel på dette er bokser der alle bokstaver vises og alle knapper som benyttes i applikasjonen. Figur \ref{fig:gui_bokser} viser eksempel på hvordan det er mulig å endre en standard \texttt{TextEdit} slik at den likner på en boks med riktig forgrunn- og bakgrunnsfarge.
+
+\begin{figure}[ht]
+    \centering
+   \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/2.png}
+        \caption{Bokser lagd av \texttt{EditText}}
+        \label{fig:gui_bokser}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.3\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/3.png}
+        \caption{Tastatur}
+        \label{fig:gui_tastatur_eng}
+    \end{subfigure}
+    \caption{Internasjonalisering av spillaktivitet}
+    \label{fig:custom_gui_comp}
+\end{figure}
+
+Det er flere stiler som er redefinert i applikasjonen. Generelle komponenter som ikke er redefinert er det skiftet farge på i \texttt{styles.xml} slik at de motsvarer det som er satt opp i definisjonen for fargetema. Ut utdrag av den konfigurasjonen presenteres i \ref{xml:stil_styles}. Stiler er satt opp med strengen \texttt{Theme.AppCompat.Light.NoActionBar} hvilken fra API 19 fjerner «action bar» i applikasjonen slik at den kan kjøres i helskjerm modus. 
+
+\begin{lstlisting}[language=XML, caption=Deler av \texttt{styles.xml}, label=xml:stil_styles]
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/primary_0</item>
+        <item name="android:buttonStyle">@style/button</item>
+        <item name="colorControlActivated">@color/secondary_2_2</item>
+        <item name="android:textColor">@color/secondary_2_2</item>
+        <item name="android:textColorPrimary">@color/secondary_2_2</item>
+        <item name="android:textColorSecondary">@color/secondary_1_2</item>
+        <item name="android:textColorTertiary">@color/secondary_1_2</item>
+        <item name="colorAccent">@color/secondary_1_2</item>
+    </style>
+\end{lstlisting}
+
+\subsubsection*{Bokser for bokstaver}
+I eksempel \ref{xml:stil_EditText} vises hvordan komponenter for \texttt{EditText} ble definert. Stilen brukes deretter direkte i koden der det opprettes passende antall komponenter av \texttt{EditText} utefra antall \texttt{char} som finnes i det ordet som ble trukket fra ordlisten i \texttt{arrays.xml}. 
+\begin{lstlisting}[language=XML, caption=Stil for \texttt{EditText}, label=xml:stil_EditText]
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle"
+    android:thickness="0dp">
+    <solid android:color="@color/primary_0" />
+    <stroke
+        android:width="2dp"
+        android:color="@color/secondary_2_2" />
+</shape>
+\end{lstlisting}
+
+Kodeeksempel \ref{code:stil_EditText} viser hvordan stilen for \texttt{EditText} blir brukt rett i dynamisk oppretting av tekstbokser for det ord som skal gjettes. I metoden \texttt{setWord()} er det tilgjengelig en \texttt{ArrayList} av EditText objekter som skal representere ordet. Ordet blir deretter hentet fra \texttt{wordsProvider.getNextWord()} som vil kontinuerlig forsyne spilleklassen med nye unike ord (så lenge disse er tilgjengelige i arrays.xml). For mulighet til debuggin gblir de nye ordene også vist i LogCat med tag HANGMAN. Deretter i samme eksempel blir det kalt opp metode \texttt{createLettersToGuess()} som generere EditText på skjermen og setter riktig tema på disse objekter.
+
+\begin{lstlisting}[language=Java, caption=Oppretting av dynamisk  \texttt{EditText}, label=code:stil_EditText]
+    private void setWord() {
+        lettersCount = 0;
+        edComponents = new ArrayList<>();
+        letters = wordsProvider.getNextWord();
+        
+        Log.w(getResources().getString(R.string.exception), Arrays.toString(letters)); //Show new word in log view
+        if (letters[0] == '0') {
+            Toast.makeText(this, getResources().getString(R.string.info_no_more_letters), Toast.LENGTH_SHORT).show();
+            Log.w(getResources().getString(R.string.exception), getResources().getString(R.string.info_no_more_letters));
+        }
+
+        lettersOriginal = letters.clone();
+
+        createLettersToGuess();
+    }
+    
+    private void createLettersToGuess(){
+        for (char c : letters) {
+            final EditText et = new EditText(this);
+            et.setEnabled(false);
+            et.setTextColor(getResources().getColor(R.color.secondary_2_2));
+            et.setTypeface(Typeface.MONOSPACE, Typeface.BOLD);
+            et.setTextSize(15);
+            et.setWidth(53);
+            et.setHintTextColor(getResources().getColor(R.color.secondary_2_1));
+            et.setBackgroundResource(R.drawable.edit_text_background);
+
+            edComponents.add(et);
+            wordsLayout.addView(et);
+            lettersCount++;
+        }
+    }
+\end{lstlisting}
+
+
+\subsubsection*{Knapper og tastatur}
+Konfigurasjon av stiler for knapper består av flere definerte stiler som motsvarer hver enkelt tilstand for knappen. I applikasjonen består disse tilstand av \textit{enabled}, \textit{disabled} (etter at bokstaven er brukt) og \textit{pressed} (da knappen er trukket ned). 
+Disse tilstand er definert i \texttt{button\_enabled.xml}, \texttt{button\_disabled.xml}, \texttt{button\_pressed.xml} samt \texttt{button\_focused.xml} (brukes ikke).
+Disse stiler er deretter linket til button.xml som deretter er brukt for å redefinere standard android knapp i styles.xml.
+
+\begin{lstlisting}[language=XML, caption=Redefinert stil for knapper i styles.xml, label=xml:stil_knapper]
+    <style name="button" parent="@android:style/Widget.Button">
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+        <item name="android:textColor">#FFFFFFFF</item>
+        <item name="android:shadowColor">#FF000000</item>
+        <item name="android:shadowDx">0</item>
+        <item name="android:shadowDy">-1</item>
+        <item name="android:shadowRadius">0.2</item>
+        <item name="android:textSize">16dip</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:background">@drawable/button</item>
+        <item name="android:focusable">true</item>
+        <item name="android:clickable">true</item>
+    </style>
+\end{lstlisting}
+
+I eksempel \ref{xml:stil_knapper_link} og \ref{xml:stil_knapper_stil} vises alle stiler er linket sammen samt eksempel over én knappestil for aktiv knapp.
+
+
+\begin{lstlisting}[language=XML, caption=\texttt{button.xml} konfigurasjon som linker inn alle stiler, label=xml:stil_knapper_link]
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:state_enabled="false"
+        android:drawable="@drawable/button_disabled" />
+    <item
+        android:state_pressed="true"
+        android:state_enabled="true"
+        android:drawable="@drawable/button_pressed" />
+    <item
+        android:state_focused="true"
+        android:state_enabled="true"
+        android:drawable="@drawable/button_focused" />
+    <item
+        android:state_enabled="true"
+        android:drawable="@drawable/button_enabled" />
+</selector>
+\end{lstlisting}
+
+\begin{lstlisting}[language=XML, caption=\texttt{button\_enabled.xml} eksempel på en knappestil for aktivert knapp, label=xml:stil_knapper_stil]
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <gradient
+        android:angle="90"
+        android:centerColor="@color/primary_1"
+        android:endColor="@color/primary_0"
+        android:startColor="@color/primary_0" />
+    <padding
+        android:bottom="7dp"
+        android:left="7dp"
+        android:right="7dp"
+        android:top="7dp" />
+    <stroke
+        android:width="2dip"
+        android:color="@color/primary_0" />
+    <corners android:radius="8dp" />
+</shape>
+\end{lstlisting}
+
+\subsection{Animasjoner}
+
+\begin{figure}[ht]
+    \centering
+   \begin{subfigure}[b]{0.25\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/a1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.25\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/a2.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.25\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/a3.png}
+    \end{subfigure}
+    \caption{Animasjon i start aktivitet}
+    \label{fig:hangman_animasjon}
+\end{figure}
+
+
+\begin{lstlisting}[language=XML, caption=Konfigurasjon for samtlige animasjoner i startskjerm, label=xml:animasjoner]
+<?xml version="1.0" encoding="utf-8"?>
+<set xmlns:android="http://schemas.android.com/apk/res/android" android:fillAfter="true">
+    <alpha
+        android:duration="3000"
+        android:fromAlpha="0.0"
+        android:interpolator="@android:anim/accelerate_interpolator"
+        android:toAlpha="1.0" />
+    <scale
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:fromXScale="1.0"
+        android:fromYScale="0.0"
+        android:toXScale="1.0"
+        android:toYScale="1.0" >
+    </scale>
+</set>
+
+<?xml version="1.0" encoding="utf-8"?>
+<set
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:fillAfter="true" >
+    <scale
+        android:duration="1000"
+        android:interpolator="@android:anim/linear_interpolator"
+        android:fromXScale="1.0"
+        android:fromYScale="-10.0"
+        android:toXScale="1.0"
+        android:toYScale="1.0" >
+    </scale>
+    <rotate
+        android:fromDegrees="15"
+        android:toDegrees="-15"
+        android:pivotX="50%"
+        android:pivotY="0%"
+        android:duration="2000"
+        android:repeatMode="reverse"
+        android:repeatCount="-1"
+        />
+</set>
+\end{lstlisting}
+
+
+
+\subsection{Illustrasjoner}
+
+\begin{figure}[ht]
+    \centering
+   \begin{subfigure}[b]{0.1\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/hang0.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.1\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/hang1.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.1\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/hang2.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.1\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/hang3.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.1\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/hang4.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.1\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/hang5.png}
+    \end{subfigure}
+    \begin{subfigure}[b]{0.1\textwidth}
+        \includegraphics[width=\textwidth]{./img/gui/hang6.png}
+    \end{subfigure}
+    \caption{Progresjon av hangman bilde}
+    \label{fig:hangman_progresjon}
+\end{figure}
+
+\subsection{Designprinsipper fra \texttt{developer.android.com}}
+
+
+\chapter{Utfordringer og mulige forbedringer}
 \section{Rotasjon}
-Her skal man forklare forskjellen mellom å lagre status av skjermen på den gamle måten og den nye i systemet. Hvordan de forskjellige komponentene lastes om. 
-\begin{lstlisting}[language=Java]
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-
-        outState.putString(PLAYERNAME, pName);
-        outState.putInt(LETTERSCOUNT, lettersCount);
-        outState.putCharArray(LETTERS, letters);
-        outState.putInt(GAMESCORE, gameScore);
-        outState.putInt(SESSIONSCORE, sessionScore);
-        outState.putInt(TRYCOUNT, tryCount);
-        outState.putInt(LETTERSGUESSED, lettersGuessed);
-        outState.putInt(GAMESWON, gamesWon);
-        outState.putInt(GAMESLOST, gamesLost);
-
-        Toast.makeText(this, "Data er lagret", Toast.LENGTH_SHORT).show();
-
-    }
-\end{lstlisting}
-
-\begin{lstlisting}
- @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-
-
-        pName = savedInstanceState.getString(PLAYERNAME);
-        lettersCount = savedInstanceState.getInt(LETTERSCOUNT);
-        letters = savedInstanceState.getCharArray(LETTERS);
-        gameScore = savedInstanceState.getInt(GAMESCORE);
-        sessionScore = savedInstanceState.getInt(SESSIONSCORE);
-        tryCount = savedInstanceState.getInt(TRYCOUNT);
-        lettersGuessed = savedInstanceState.getInt(LETTERSGUESSED);
-        gamesWon = savedInstanceState.getInt(GAMESWON);
-        gamesLost = savedInstanceState.getInt(GAMESLOST);
-
-        updateHangmanImage();
-        Toast.makeText(this, "Restoring game score: "+gameScore, Toast.LENGTH_SHORT).show();
-
-        playerName.setText(pName);
-        gameScoreView.setText(String.valueOf(gameScore));
-        sessionScoreView.setText(String.valueOf(sessionScore));
-        gameScoreView.setText(String.valueOf(gamesWon));
-        sessionScoreView.setText(String.valueOf(sessionScore));
-    }
-\end{lstlisting}
+\section{Internasjonalisering}
+\section{Arkitektur}
 
 
