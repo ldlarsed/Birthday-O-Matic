@@ -9,15 +9,16 @@
 \item ID for applikasjonen: com.example.s198569.hangman
 \item Utviklingsmiljø: Android Tools 1.3.2, Fedora Linux 22 x64
 \item Debugging og testing gjennomført på LGE Optimus 2X (P990) med Cyanogenmod Android 4.4.4. Enheten har samme skjermstørrelse som målenhet Samsung Nexus S.
+\item Applikasjonen er også testet og debugget på en emulator med Nesus S og API 19.
 \end{itemize}
 
 
-\section{Hva er implementert og hva har jeg lært meg?}
+\section{Hva har jeg lært meg?}
 Jeg har aldri før utviklet for Android derfor er alle komponenter som jeg bruker i applikasjonen nye for meg. Jeg hatt som mål å strekke meg noe utøver de krav som er beskrevet i oppgavebeskrivelsen. Følgende liste er et sammendrag over de komponenter som er implementert i applikasjonen utøver de som vært introdusert i forelesningene:
 
 \begin{description}
 
-\item[SQLite] Lagring og lesing av data i appens interne \texttt{SQLite} database.
+\item[SQLite] Lagring og lesing av data i applikasjonens interne \texttt{SQLite} database.
 
 \item[Styles] Egne stiler for flere komponenter. Eksempel på dette er egne stiler som er brukt i f.eks. \texttt{GamePlayActivity} der det er opprettet egne stiler både for knapper og \texttt{EditText} som benyttes til å vise ord som skal gjettes.
 
@@ -57,21 +58,21 @@ Fra dette bilde er det mulig for spilleren å:
 
 \section{Nytt spill}
 
-Spilleren blir presentert med et skjermbilde for å starte nytt spill , figur \ref{fig:registrering}. Her er det mulig å starte et nytt spill gjennom å registrere en ny spiller eller fortsette som en spiller som allerede er registrert fra før. Figur \ref{fig:ny_spiller} viser tilnærming for registrering av en ny spiller. Her blir brukeren varslet om at et nytt brukernavn er registrert via en \texttt{toast} og spurt dersom man ønsker å fortsette å spille med den nye spilleren. Spillet starter og et nytt brukernavn er presenter på spille aktiviteten i nord-vestre hjørne , figur \ref{fig:spill_igang}.
+Spilleren blir presentert med et skjermbilde for å starte nytt spill , figur \ref{fig:registrering}. Her er det mulig å starte et nytt spill gjennom å registrere en ny spiller eller fortsette som en spiller som allerede er registrert fra tidligere. Figur \ref{fig:ny_spiller} viser tilnærming for registrering av en ny spiller. Her blir brukeren varslet om at et nytt brukernavn er registrert via en \texttt{toast} og spurt dersom man ønsker å fortsette å spille med den nye spilleren. Spillet starter og et nytt brukernavn er presenter på spille aktiviteten i nord-vestre hjørne , figur \ref{fig:spill_igang}.
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/2.png}
         \caption{Registrering}
         \label{fig:registrering}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/3.png}
         \caption{Ny spiller registrert}
         \label{fig:ny_spiller}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/4.png}
         \caption{Pågående spill}
         \label{fig:spill_igang}
@@ -79,16 +80,16 @@ Spilleren blir presentert med et skjermbilde for å starte nytt spill , figur \r
     \caption{Nytt spill med en ny spiller}\label{fig:new_game_activities}
 \end{figure}
 
-Etter et spilleren har gjettet alle ord og vunnet eller ha misslykket med å avsløre hvilket ord som skjler seg bak firkantene blir spilleren spurt om man ønsker å spille én gang til, figur \ref{fig:fortsette}. Dersom det svares ja startes et nytt spill i samme økt. Dersom man har spilt minst et spill i økten blir spilleren presentert med enkel statistikk for den pågående økten i nord-østlig hjørne, se figur \ref{fig:nyt_spill_samme_okt}. I statistikken presenteres: (1) aktuelt antall poeng, (2) totalt antall poeng som spilleren har tjent sammen i pågående økt, (3) antall spill som er vunnet i økten samt (4) antall spill som er tapt. 
+Etter et spilleren har gjettet alle ord og vunnet eller ha mislykket med å avsløre hvilket ord som skjer seg bak firkantene blir spilleren spurt om man ønsker å spille én gang til, figur \ref{fig:fortsette}. Dersom det svares ja startes et nytt spill i samme økt. Dersom man har spilt minst et spill i økten blir spilleren presentert med enkel statistikk for den pågående økten i nord-østlig hjørne, se figur \ref{fig:nyt_spill_samme_okt}. I statistikken presenteres: (1) aktuelt antall poeng, (2) totalt antall poeng som spilleren har tjent sammen i pågående økt, (3) antall spill som er vunnet i økten samt (4) antall spill som er tapt. 
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/5.png}
         \caption{Fortsette?}
         \label{fig:fortsette}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/6.png}
         \caption{Nytt spill}
         \label{fig:nyt_spill_samme_okt}
@@ -98,22 +99,26 @@ Etter et spilleren har gjettet alle ord og vunnet eller ha misslykket med å avs
 
 
 \section{Innstillinger}
-I oppgaven skal det implementeres mulighet til endring av språk i applikasjonen uten en endring av systeminnstillinger. For å implementere slik funksjonalitet er det brukt \texttt{PreferenceActivity} som tillater en ryddig oppsamling av alle innstillinger som skal brukes i applikasjonen. Aktivitet med innstillinger startes har hoved menyen med \texttt{Settings} hvilken deretter starter aktivitet som presenteres i figur \ref{fig:innstllinger_oversikt}. Her blir det presentert en liste med alle mulige innstillinger i applikasjonen (anm. innstilling av skru på og av lyd er foreløpig ikke implementert ettersom det er ingen lydeffekter som er implementert i den versjonen). Brukeren har dog mulighet å endre språk for hele applikasjonen og blir presentert med en liste av alle aktuelt tilgjengelige språk, figur \ref{fig:innstllinger_velg_sprak}. Dersom brukeren velger et annet språk enn hva som er aktivt blir det presentert en kort advarsel om at dette er en \textit{alpha} funksjonalitet, figur \ref{fig:innstillinger_advarsel}. Jeg har valgt å varsle brukeren om dette ettersom det er en ikke anbefalt måte å endre språk på i en kjørende applikasjon. Det er noe som skal helt gjøres fra systemets språkinnstillinger ettersom Android systemet er satt opp på en måte som forsøker starte alle nye aktiviteter i det språk som er aktivt i systemet. Dette danner noen utfordringer under blant annet rotasjon av skjermen da det må lages spesiell kode i hver aktivitet som tar høyde for at applikasjonen kommer til å forsøke å overgå til standardspråk etter at orienteringen er endret.
+I oppgaven skal det implementeres mulighet til endring av språk i applikasjonen uten en endring av systeminnstillinger. For å implementere slik funksjonalitet er det brukt \texttt{PreferenceActivity} som tillater en ryddig oppsamling av alle innstillinger som skal brukes i applikasjonen. Aktivitet med innstillinger startes har hoved menyen med \texttt{Settings} hvilken deretter starter aktivitet som presenteres i figur \ref{fig:innstllinger_oversikt}. Her blir det presentert en liste med alle mulige innstillinger i applikasjonen (anm. innstilling av skru på og av lyd er foreløpig ikke implementert ettersom det er ingen lydeffekter som er implementert i den versjonen). 
+
+Brukeren har dog mulighet å endre språk for hele applikasjonen og blir presentert med en liste av alle aktuelt tilgjengelige språk, figur \ref{fig:innstllinger_velg_sprak}. Dersom brukeren velger et annet språk enn hva som er aktivt blir det presentert en kort advarsel om at dette er en \textit{alpha} funksjonalitet, figur \ref{fig:innstillinger_advarsel}. 
+
+Jeg har valgt å varsle brukeren om dette ettersom det er en ikke anbefalt måte å endre språk på i en kjørende applikasjon. Det er noe som skal helt gjøres fra systemets språkinnstillinger ettersom Android systemet er satt opp på en måte som forsøker starte alle nye aktiviteter i det språk som er aktivt i systemet. Dette danner noen utfordringer under blant annet rotasjon av skjermen da det må lages spesiell kode i hver aktivitet som tar høyde for at applikasjonen kommer til å forsøke å overgå til standardspråk etter at orienteringen er endret.
 
 
 \begin{figure}[ht]
     \centering
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/7.png}
         \caption{Oversikt}
         \label{fig:innstllinger_oversikt}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/8.png}
         \caption{Valg av språk}
         \label{fig:innstllinger_velg_sprak}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/9.png}
         \caption{Advarsel}
         \label{fig:innstillinger_advarsel}
@@ -125,12 +130,12 @@ Etter at språk blir endret blir aktiviteten med innstillinger lukket og fokus f
 
 \begin{figure}[ht]
     \centering
-   \begin{subfigure}[b]{0.3\textwidth}
+   \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/10.png}
         \caption{Språk endret}
         \label{fig:innstillinger_endret}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/11.png}
         \caption{Nytt språk i spillet}
         \label{fig:spill_norsk}
@@ -145,12 +150,12 @@ De øvrige aktiviteter som er implementert er (1) aktivitet for oversikt over po
 
 \begin{figure}[ht]
     \centering
-   \begin{subfigure}[b]{0.3\textwidth}
+   \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/12.png}
         \caption{High score}
         \label{fig:aktivitet_score}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/bruksanvisning/13.png}
         \caption{Hjelp}
         \label{fig:aktivitet_hjelp}
@@ -285,7 +290,7 @@ public Player createPlayer(String name){
     }
 \end{lstlisting}
 
-For å hente \textit{High Score} liste benyttes det kode som er presentert i kodeeksempel \ref{code:tabell_alle_spillere}. I presentert eksempel blir spillere hentet inn til peker og sortert direkte i pekeren etter poengkolonnen. Så lenge det eksisterer data som kan plasseres i pekeren opprettes det nye spiller objekter fra data som finnes i databasen og til slutt returneres det en sortert listen med spiller objekter.
+For å hente \textit{«High Score»} liste benyttes det kode som er presentert i kodeeksempel \ref{code:tabell_alle_spillere}. I presentert eksempel blir spillere hentet inn til peker og sortert direkte i pekeren etter poengkolonnen. Så lenge det eksisterer data som kan plasseres i pekeren opprettes det nye spiller objekter fra data som finnes i databasen og til slutt returneres det en sortert listen med spiller objekter.
 
 \begin{lstlisting}[language=Java, caption=Innheting av alle spiller og sortering, label=code:tabell_alle_spillere]
 public List<Player> getAllPlayers(){
@@ -369,12 +374,12 @@ Etter at språk er endret endres også alle dynamiske komponenter som f.eks. tas
 
 \begin{figure}[ht]
     \centering
-   \begin{subfigure}[b]{0.3\textwidth}
+   \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/losninger/1.png}
         \caption{Engelsk versjon}
         \label{fig:aktivitet_engelsk}
     \end{subfigure}
-    \begin{subfigure}[b]{0.3\textwidth}
+    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/losninger/2.png}
         \caption{Norsk versjon}
         \label{fig:aktivitet_norsk}
@@ -387,10 +392,10 @@ Etter at språk er endret endres også alle dynamiske komponenter som f.eks. tas
 
 \section{GUI komponenter}
 
-Det er ingen applikasjon som kan blir riktig fremgangsrik på kun god funksjonalitet. Det er utrolig viktig med god GUI som ikke er fremtrengende med er bra nok for å gjøre jobben sin. Jeg har ingen direkte erfaring i UX-design men har gjort flere forsøk for å gjøre applikasjonen å «stikke» ut fra mengden og være litt unik. Følgende avsnitt beskriver de tiltak og forsøk som ligger til grunn for design og valg som er tatt.
+Det er ingen applikasjon som kan blir riktig fremgangsrik på kun god funksjonalitet. Det er utrolig viktig med god GUI som ikke er fremtrengende med er bra nok for å gjøre jobben sin. Jeg har ingen direkte erfaring i UX-design men har gjort flere forsøk for å gjøre applikasjonen å «poppe» opp fra mengden og være litt unik. Følgende avsnitt beskriver de tiltak og forsøk som ligger til grunn for design og valg som er tatt.
 
 \subsection{Fargetema} \label{sub:farger}
-Fargetema som er valgt til applikasjonen er basert på \texttt{triad} fargebase. Valg av farger er gjort med hjelp av webtjeneste \textit{Paletton} og den originale fargevalget er lagret under følgende \href{http://paletton.com/#uid=3470u0krausgVEBm0wFuzpjybk1}{link}.
+Fargetema som er valgt til applikasjonen er basert på \texttt{triad} fargebase\footnote{En basefarge og to farger som ligger på her side om complementfargen til basefargen}. Valg av farger er gjort med hjelp av webtjeneste \textit{Paletton} og den originale fargevalget er lagret under følgende \href{http://paletton.com/#uid=3470u0krausgVEBm0wFuzpjybk1}{link}.
 
 \begin{figure}[ht]
 \centering
@@ -694,24 +699,7 @@ Fargevalget som er tatt for applikasjonen er testet slik at fargen som brukes vi
 \item \textbf{\textsl{\href{https://www.google.com/design/spec/animation/authentic-motion.html}{Animasjon og transisjoner}}}
 Som tidligere beskrevet i avsnitt \ref{sub:animasjoner} benyttes animasjon på startaktiviteten for både overskrift og hangman figur. Det brukes også standard transmisjoner i alle komponenter som representeres av \texttt{ListView} komponenter. Slike komponenter benyttes blant annet meny til på start aktiviteten og for valg av eksisterende spillere. se figur \ref{fig:design_trans}.
 
-
-\item \textbf{\textsl{Farger}}
-Som de anbefales i \href{https://www.google.com/design/spec/style/color.html}{design manualen} skal man benytte seg av flere toner av de farger som brukes. Som tidligere nevnt i avsnitt \ref{sub:farger} er det brukt totalt tre grunnfarger (complement triad farger). Hver enkel av disse farger er deretter «splittet» i flere undertoner i resurser \texttt{colors.xml} og presenteres i eksempel \ref{xml:colors}, side \pageref{xml:colors}.
-
-\item \textbf{\textsl{\href{https://www.google.com/design/spec/layout/principles.html}{Layout}}}
-Ifølge manualen skal applikasjonen være tilpasset til forskjellige skjermstørrelser og ulike pikseldensiteter. Hangman applikasjonen er dessverre kun tilpasset skjermstørrelsen til en Nexus S enhet. På grunn av vanskelighetsnivå kommer det til å legges større vekt på slik tilpassing i etterkommende innleveringer i faget. 
-Den generelle layouten som følges i alle aktiviteter i applikasjoner er en sentrert layout som er brukt for stående orientering. Dette er godt synlig på både startskjerm, login aktivitet samt selve spilleaktivitet der både hangmanbilde, tastatur og alle komponenter er orientert rundt en sentral linje. Alle liggende aktiviteter benytter seg av en layout som er orientert mer til høyre side slik at inntasting av bokstaver kan gjøres med høyre hånd.
-
-\item \textbf{\textsl{\href{https://www.google.com/design/spec/components/bottom-sheets.html}{Komponenter}}}
-Etter anbefalinger fra manualen er det brukt marginer for alle komponenter slik at disse er plassert på en rimelig avstand fra skjermens kanter og til hverandre. Dette ble oppnådd gjennom at man benyttet seg av relativ layout og grid layout på innsiden av denne. I xml filer der komponentene plasseres ut statisk er de balansert med hjelp av bruk av margin og padding spesifikasjoner. Der det kun benyttes relativ layout brukes de spesifikasjoner at komponentene skal plasseres i forhold til hverandre f.esk. under en spesifikk komponent eller på toppen eller bunn av skjermen. 
-
-\item \textbf{\textsl{\href{https://www.google.com/design/spec/patterns/app-structure.html}{Struktur}}}
-Her utgår er det gjort forsøk på at applikasjonen skal være ganske intuitivt å bruker. Fra startskjermen skal det være veldig enkelt for brukeren å navigere seg fre og til bake mellom aktivitetene. Det er ikke brukt noen spesielle komponenter i applikasjonen foruten den navigasjonen som er innebygget i hardware i testenheten Nexus S. I store sammendrag er det brukt den enkleste formen av navigasjon der brukeren kan kun navigere på en linjer måte mellom aktivitetene. Det finnes ingen sidemenyer eller andre komponenter som kan plukkes frem via en menyknapp (slik som material design tilbyr) uten brukeren kan kun navigere frem eller tilbake. Det eneste aktiviteten som bryter detter er dialogen som tillater språkskifte for applikasjonen ettersom ved et språkskifte blir aktiviteten for systeminnstillinger avsluttet og startaktiviteten starter på nytt. 
-
-\end{enumerate} 
-
-
-\begin{figure}[float]
+\begin{figure}[ht]
     \centering
    \begin{subfigure}[b]{0.25\textwidth}
         \includegraphics[width=\textwidth]{./img/design/d1.png}
@@ -723,8 +711,10 @@ Her utgår er det gjort forsøk på at applikasjonen skal være ganske intuitivt
     \label{fig:design_trans}
 \end{figure}
 
+\item \textbf{\textsl{Farger}}
+Som de anbefales i \href{https://www.google.com/design/spec/style/color.html}{design manualen} skal man benytte seg av flere toner av de farger som brukes. Som tidligere nevnt i avsnitt \ref{sub:farger} er det brukt totalt tre grunnfarger (complement triad farger). Hver enkel av disse farger er deretter «splittet» i flere undertoner i resurser \texttt{colors.xml} og presenteres i eksempel \ref{xml:colors}, side \pageref{xml:colors}. Alle farger som brukes i applikasjonen presenteres også i figur \ref{fig:farger} side \pageref{fig:farger} der fargene er benyttet i forskjellige toningsintervaller i like måte som designguiden. 
 
-\begin{figure}[h]
+\begin{figure}[ht]
 \begin{tabularx}{\textwidth}{*6{>{\centering\arraybackslash}X}@{}}
 
 \cellcolor{p0} \emph{primary\_1} & 
@@ -746,9 +736,27 @@ Her utgår er det gjort forsøk på at applikasjonen skal være ganske intuitivt
 \cellcolor{s24} \emph{secondary\_2\_4} \\[2ex] 
 
 \end{tabularx} 
-\caption[Fargekombinasjoner]{Fargetone som brukes i applikasjonen etter Android designprinsipper. Definert i }
+\caption[Fargekombinasjoner]{Fargetone som brukes i applikasjonen etter Android designprinsipper. Definert i \texttt{colors.xml}, se kodeeksempel \ref{xml:colors} side \pageref{xml:colors}}
 \label{fig:farger}
 \end{figure}
+
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/layout/principles.html}{Layout}}}
+Ifølge manualen skal applikasjonen være tilpasset til forskjellige skjermstørrelser og ulike pikseldensiteter. Hangman applikasjonen er dessverre kun tilpasset skjermstørrelsen til en Nexus S enhet. På grunn av vanskelighetsnivå kommer det til å legges større vekt på slik tilpassing i etterkommende innleveringer i faget. 
+Den generelle layouten som følges i alle aktiviteter i applikasjoner er en sentrert layout som er brukt for stående orientering. Dette er godt synlig på både startskjerm, login aktivitet samt selve spilleaktivitet der både hangmanbilde, tastatur og alle komponenter er orientert rundt en sentral linje. Alle liggende aktiviteter benytter seg av en layout som er orientert mer til høyre side slik at inntasting av bokstaver kan gjøres med høyre hånd.
+
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/components/bottom-sheets.html}{Komponenter}}}
+Etter anbefalinger fra manualen er det brukt marginer for alle komponenter slik at disse er plassert på en rimelig avstand fra skjermens kanter og til hverandre. Dette ble oppnådd gjennom at man benyttet seg av relativ layout og grid layout på innsiden av denne. I xml filer der komponentene plasseres ut statisk er de balansert med hjelp av bruk av margin og padding spesifikasjoner. Der det kun benyttes relativ layout brukes de spesifikasjoner at komponentene skal plasseres i forhold til hverandre f.esk. under en spesifikk komponent eller på toppen eller bunn av skjermen. 
+
+\item \textbf{\textsl{\href{https://www.google.com/design/spec/patterns/app-structure.html}{Struktur}}}
+Her utgår er det gjort forsøk på at applikasjonen skal være ganske intuitivt å bruker. Fra startskjermen skal det være veldig enkelt for brukeren å navigere seg fre og til bake mellom aktivitetene. Det er ikke brukt noen spesielle komponenter i applikasjonen foruten den navigasjonen som er innebygget i hardware i testenheten Nexus S. I store sammendrag er det brukt den enkleste formen av navigasjon der brukeren kan kun navigere på en linjer måte mellom aktivitetene. Det finnes ingen sidemenyer eller andre komponenter som kan plukkes frem via en menyknapp (slik som material design tilbyr) uten brukeren kan kun navigere frem eller tilbake. Det eneste aktiviteten som bryter detter er dialogen som tillater språkskifte for applikasjonen ettersom ved et språkskifte blir aktiviteten for systeminnstillinger avsluttet og startaktiviteten starter på nytt. 
+
+\end{enumerate} 
+
+
+
+
+
+
 
 \chapter{Utfordringer}
 \emph{I dette kapitlet beskrives de utfordringer og ting som er ønskevert til å gjøre bedre.}
@@ -775,8 +783,83 @@ Dette er den første løsningen som ble testet uten noen større fremgang eller 
 \end{enumerate}
 
 \subsection{Fungerende løsning}
-Følgende løsning er det den som er tatt i bruk og viser seg i de fleste fall ganske stabil. Denne løsninger 
+Følgende løsning er det den som er tatt i bruk ettersom den benytter seg av en tilnærmingsmåte som ikke kaller opp \texttt{onCreate(Bundle savedInstanceState)} etter endring av rotasjon. istedenfor blir det benyttet \texttt{onConfigurationChanged(Configuration newConfig)} hvilken er en metode som blir kalt opp i samband med endring i orientering. Metoden medfører følgende tillegg i \texttt{AndroidManifest.xml}:
+\begin{lstlisting}[language=XML]
+android:configChanges="keyboardHidden|orientation|screenSize"
+\end{lstlisting}
+Følgende endring i manifestfilen medfører at det ikke lengre blir kalt opp \texttt{onSaveInstanceState} eller \texttt{onRestoreInstanceState} etter en endring rotasjon av skjermen \texttt{onCreate()} kalles kun opp ved første start av aktiviteter. 
+I kodeksempel \ref{code:onConfStart} ser vi hvordan det håndteres at spillet etter at brukeren har endret språk i aktiviteten for innstillinger og den aktiviteten har deretter startet hovedaktivitet. Det lagres an delt innstiliingsvariabel som henter inn til hvilket språk som applikasjonen er endret til og deretter etter en rotasjon av skjermen sammenliknes det med at hvilket språk som aktuelt brukes i applikasjonen (se kodelinje 8 og 11). 
+
+\begin{lstlisting}[language=Java, caption=Håndtering av rotasjon i \texttt{StartGameActivity.java}, label=code:onConfStart]
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_start_game);
+
+        initilizeGuiComponents();
+
+        Log.w("HANGMAN", "appLocale "+appLocale);
+        String currentLocale = getResources().getConfiguration().locale.getDisplayLanguage();
+        Log.w("HANGMAN", "currentLocale "+currentLocale);
+
+        if(!appLocale.equals(currentLocale)){
+            switch (appLocale){
+                case "norsk bokmal":
+                    changeLanguage("nb_NO");
+                    break;
+                case "English":
+                    changeLanguage("en_US");
+                    break;
+                default:
+                    changeLanguage("en_US");
+                    break;
+            }
+        }
+    }
+\end{lstlisting}
+
+I kodeeksempel \ref{code:onConfGame} ser vi samme prinsipp men for aktiviteten som brukes til selve spillet. Det benyttes samme prinsipper som i forrige eksempel men i denne aktiviteten benyttes noen dynamiske komponenter som blir som ikke er definert i xml filene. Disse komponenter blir opprettet fra kode og dersom må det til men litt mer sofistikerte metoder for å ta vara på aktuell \textit{«state»} og gjenopprette denne etter at skjermen er rotert. Blant annet må det gjenskapes bokser for bokstavene som man gjetter samt tastatur. Når spillet kjører er det til enhver til også dannet collections av alle \texttt{char} som er vist til brukeren fra ordet samt hvilke taster er det som er brukt opp i tastaturet. Etter at skjermen er rotert blir disse komponenter gjenopprettet fra disse referanser. Etter rotasjon av spillaktiviteten skjer følgende:
+\begin{enumerate}
+\item Alle GUI objekter hentes inn og castes på nytt i koden (linje 6).
+\item Hangman bilde blir gjenopprettet til samme tilstand som før rotasjon (linje 7).
+\item Alle statiske GUI komponenter gjenopprettes (linje 10 til 14).
+\item Alle dynamiske GUI komponenter gjenopprettes til sin tidligere tilstand (linje 19 til 27).
+\end{enumerate}
+
+\begin{lstlisting}[language=Java, caption=Håndtering av rotasjon i \texttt{GamePlayActivity.java}, label=code:onConfGame]
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        setContentView(R.layout.activity_game_play);
+
+        //Re-initializes all components
+        initializesGUIComponents();
+        updateHangmanImage();
+
+        //Re-populating all stats with saved state data
+        playerName.setText(pName);
+        gameScoreView.setText(String.valueOf(gameScore));
+        sessionScoreView.setText(String.valueOf(sessionScore));
+        gamesWonView.setText(String.valueOf(gamesWon));
+        gamesLostView.setText(String.valueOf(gamesLost));
+
+        edComponents.clear();
+        wordsLayout.removeAllViews();
+
+        createLettersToGuess();
+
+        for (int i = 0; i < lettersOriginal.length; i++) {
+            if (letters[i] == 0)
+                revealLetter(i, lettersOriginal[i]);
+        }
+        
+        setUpKeyboardAndListen();
+        markUsedKeys();
+    }
+\end{lstlisting}
 
 \section{Arkitektur}
+Ettersom det er den første applikasjon for android som jeg lager har jeg ikke lagt fokus på noen spesifikk arkitektur for backend klasser. Dette beslutt ble tatt ettersom jeg utgikk fra at Android rammeverket allerede bruker en klar separasjon mellom grafiske komponenter (xml) og dess logikk (java). Med relativ enkel oppgave for de logiske komponenter som skal håndteres for at slik spill skal fungere burde det i utgangspunktet kunne løses med noen få linjer av kode. Den store utfordringer kom etter at det skal håndteres internasjonalisering med dynamiske gui komponenter og samtidig mulighet til rotasjon av skjermen. Derfor hadde koden blitt betydelig mer oversiktlig dersom man hadde benyttes seg av enkel arv og polymorfi. For eksempel blir tastaturet opprettet fra \texttt{GamePlayActivity.java} og deretter blir det satt lyttere for hver enkel knapp i tastaturet i metoden \texttt{setUpKeyboardAndListen()}. For eksempel det som burde blitt gjort her at man oppretter en egen klasse for alle knapper i hvilken man arver klassen \texttt{Button}. Det vil ikke bare gi tilgang til alle metoder i hovedklassen men også gi mulighet til at man oppretter en lytter for hver instans av en knapp slik at disse kan aksesseres via metoder og kalle opp en \texttt{callback} metode hver gang en knapp blir trukket inn.
 
+For at enklere ta vare på tilstand til selve tastaturet kunde man opprettet en \texttt{wrapper} klasse som holder alle taster. Denne klassen kan da implementere interface som f.eks. \texttt{Pracelable.java} eller \texttt{Sarializable.java} og på den må kunde man lagre hele tilstanden til tastaturet i f.eks. \texttt{onSaveInstanceState} isteden for å benytte seg av \texttt{onConfigurationChanged}. 
+
+Dette er prinsipper som skal tas i stor betraktning for neste innlevering der det skal legges en stor vekt på den underliggende arkitekturen og hvordan alle de komponenter fra rammeverket som skal brukes og dess tilstand skal bevares mellom aktivitetenes livssykluser. 
 
