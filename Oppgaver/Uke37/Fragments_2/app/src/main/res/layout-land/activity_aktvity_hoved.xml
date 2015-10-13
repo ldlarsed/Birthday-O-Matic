@@ -1,0 +1,29 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:orientation="horizontal">
+
+    <fragment
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/listFragment"
+        class="com.example.s198569.fragments_2.LinkListFragment"
+        tools:layout="@layout/linklist_layout" />
+
+    <!-- Her kan vi da i tillegg legge inn et til fragment da det finnes mer plass i landcape mode -->
+
+    <fragment
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:id="@+id/fragPage"
+        android:layout_weight="2"
+        class="com.example.s198569.fragments_2.MinUrl"
+        tools:layout="@layout/web_layout"></fragment>
+
+
+</LinearLayout>
