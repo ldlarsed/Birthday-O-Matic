@@ -25,6 +25,7 @@ public class DBHandler extends SQLiteOpenHelper {
     static String  KEY_PH_NUMBER = "Phone";
     static String B_DATE = "BDate";
     static String M_DATE = "MDate";
+    static String IS_ACTIVE = "isActive";
     static int DATABASE_VERSION = 1;
     static String DATABASE_NAME = "BDayOMatic";
 
@@ -42,14 +43,15 @@ public class DBHandler extends SQLiteOpenHelper {
             KEY_PH_NUMBER       +   " TEXT,"                    +
             B_DATE              +   " DATETIME,"                +
             M_DATE              +   " DATETIME,"                +
+            IS_ACTIVE           +   " INTEGER DEFAULT 0"        +
                 ")";
 
-        Log.d(Constants.SQL, CREATE_DB); //Sendign to logcat
+        Log.d(Constants.TAG_SQL, CREATE_DB); //Sendign to logcat
 
         try{
             db.execSQL(CREATE_DB);
         } catch (SQLException e){
-            Log.w(Constants.SQL, Constants.TABLE_CREATION_PROBLEM);
+            Log.w(Constants.TAG_SQL, Constants.TABLE_CREATION_PROBLEM);
         }
     }
 
@@ -68,13 +70,14 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_PH_NUMBER, buddy.getPhoneNumber());
         values.put(B_DATE, buddy.getSimpleBirthdayDate());
         values.put(M_DATE, buddy.getSimpleMessageDate());
+        values.put(IS_ACTIVE, buddy.isActive()?1:0);
 
         try{
             db.insertOrThrow(TABLE_BDAYBUDDIES, null, values);
             db.close();
             return true;
         }catch(SQLException e){
-            Log.w(Constants.SQL, Constants.TABLE_INSERTION_PROBLEM);
+            Log.w(Constants.TAG_SQL, Constants.TABLE_INSERTION_PROBLEM);
             db.close();
             return false;
         }
@@ -91,6 +94,7 @@ public class DBHandler extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + TABLE_BDAYBUDDIES;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
+        boolean isActive = false;
 
         if(cursor.moveToFirst()){
             do {
@@ -100,6 +104,7 @@ public class DBHandler extends SQLiteOpenHelper {
                 p.setPhoneNumber(cursor.getString(2));
                 p.setBDateFromDB(cursor.getString(3));
                 p.setMDateFromDB(cursor.getString(4));
+                p.setIsActive((cursor.getInt(5)==1)?true:false);
             }while(cursor.moveToNext());
         }
 
