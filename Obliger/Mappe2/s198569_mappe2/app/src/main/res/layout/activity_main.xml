@@ -10,7 +10,7 @@
         android:id="@+id/headerFrontpage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Birthday 'o' matic!"
+        android:text="Birthday-o-Matic"
         android:textSize="30dp"
         android:typeface="sans"
         android:layout_alignParentTop="true"
@@ -33,7 +33,23 @@
         android:id="@+id/addnewButton"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/cakeImg"
-        android:text="Add new"
-        android:layout_marginTop="30dp"/>
+        android:text="Add new B'day Buddy"
+        android:layout_marginTop="30dp"
+        android:onClick="addNew"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upcoming B'days"
+        android:layout_below="@id/addnewButton"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/upcomingButton"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Settings"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/upcomingButton"
+        android:id="@+id/settingsButton"/>
 
 </RelativeLayout>
