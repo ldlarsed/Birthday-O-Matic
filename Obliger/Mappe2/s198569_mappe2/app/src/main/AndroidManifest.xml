@@ -20,6 +20,8 @@
             android:name=".RegisterPerson"
             android:label="@string/title_activity_register_person" >
         </activity>
+        <activity android:name=".RegisterMessage" >
+        </activity>
     </application>
 
 </manifest>

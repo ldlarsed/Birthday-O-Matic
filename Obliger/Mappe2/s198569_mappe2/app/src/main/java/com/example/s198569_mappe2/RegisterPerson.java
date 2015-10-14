@@ -1,9 +1,11 @@
 package com.example.s198569_mappe2;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 public class RegisterPerson extends AppCompatActivity {
 
@@ -33,5 +35,11 @@ public class RegisterPerson extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void addMessage(View view){
+        Intent addNewMessage = new Intent(RegisterPerson.this, RegisterMessage.class);
+        addNewMessage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        RegisterPerson.this.startActivity(addNewMessage);
     }
 }
