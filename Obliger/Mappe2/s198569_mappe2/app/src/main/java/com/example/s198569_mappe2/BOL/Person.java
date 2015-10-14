@@ -1,37 +1,51 @@
 package com.example.s198569_mappe2.BOL;
 
+import android.util.Log;
+
+import com.example.s198569_mappe2.LIB.Constants;
+
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by luke on 10/13/15.
  */
 public class Person {
 
-    private String name, phoneNumber, message;
-    private SimpleDateFormat birthdayDate, messageTime;
+    private int _ID;
+    private String name, phoneNumber, birthdayMessage;
+    private Date birthdayDate, messageTime;
 
-    public SimpleDateFormat getBirthdayDate() {
-        return birthdayDate;
+    public Person(){
+
     }
 
-    public void setBirthdayDate(SimpleDateFormat birthdayDate) {
+    public Person(int _ID, String name, String phoneNumber, String birthdayMessage, Date birthdayDate, Date messageTime) {
+        this._ID = _ID;
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.birthdayMessage = birthdayMessage;
         this.birthdayDate = birthdayDate;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
-    public SimpleDateFormat getMessageTime() {
-        return messageTime;
-    }
-
-    public void setMessageTime(SimpleDateFormat messageTime) {
         this.messageTime = messageTime;
+    }
+
+    public Person(String name, String phoneNumber, String birthdayMessage, Date birthdayDate, Date messageTime) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.birthdayMessage = birthdayMessage;
+        this.birthdayDate = birthdayDate;
+        this.messageTime = messageTime;
+    }
+
+    public int get_ID() {
+        return _ID;
+    }
+
+    public void set_ID(int _ID) {
+        this._ID = _ID;
     }
 
     public String getName() {
@@ -48,5 +62,83 @@ public class Person {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public String getBirthdayMessage() {
+        return birthdayMessage;
+    }
+
+    public void setBirthdayMessage(String birthdayMessage) {
+        this.birthdayMessage = birthdayMessage;
+    }
+
+    public Date getBirthdayDate() {
+        return birthdayDate;
+    }
+
+    public void setBirthdayDate(Date birthdayDate) {
+        this.birthdayDate = birthdayDate;
+    }
+
+    public Date getMessageTime() {
+        return messageTime;
+    }
+
+    public void setMessageTime(Date messageTime) {
+        this.messageTime = messageTime;
+    }
+
+    /**
+     * Class helper function
+     * @param date
+     * @return
+     */
+    private String getSimpleDate(Date date){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        return dateFormat.format(date);
+    }
+
+    /**
+     * Returns a simple representation of buddy's birthday date
+     * @return
+     */
+    public String getSimpleBirthdayDate(){
+        return getSimpleDate(birthdayDate);
+    }
+
+
+    /**
+     * Returns a simple representation of the BDay message date and time
+     * @return
+     */
+    public String getSimpleMessageDate(){
+        return getSimpleDate(messageTime);
+    }
+
+    /**
+     * Internal helper function to recreate date in the same format it was stored in databse
+     * @param dateString
+     * @param classDate
+     */
+    private void setDateFromSimpleDate(String dateString, Date classDate){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            classDate = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            Log.w(Constants.PERSON, Constants.ERROR_WHILE_PARSING_DATE);
+        }
+    }
+
+    /**
+     * Recreates the date back to the
+     * @param date
+     */
+    public void setBDateFromDB(String date){
+        setDateFromSimpleDate(date, birthdayDate);
+    }
+
+    public void setMDateFromDB(String date){
+        setDateFromSimpleDate(date, messageTime);
     }
 }
