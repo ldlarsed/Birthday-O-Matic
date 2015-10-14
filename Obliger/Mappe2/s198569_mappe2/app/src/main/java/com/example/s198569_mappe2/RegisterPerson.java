@@ -59,12 +59,12 @@ public class RegisterPerson extends AppCompatActivity {
         boolean nameOK = false;
         boolean phoneOK = false;
         if(!nameText.getText().toString().matches(Constants.REGULAR_EXPRESSION_LETTERS_ONLY)){
-            nameText.requestFocus();
+            //nameText.requestFocus();
             nameText.setError(getString(R.string.regex_letters_only));
         }else
             nameOK = true;
         if(!phoneText.getText().toString().matches(Constants.REGULAR_EXPRESSION_NUMBERS_ONLY)){
-            phoneText.requestFocus();
+            //phoneText.requestFocus();
             phoneText.setError(getString(R.string.regex_numbers_only));
         }else
             phoneOK = true;

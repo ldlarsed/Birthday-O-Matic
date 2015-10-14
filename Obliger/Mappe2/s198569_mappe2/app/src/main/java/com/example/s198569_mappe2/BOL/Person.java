@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.s198569_mappe2.LIB.Constants;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,31 +14,40 @@ import java.util.Locale;
 /**
  * Created by luke on 10/13/15.
  */
-public class Person {
+public class Person implements Serializable {
 
     private int _ID;
     private String name, phoneNumber, birthdayMessage;
     private Date birthdayDate, messageTime;
+    private boolean isActive;
 
     public Person(){
 
     }
 
-    public Person(int _ID, String name, String phoneNumber, String birthdayMessage, Date birthdayDate, Date messageTime) {
+    public Person(String name, String phoneNumber, Date birthdayDate) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.birthdayDate = birthdayDate;
+    }
+
+    public Person(String name, String phoneNumber, String birthdayMessage, Date birthdayDate, Date messageTime, boolean isActive) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+        this.birthdayMessage = birthdayMessage;
+        this.birthdayDate = birthdayDate;
+        this.messageTime = messageTime;
+        this.isActive = isActive;
+    }
+
+    public Person(int _ID, String name, String phoneNumber, String birthdayMessage, Date birthdayDate, Date messageTime, boolean isActive) {
         this._ID = _ID;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.birthdayMessage = birthdayMessage;
         this.birthdayDate = birthdayDate;
         this.messageTime = messageTime;
-    }
-
-    public Person(String name, String phoneNumber, String birthdayMessage, Date birthdayDate, Date messageTime) {
-        this.name = name;
-        this.phoneNumber = phoneNumber;
-        this.birthdayMessage = birthdayMessage;
-        this.birthdayDate = birthdayDate;
-        this.messageTime = messageTime;
+        this.isActive = isActive;
     }
 
     public int get_ID() {
@@ -86,6 +96,27 @@ public class Person {
 
     public void setMessageTime(Date messageTime) {
         this.messageTime = messageTime;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setIsActive(boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "_ID=" + _ID +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", birthdayMessage='" + birthdayMessage + '\'' +
+                ", birthdayDate=" + birthdayDate +
+                ", messageTime=" + messageTime +
+                ", isActive=" + isActive +
+                '}';
     }
 
     /**

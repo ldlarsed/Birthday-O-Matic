@@ -25,8 +25,9 @@ public class DBHandler extends SQLiteOpenHelper {
     static String  KEY_PH_NUMBER = "Phone";
     static String B_DATE = "BDate";
     static String M_DATE = "MDate";
+    static String MESSAGE = "Message";
     static String IS_ACTIVE = "isActive";
-    static int DATABASE_VERSION = 1;
+    static int DATABASE_VERSION = 2;
     static String DATABASE_NAME = "BDayOMatic";
 
     public DBHandler (Context context) {
@@ -43,6 +44,7 @@ public class DBHandler extends SQLiteOpenHelper {
             KEY_PH_NUMBER       +   " TEXT,"                    +
             B_DATE              +   " DATETIME,"                +
             M_DATE              +   " DATETIME,"                +
+            MESSAGE             +   " TEXT,"                    +
             IS_ACTIVE           +   " INTEGER DEFAULT 0"        +
                 ")";
 
@@ -70,6 +72,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(KEY_PH_NUMBER, buddy.getPhoneNumber());
         values.put(B_DATE, buddy.getSimpleBirthdayDate());
         values.put(M_DATE, buddy.getSimpleMessageDate());
+        values.put(MESSAGE, buddy.getBirthdayMessage());
         values.put(IS_ACTIVE, buddy.isActive()?1:0);
 
         try{
@@ -104,7 +107,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 p.setPhoneNumber(cursor.getString(2));
                 p.setBDateFromDB(cursor.getString(3));
                 p.setMDateFromDB(cursor.getString(4));
-                p.setIsActive((cursor.getInt(5)==1)?true:false);
+                p.setBirthdayMessage(cursor.getString(5));
+                p.setIsActive((cursor.getInt(6)==1)?true:false);
             }while(cursor.moveToNext());
         }
 

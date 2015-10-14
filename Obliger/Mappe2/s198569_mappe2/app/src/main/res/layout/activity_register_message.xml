@@ -13,6 +13,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Buddys name"
         android:id="@+id/addmessageHeaderText"
+        android:layout_alignParentTop="true"
         />
 
     <TextView
@@ -30,6 +31,7 @@
         android:id="@+id/registermessageLinearLayout"
         android:layout_below="@id/addmessageBirthdayDateText"
         android:orientation="vertical"
+        android:layout_centerInParent="true"
         >
 
         <TextView
@@ -42,8 +44,10 @@
         <TimePicker
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/timePicker"
+            android:id="@+id/addmessageTimePicker"
             android:layout_alignParentStart="true"
+            android:timePickerMode="spinner"
+
             />
 
         <TextView
@@ -60,18 +64,20 @@
 
     </LinearLayout>
 
-    <Button
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="Save"/>
-
     <Switch
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="Activate"
-        android:id="@+id/addmessageSwitchActivate"
+        android:id="@+id/addmessageSwitchIsActivate"
         android:layout_below="@+id/registermessageLinearLayout"
       />
+
+    <Button
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Save"
+        android:onClick="saveBuddyAlert"
+        />
 
 </RelativeLayout>

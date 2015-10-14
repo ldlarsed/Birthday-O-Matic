@@ -5,4 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_register_person">RegisterPerson</string>
     <string name="title_activity_register_message">RegisterMessage</string>
+    <string name="regex_letters_only">Only letters allowed</string>
+    <string name="regex_numbers_only">Only numbers allowed</string>
+    <string name="REGEX_EMPTY_MESSAGE">Message cannot be empty</string>
 </resources>
