@@ -21,4 +21,5 @@ public class Constants {
     public static final String TAG_PERSON = "Person";
     public static final String TAG_EXCEPTION = "EXCEPTION";
     public static final String TAG_EXCEPTION_IN = "Exception in: ";
+    public static final String EXCEPTION_INTERFACE_NOT_IMPLEMENTED = "Interface not implemented";
 }

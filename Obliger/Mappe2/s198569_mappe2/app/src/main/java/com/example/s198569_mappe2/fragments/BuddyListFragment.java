@@ -1,4 +1,4 @@
-package com.example.s198569_mappe2;
+package com.example.s198569_mappe2.fragments;
 
 import android.app.Activity;
 import android.app.Fragment;
