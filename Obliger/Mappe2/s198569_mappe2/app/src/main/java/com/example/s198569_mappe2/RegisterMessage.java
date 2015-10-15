@@ -23,7 +23,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
     private EditText messageText;
     private TimePicker messageTime;
     private Switch isActiveSwitch;
-    private Person person;
+    private Person person, p;
     private DBHandler db;
 
     @Override
@@ -68,22 +68,23 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
     public void saveBuddyAlert(View view){
         if(isValid()){
-            Person p = getInputData();
+            p = getInputData();
             Log.i(Constants.TAG_PERSON, p.toString());
-            //db.addBuddy(p);
             DialogFragment dialog = new InfoDialogFragment();
-            dialog.show(getFragmentManager(), "New buddy");
+            dialog.show(getFragmentManager(), "");
         }
     }
 
     @Override
     public void onYesClick() {
-        Log.i("Listener", "Yes click registered");
+        Log.i(Constants.TAG_LISTENER, Constants.DIALOG_YES_CLICK_REGISTERED);
+        db.addBuddy(p);
+        this.finish();
     }
 
     @Override
     public void onNoClick() {
-        Log.i("Listener", "No click registered");
+        Log.i(Constants.TAG_LISTENER, Constants.DIALOG_NO_CLICK_REGISTERED);
     }
 
 }

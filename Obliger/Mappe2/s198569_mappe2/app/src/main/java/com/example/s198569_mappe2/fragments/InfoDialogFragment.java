@@ -22,7 +22,6 @@ public class InfoDialogFragment extends DialogFragment{
         super.onCreate(savedInstanceState);
 
         try {
-            //callback = (DialogClickListener) getActivity();
             callback = (DialogYesNoListener) getActivity();
         }catch(ClassCastException e){
             throw new ClassCastException(Constants.EXCEPTION_INTERFACE_NOT_IMPLEMENTED);
@@ -39,7 +38,6 @@ public class InfoDialogFragment extends DialogFragment{
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        //return super.onCreateDialog(savedInstanceState);
 
         return new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.info_dialog_title)

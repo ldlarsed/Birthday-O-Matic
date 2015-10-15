@@ -96,4 +96,6 @@ public class RegisterPerson extends AppCompatActivity {
             RegisterPerson.this.startActivity(addNewMessage);
         }
     }
+
+
 }
