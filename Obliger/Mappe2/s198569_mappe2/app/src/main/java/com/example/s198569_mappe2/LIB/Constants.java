@@ -19,4 +19,6 @@ public class Constants {
     public static final String REGULAR_EXPRESSION_NUMBERS_ONLY = "^[0-9 _]*[0-9][0-9 _]*$";
     public static final String TAG_INPUT = "Input";
     public static final String TAG_PERSON = "Person";
+    public static final String TAG_EXCEPTION = "EXCEPTION";
+    public static final String TAG_EXCEPTION_IN = "Exception in: ";
 }

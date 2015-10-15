@@ -3,9 +3,15 @@ package com.example.s198569_mappe2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+
+import com.example.s198569_mappe2.BOL.Person;
+import com.example.s198569_mappe2.DAL.DBHandler;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -13,6 +19,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+     /*   DBHandler db = new DBHandler(this);
+        ArrayList<Person> pl = db.getAllBuddies();
+        for(Person p : pl){
+            Log.i("Person", p.toString());
+        }*/
     }
 
     @Override
@@ -39,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void addNew(View view){
         Intent addNewActivity = new Intent(MainActivity.this, RegisterPerson.class);
+        addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
+        //this.getApplicationContext().startActivity(addNew);
+        MainActivity.this.startActivity(addNewActivity);
+    }
+
+    public void showBuddyList(View view){
+        Intent addNewActivity = new Intent(MainActivity.this, BuddyList.class);
         addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
         //this.getApplicationContext().startActivity(addNew);
         MainActivity.this.startActivity(addNewActivity);
