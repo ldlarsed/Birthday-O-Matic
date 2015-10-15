@@ -1,5 +1,6 @@
 package com.example.s198569_mappe2;
 
+import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,15 +13,17 @@ import android.widget.TimePicker;
 import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.DAL.DBHandler;
 import com.example.s198569_mappe2.LIB.Constants;
+import com.example.s198569_mappe2.LIB.DialogYesNoListener;
+import com.example.s198569_mappe2.fragments.InfoDialogFragment;
 
 import java.util.Date;
 
-public class RegisterMessage extends AppCompatActivity {
+public class RegisterMessage extends AppCompatActivity implements DialogYesNoListener {
 
     private EditText messageText;
     private TimePicker messageTime;
     private Switch isActiveSwitch;
-    private Person person;
+    private Person person, p;
     private DBHandler db;
 
     @Override
@@ -45,7 +48,7 @@ public class RegisterMessage extends AppCompatActivity {
     private boolean isValid(){
         boolean messageOK = messageText.getText().length()!=0;
         if(!messageOK){
-            messageText.setError(getString(R.string.REGEX_EMPTY_MESSAGE));
+            messageText.setError(getString(R.string.regex_empty_message));
         }
         return messageOK;
     }
@@ -65,9 +68,23 @@ public class RegisterMessage extends AppCompatActivity {
 
     public void saveBuddyAlert(View view){
         if(isValid()){
-            Person p = getInputData();
+            p = getInputData();
             Log.i(Constants.TAG_PERSON, p.toString());
-            db.addBuddy(p);
+            DialogFragment dialog = new InfoDialogFragment();
+            dialog.show(getFragmentManager(), "");
         }
     }
+
+    @Override
+    public void onYesClick() {
+        Log.i(Constants.TAG_LISTENER, Constants.DIALOG_YES_CLICK_REGISTERED);
+        db.addBuddy(p);
+        this.finish();
+    }
+
+    @Override
+    public void onNoClick() {
+        Log.i(Constants.TAG_LISTENER, Constants.DIALOG_NO_CLICK_REGISTERED);
+    }
+
 }

@@ -91,13 +91,13 @@ public class DBHandler extends SQLiteOpenHelper {
      * Returns a list of all registered buddies
      * @return
      */
-    public List<Person> getAllBuddies(){
-        List<Person> buddies = new ArrayList<Person>();
+    public ArrayList<Person> getAllBuddies(){
+        ArrayList<Person> buddies = new ArrayList<Person>();
 
         String selectQuery = "SELECT * FROM " + TABLE_BDAYBUDDIES;
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
-        boolean isActive = false;
+
 
         if(cursor.moveToFirst()){
             do {
@@ -109,6 +109,8 @@ public class DBHandler extends SQLiteOpenHelper {
                 p.setMDateFromDB(cursor.getString(4));
                 p.setBirthdayMessage(cursor.getString(5));
                 p.setIsActive((cursor.getInt(6)==1)?true:false);
+
+                buddies.add(p);
             }while(cursor.moveToNext());
         }
 

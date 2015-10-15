@@ -43,7 +43,8 @@
         android:text="Upcoming B'days"
         android:layout_below="@id/addnewButton"
         android:layout_centerHorizontal="true"
-        android:id="@+id/upcomingButton"/>
+        android:id="@+id/upcomingButton"
+        android:onClick="showBuddyList"/>
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

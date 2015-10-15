@@ -19,4 +19,10 @@ public class Constants {
     public static final String REGULAR_EXPRESSION_NUMBERS_ONLY = "^[0-9 _]*[0-9][0-9 _]*$";
     public static final String TAG_INPUT = "Input";
     public static final String TAG_PERSON = "Person";
+    public static final String TAG_EXCEPTION = "EXCEPTION";
+    public static final String TAG_EXCEPTION_IN = "Exception in: ";
+    public static final String EXCEPTION_INTERFACE_NOT_IMPLEMENTED = "Interface not implemented";
+    public static final String TAG_LISTENER = "Listener";
+    public static final String DIALOG_YES_CLICK_REGISTERED = "Yes click registered";
+    public static final String DIALOG_NO_CLICK_REGISTERED = "No click registered";
 }

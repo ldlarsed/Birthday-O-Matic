@@ -22,6 +22,11 @@
         </activity>
         <activity android:name=".RegisterMessage" >
         </activity>
+        <activity
+            android:name=".BuddyList"
+            android:label="@string/title_activity_buddy_list"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

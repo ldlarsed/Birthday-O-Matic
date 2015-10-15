@@ -7,5 +7,9 @@
     <string name="title_activity_register_message">RegisterMessage</string>
     <string name="regex_letters_only">Only letters allowed</string>
     <string name="regex_numbers_only">Only numbers allowed</string>
-    <string name="REGEX_EMPTY_MESSAGE">Message cannot be empty</string>
+    <string name="regex_empty_message">Message cannot be empty</string>
+    <string name="title_activity_buddy_list">BuddyList</string>
+    <string name="info_dialog_title">New Buddy</string>
+    <string name="dialog_OK">OK</string>
+    <string name="dialog_Cancel">Cancel</string>
 </resources>
