@@ -92,7 +92,7 @@ public class DBHandler extends SQLiteOpenHelper {
      * @return
      */
     public ArrayList<Person> getAllBuddies(){
-        ArrayList<Person> buddies = new ArrayList<Person>();
+        ArrayList<Person> buddies = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_BDAYBUDDIES;
         SQLiteDatabase db = this.getWritableDatabase();

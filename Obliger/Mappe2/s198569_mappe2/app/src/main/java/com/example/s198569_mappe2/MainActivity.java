@@ -11,8 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.s198569_mappe2.BLL.BirthdayController;
+import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.services.BDayOnBootService;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
@@ -68,7 +71,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showPreferences(View view){
-        Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
+        BirthdayController b = new BirthdayController(getApplicationContext());
+        ArrayList<Person> p = b.getTodaysBDays();
+        String result = "";
+        for(Person o : p){
+            result += o.getName() + ":" + o.getBirthdayDate() + "\n";
+        }
+
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
     }
 
 

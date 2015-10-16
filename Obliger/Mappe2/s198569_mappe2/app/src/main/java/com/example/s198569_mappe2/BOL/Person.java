@@ -163,13 +163,25 @@ public class Person implements Serializable {
 
     /**
      * Recreates the date back to the
-     * @param date
+     * @param
      */
-    public void setBDateFromDB(String date){
-        setDateFromSimpleDate(date, birthdayDate);
+    public void setBDateFromDB(String dateString){
+        //setDateFromSimpleDate(date, birthdayDate);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            birthdayDate = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            Log.w(Constants.PERSON, Constants.ERROR_WHILE_PARSING_DATE);
+        }
     }
 
-    public void setMDateFromDB(String date){
-        setDateFromSimpleDate(date, messageTime);
+    public void setMDateFromDB(String dateString){
+        //setDateFromSimpleDate(date, messageTime);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault());
+        try {
+            messageTime = dateFormat.parse(dateString);
+        } catch (ParseException e) {
+            Log.w(Constants.PERSON, Constants.ERROR_WHILE_PARSING_DATE);
+        }
     }
 }

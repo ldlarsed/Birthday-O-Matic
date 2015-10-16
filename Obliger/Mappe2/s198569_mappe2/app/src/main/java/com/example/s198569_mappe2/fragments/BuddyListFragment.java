@@ -59,10 +59,9 @@ public class BuddyListFragment extends Fragment {
         final ArrayList<Person> bList = db.getAllBuddies();
         final ArrayList<String> buddyDetails = new ArrayList<String>();
 
-        buddyDetails.add(bList.get(0).getName());
 
-        /*for (Person s : bList)
-            buddyDetails.add(s.getName());*/
+        for (Person s : bList)
+            buddyDetails.add(s.getName());
 
         final ArrayAdapter <String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
                 android.R.layout.simple_list_item_1, buddyDetails);
@@ -70,7 +69,7 @@ public class BuddyListFragment extends Fragment {
         lv.setAdapter(adapter);
 
         //Husk å sette en listener for hver item her.
-        //db.close();
+
 
         return v;
     }
