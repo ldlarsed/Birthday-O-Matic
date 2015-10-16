@@ -8,6 +8,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.example.s198569_mappe2.services.BDayOnBootService;
+
 public class MainActivity extends AppCompatActivity {
 
 
@@ -16,11 +18,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-     /*   DBHandler db = new DBHandler(this);
-        ArrayList<Person> pl = db.getAllBuddies();
-        for(Person p : pl){
-            Log.i("Person", p.toString());
-        }*/
+        startService(new Intent(this, BDayOnBootService.class));
 
     }
 
