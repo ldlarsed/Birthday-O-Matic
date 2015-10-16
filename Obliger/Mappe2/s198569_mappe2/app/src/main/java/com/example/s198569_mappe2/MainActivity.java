@@ -1,19 +1,15 @@
 package com.example.s198569_mappe2;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-
-import com.example.s198569_mappe2.BOL.Person;
-import com.example.s198569_mappe2.DAL.DBHandler;
-
-import java.util.ArrayList;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +21,10 @@ public class MainActivity extends AppCompatActivity {
         for(Person p : pl){
             Log.i("Person", p.toString());
         }*/
+
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,4 +61,13 @@ public class MainActivity extends AppCompatActivity {
         //this.getApplicationContext().startActivity(addNew);
         MainActivity.this.startActivity(addNewActivity);
     }
+
+    public void showPreferences(View view){
+        Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
+    }
+
+
+
+
+
 }
