@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.s198569_mappe2" >
 
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name" >
@@ -28,18 +32,15 @@
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
 
-        <service
-            android:name=".services.BDayService"
-            android:icon="@android:drawable/ic_popup_reminder"
-            android:label="bday_service" />
-        
-        <receiver android:name=".broadcasts.BDayReceiver">
+        <receiver android:name=".broadcasts.BootCompleted"
+            android:enabled="true"
+            android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".broadcasts.BDayStartServiceReceiver"></receiver>
+        <service android:name=".services.BDayOnBootService"></service>
 
     </application>
 
