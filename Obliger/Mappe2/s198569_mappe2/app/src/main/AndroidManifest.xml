@@ -27,6 +27,20 @@
             android:label="@string/title_activity_buddy_list"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+
+        <service
+            android:name=".services.BDayService"
+            android:icon="@android:drawable/ic_popup_reminder"
+            android:label="bday_service" />
+        
+        <receiver android:name=".broadcasts.BDayReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".broadcasts.BDayStartServiceReceiver"></receiver>
+
     </application>
 
 </manifest>

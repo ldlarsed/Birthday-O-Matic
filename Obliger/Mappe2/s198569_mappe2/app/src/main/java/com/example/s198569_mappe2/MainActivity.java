@@ -1,19 +1,22 @@
 package com.example.s198569_mappe2;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.ServiceConnection;
 import android.os.Bundle;
-import android.util.Log;
+import android.os.IBinder;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
-import com.example.s198569_mappe2.BOL.Person;
-import com.example.s198569_mappe2.DAL.DBHandler;
-
-import java.util.ArrayList;
+import com.example.s198569_mappe2.services.BDayService;
 
 public class MainActivity extends AppCompatActivity {
+
+    private BDayService bDayService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +28,12 @@ public class MainActivity extends AppCompatActivity {
         for(Person p : pl){
             Log.i("Person", p.toString());
         }*/
+
+        Intent intent = new Intent(this, BDayService.class);
+        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -62,4 +70,26 @@ public class MainActivity extends AppCompatActivity {
         //this.getApplicationContext().startActivity(addNew);
         MainActivity.this.startActivity(addNewActivity);
     }
+
+    public void showPreferences(View view){
+        Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
+    }
+
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        public void onServiceConnected(ComponentName className,
+                                       IBinder binder) {
+            BDayService.MyBinder b = (BDayService.MyBinder) binder;
+            bDayService = b.getService();
+            Toast.makeText(MainActivity.this, "Connected", Toast.LENGTH_SHORT)
+                    .show();
+        }
+
+        public void onServiceDisconnected(ComponentName className) {
+            bDayService = null;
+        }
+    };
+
+
 }

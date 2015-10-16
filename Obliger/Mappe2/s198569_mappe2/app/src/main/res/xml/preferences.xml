@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <SwitchPreference
+        android:title="Birthday reminder service"
+        android:summary="Start or stop the birthday reminder service included in this app"
+        android:key="bdayServiceSwitch"></SwitchPreference>
+
+    <SwitchPreference
+        android:title="Birthday sms service"
+        android:summary="Automatically send sms to registered birthday buddies"
+        android:key="bdaySmsSwitch"></SwitchPreference>
+
+</PreferenceScreen>
