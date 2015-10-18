@@ -64,21 +64,17 @@ public class BuddyListFragment extends Fragment {
         for (Person s : bList)
             buddyDetails.add(s.getName());
 
-        //Sluttet her med å lage en egen adapter for liste av registrerte personer.
-//        final ArrayAdapter <String> adapter = new ArrayAdapter<>(getActivity().getBaseContext(), android.R.layout.simple_list_item_1, buddyDetails);
-
-/*        final ArrayAdapter <String> adapter = new ArrayAdapter<String>(
-                getActivity().getBaseContext(),
-                R.layout.buddy_list_item,
-                buddyDetails);*/
-
 
         BuddyListAdapter adapter = new BuddyListAdapter(getActivity(), R.layout.buddy_list_item_row, bList);
 
+        View header = inflater.inflate(R.layout.buddy_list_header, null);
 
+        lv.addHeaderView(header);
         lv.setAdapter(adapter);
 
         //Husk å sette en listener for hver item her.
+
+
 
 
         return v;

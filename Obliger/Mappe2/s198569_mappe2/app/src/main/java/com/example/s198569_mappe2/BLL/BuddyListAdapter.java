@@ -7,13 +7,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.R;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by luke on 10/18/15.
@@ -43,8 +45,9 @@ public class BuddyListAdapter extends ArrayAdapter<Person> {
             row = inflater.inflate(resource, parent, false);
 
             bHolder = new BuddyHolder();
-            bHolder.chkBox = (CheckBox) row.findViewById(R.id.buddylistitemrowCheckBox);
-            bHolder.txtName = (TextView) row.findViewById(R.id.buddylistitemrowTextView);
+            bHolder.txtName = (TextView) row.findViewById(R.id.buddylistitemrowTextName);
+            bHolder.bDayDate = (TextView) row.findViewById(R.id.buddylistitemrowTextBDay);
+            bHolder.swtchOnOff = (Switch) row.findViewById(R.id.buddylistitemrowSwitch);
 
             row.setTag(bHolder);
         }else{
@@ -53,13 +56,14 @@ public class BuddyListAdapter extends ArrayAdapter<Person> {
 
         Person buddy = buddies.get(position);
         bHolder.txtName.setText(buddy.getName());
-        bHolder.chkBox.setChecked(true);
+        bHolder.bDayDate.setText(buddy.getSimpleBirthdayDate());
+        bHolder.swtchOnOff.setChecked(buddy.isActive());
 
         return row;
     }
 
     static class BuddyHolder{
-        CheckBox chkBox;
-        TextView txtName;
+        TextView txtName, bDayDate;
+        Switch swtchOnOff;
     }
 }
