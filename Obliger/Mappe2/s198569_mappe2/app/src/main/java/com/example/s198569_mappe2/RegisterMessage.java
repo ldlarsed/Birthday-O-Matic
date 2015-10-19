@@ -49,10 +49,6 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
         Intent intent = getIntent();
         person = (Person) intent.getSerializableExtra(Constants.TAG_PERSON);
-        //Test if we are editing existing buddy
-        if(intent.getBooleanExtra("TO_EDIT", false)){
-            isEditSession = true;
-        }
 
         //Sets up name and birthdaydate of the newly added buddy i this activity header
         buddyName = (TextView) findViewById(R.id.addmessageHeaderText);
@@ -61,7 +57,8 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         buddyBDay.setText(person.getSimpleBirthdayDate());
 
         //If we are editing an existing person we can populate all the textboxes
-        if(person.getBirthdayMessage() != null){
+        if (intent.getBooleanExtra("IS_EDIT", true)) {
+            isEditSession = true;
             messageText.setText(person.getBirthdayMessage());
             isActiveSwitch.setChecked(person.isActive());
         }
@@ -81,7 +78,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 this.finish();
                 break;
@@ -92,15 +89,15 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         return super.onOptionsItemSelected(item);
     }
 
-    private boolean isValid(){
-        boolean messageOK = messageText.getText().length()!=0;
-        if(!messageOK){
+    private boolean isValid() {
+        boolean messageOK = messageText.getText().length() != 0;
+        if (!messageOK) {
             messageText.setError(getString(R.string.regex_empty_message));
         }
         return messageOK;
     }
 
-    private Person getInputData(){
+    private Person getInputData() {
         String message = messageText.getText().toString();
         boolean isActive = isActiveSwitch.isChecked();
         Date date = new Date(System.currentTimeMillis());
@@ -114,8 +111,8 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
     }
 
 
-    public void saveBuddyAlert(View view){
-        if(isValid()){
+    public void saveBuddyAlert(View view) {
+        if (isValid()) {
             p = getInputData();
             Log.i(Constants.TAG_PERSON, p.toString());
             DialogFragment dialog = new InfoDialogFragment();
@@ -126,7 +123,11 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
     @Override
     public void onYesClick() {
         Log.i(Constants.TAG_LISTENER, Constants.DIALOG_YES_CLICK_REGISTERED);
-        db.addBuddy(p);
+
+        if (isEditSession)
+            db.updateBuddy(person);
+        else
+            db.addBuddy(p);
         this.finish();
     }
 

@@ -122,6 +122,13 @@ public class RegisterPerson extends AppCompatActivity {
         long unixDate = bDate.getCalendarView().getDate();
         Date birthdayDate = new Date(unixDate);
 
+        if(isEditSession){
+            buddyToEdit.setName(name);
+            buddyToEdit.setPhoneNumber(pNumber);
+            buddyToEdit.setBirthdayDate(birthdayDate);
+            return buddyToEdit;
+        }
+
         return new Person(name, pNumber, birthdayDate);
     }
 
@@ -131,7 +138,7 @@ public class RegisterPerson extends AppCompatActivity {
             Intent addNewMessage = new Intent(RegisterPerson.this, RegisterMessage.class);
             addNewMessage.putExtra(Constants.TAG_PERSON, getInputData());
             if(isEditSession)
-                addNewMessage.putExtra("TO_EDIT", true);
+                addNewMessage.putExtra("IS_EDIT", true);
             addNewMessage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             RegisterPerson.this.startActivity(addNewMessage);
         }
