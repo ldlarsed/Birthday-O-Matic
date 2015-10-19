@@ -24,12 +24,14 @@
             android:name=".RegisterPerson"
             android:label="@string/title_activity_register_person" >
         </activity>
-        <activity android:name=".RegisterMessage" >
+        <activity
+            android:name=".RegisterMessage"
+            android:label="RegisterMessage">
         </activity>
         <activity
             android:name=".BuddyList"
             android:label="@string/title_activity_buddy_list"
-            android:theme="@style/AppTheme.NoActionBar" >
+             >
         </activity>
 
         <receiver android:name=".broadcasts.BootCompleted"

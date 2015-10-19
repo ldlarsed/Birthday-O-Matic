@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:textStyle="bold"
         android:text="New B'day Buddy"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
