@@ -100,6 +100,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
         person.setBirthdayMessage(message);
         person.setIsActive(isActive);
+        //This is set to current registration time since the time picker is not longer used.
         person.setMessageTime(date);
 
         return person;

@@ -35,11 +35,13 @@
         android:orientation="horizontal">
 
         <ImageButton
+            android:id="@+id/buddylistitemrowEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_edit"/>
 
         <ImageButton
+            android:id="@+id/buddylistitemrowDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@android:drawable/ic_menu_delete"/>
