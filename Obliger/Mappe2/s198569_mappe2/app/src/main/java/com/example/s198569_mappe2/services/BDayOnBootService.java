@@ -52,8 +52,21 @@ public class BDayOnBootService extends Service {
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pi);*/
 
+        Calendar calendar = Calendar.getInstance();
+        Context context = getApplicationContext();
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 50);
+        calendar.set(Calendar.SECOND, 0);
+        PendingIntent pi = PendingIntent.getService(context, 0,
+                new Intent(context, DailyMessageService.class),PendingIntent.FLAG_UPDATE_CURRENT);
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY, pi);
 
-        return super.onStartCommand(intent, flags, startId);
+        return Service.START_STICKY;
+
+
+        //return super.onStartCommand(intent, flags, startId);
     }
 
     /*@Override
@@ -75,15 +88,15 @@ public class BDayOnBootService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        Calendar calendar = Calendar.getInstance();
+      /*  Calendar calendar = Calendar.getInstance();
         Context context = getApplicationContext();
-        calendar.set(Calendar.HOUR_OF_DAY, 22); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 36);
+        calendar.set(Calendar.HOUR_OF_DAY, 15);
+        calendar.set(Calendar.MINUTE, 39);
         calendar.set(Calendar.SECOND, 0);
         PendingIntent pi = PendingIntent.getService(context, 0,
-                new Intent(context, TestService.class),PendingIntent.FLAG_UPDATE_CURRENT);
+                new Intent(context, DailyMessageService.class),PendingIntent.FLAG_UPDATE_CURRENT);
         AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pi);
+                AlarmManager.INTERVAL_DAY, pi);*/
     }
 }
