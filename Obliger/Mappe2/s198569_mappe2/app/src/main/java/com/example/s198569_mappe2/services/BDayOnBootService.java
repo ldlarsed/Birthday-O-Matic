@@ -66,6 +66,11 @@ public class BDayOnBootService extends Service {
 
     }*/
 
+    /*
+    Her skal det startes en service samme tid hver dag (det blir normalt avhengig av instillinger som seinere gjøres av brukeren).
+    Denne service kommer til å gå igjennom alle registrerte brukere som har en bursdag som overensstemmer med dagens dato.
+    Dersom slike personer finnes kommer man til å sende epost til alle brukere avhengig av hvilken tekst de har.
+     */
     @Override
     public void onCreate() {
         super.onCreate();

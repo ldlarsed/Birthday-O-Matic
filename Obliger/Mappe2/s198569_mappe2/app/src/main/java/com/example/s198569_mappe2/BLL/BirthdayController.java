@@ -16,6 +16,8 @@ import java.util.EmptyStackException;
 
 /**
  * Created by luke on 10/16/15.
+ * This is helper class to be used where there is need for getting information about the
+ * current persons having bdays.
  */
 public class BirthdayController  extends AppCompatActivity {
 
@@ -55,6 +57,7 @@ public class BirthdayController  extends AppCompatActivity {
 
     /**
      * Provides an ArrayList with collection of buddies having bday today.
+     * To be used with a message service to discover to whom send the message.
      * @param
      * @return
      */
