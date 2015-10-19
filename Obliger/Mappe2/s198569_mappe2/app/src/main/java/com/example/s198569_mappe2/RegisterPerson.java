@@ -22,6 +22,7 @@ public class RegisterPerson extends AppCompatActivity {
     private EditText nameText, phoneText;
     private DatePicker bDate;
     private Person buddyToEdit;
+    private boolean isEditSession = false;
 
 
     @Override
@@ -41,9 +42,15 @@ public class RegisterPerson extends AppCompatActivity {
         bDate = (DatePicker) findViewById(R.id.addnewDatePicker);
 
 
+
+        /*
+         This happens only if we receive an person object to edit.
+         If we are registering a new person this will be null therefore
+         all wont be populated.
+         */
         Intent i = getIntent();
-        //This if !null if we ha received person object to edit
         if(i.getSerializableExtra(Constants.TAG_PERSON) != null){
+            isEditSession = true;
             buddyToEdit = (Person) i.getSerializableExtra(Constants.TAG_PERSON);
             nameText.setText(buddyToEdit.getName());
             phoneText.setText(buddyToEdit.getPhoneNumber());
@@ -123,6 +130,8 @@ public class RegisterPerson extends AppCompatActivity {
             showLog();
             Intent addNewMessage = new Intent(RegisterPerson.this, RegisterMessage.class);
             addNewMessage.putExtra(Constants.TAG_PERSON, getInputData());
+            if(isEditSession)
+                addNewMessage.putExtra("TO_EDIT", true);
             addNewMessage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             RegisterPerson.this.startActivity(addNewMessage);
         }

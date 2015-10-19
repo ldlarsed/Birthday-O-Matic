@@ -25,10 +25,10 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
     private TextView buddyName, buddyBDay;
     private EditText messageText;
-    //private TimePicker messageTime;
     private Switch isActiveSwitch;
     private Person person, p;
     private DBHandler db;
+    private boolean isEditSession = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +45,14 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
 
         messageText = (EditText) findViewById(R.id.addmessageGreetingsText);
-        //messageTime = (TimePicker) findViewById(R.id.addmessageTimePicker);
-        //messageTime.setIs24HourView(true);
         isActiveSwitch = (Switch) findViewById(R.id.addmessageSwitchIsActivate);
 
         Intent intent = getIntent();
         person = (Person) intent.getSerializableExtra(Constants.TAG_PERSON);
+        //Test if we are editing existing buddy
+        if(intent.getBooleanExtra("TO_EDIT", false)){
+            isEditSession = true;
+        }
 
         //Sets up name and birthdaydate of the newly added buddy i this activity header
         buddyName = (TextView) findViewById(R.id.addmessageHeaderText);
@@ -67,7 +69,6 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         Log.i(Constants.TAG_PERSON, person.toString());
 
         db = new DBHandler(this);
-        //db.addBuddy(person);
     }
 
     @Override
