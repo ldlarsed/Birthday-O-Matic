@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.s198569_mappe2.BLL.BuddyListAdapter;
 import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.DAL.DBHandler;
 import com.example.s198569_mappe2.LIB.Constants;
@@ -59,18 +60,22 @@ public class BuddyListFragment extends Fragment {
         final ArrayList<Person> bList = db.getAllBuddies();
         final ArrayList<String> buddyDetails = new ArrayList<String>();
 
-        buddyDetails.add(bList.get(0).getName());
 
-        /*for (Person s : bList)
-            buddyDetails.add(s.getName());*/
+        for (Person s : bList)
+            buddyDetails.add(s.getName());
 
-        final ArrayAdapter <String> adapter = new ArrayAdapter<String>(getActivity().getBaseContext(),
-                android.R.layout.simple_list_item_1, buddyDetails);
 
+        BuddyListAdapter adapter = new BuddyListAdapter(getActivity(), R.layout.buddy_list_item_row, bList);
+
+        View header = inflater.inflate(R.layout.buddy_list_header, null);
+
+        lv.addHeaderView(header);
         lv.setAdapter(adapter);
 
         //Husk å sette en listener for hver item her.
-        //db.close();
+
+
+
 
         return v;
     }

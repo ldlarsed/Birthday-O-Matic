@@ -73,7 +73,7 @@ public class DBHandler extends SQLiteOpenHelper {
         values.put(B_DATE, buddy.getSimpleBirthdayDate());
         values.put(M_DATE, buddy.getSimpleMessageDate());
         values.put(MESSAGE, buddy.getBirthdayMessage());
-        values.put(IS_ACTIVE, buddy.isActive()?1:0);
+        values.put(IS_ACTIVE, buddy.isActive() ? 1 : 0);
 
         try{
             db.insertOrThrow(TABLE_BDAYBUDDIES, null, values);
@@ -88,11 +88,35 @@ public class DBHandler extends SQLiteOpenHelper {
 
 
     /**
+     * Updates an existing contact in the database.
+     * @param buddy
+     * @return
+     */
+    public boolean updateBuddy(Person buddy){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_NAME, buddy.getName());
+        values.put(KEY_PH_NUMBER, buddy.getPhoneNumber());
+        values.put(B_DATE, buddy.getSimpleBirthdayDate());
+        values.put(M_DATE, buddy.getSimpleMessageDate());
+        values.put(MESSAGE, buddy.getBirthdayMessage());
+        values.put(IS_ACTIVE, buddy.isActive() ? 1 : 0);
+
+        int change = db.update(TABLE_BDAYBUDDIES, values, KEY_ID + "=?",
+                new String[]{Integer.toString(buddy.get_ID())});
+        db.close();
+        return change>0?true:false;
+    }
+
+
+    /**
      * Returns a list of all registered buddies
      * @return
      */
     public ArrayList<Person> getAllBuddies(){
-        ArrayList<Person> buddies = new ArrayList<Person>();
+        ArrayList<Person> buddies = new ArrayList<>();
 
         String selectQuery = "SELECT * FROM " + TABLE_BDAYBUDDIES;
         SQLiteDatabase db = this.getWritableDatabase();
@@ -128,4 +152,26 @@ public class DBHandler extends SQLiteOpenHelper {
         db.close();
         return c;
     }
+
+    public void deleteBuddy(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_BDAYBUDDIES, KEY_ID + "=?", new String[]{Integer.toString(id)});
+        db.close();
+    }
+
+    /**
+     * Changes the active status of message service for the specific contact.
+     * @param id
+     * @param isActive
+     * @return
+     */
+    public boolean changeStatus(int id, boolean isActive){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(IS_ACTIVE, isActive?1:0);
+        int res = db.update(TABLE_BDAYBUDDIES, values, KEY_ID + "=?", new String[]{Integer.toString(id)});
+        db.close();
+        return res>0?true:false;
+    }
+
 }

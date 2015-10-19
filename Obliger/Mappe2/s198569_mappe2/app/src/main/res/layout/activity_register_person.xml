@@ -1,79 +1,85 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
-    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:paddingBottom="@dimen/activity_vertical_margin"
     tools:context="com.example.s198569_mappe2.RegisterPerson">
 
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="New B'day Buddy"
         android:id="@+id/addnewHeader"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
         android:layout_alignParentTop="true"
-        />
+        android:textStyle="bold"
+        android:text="New B'day Buddy"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
 
-<LinearLayout
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:id="@+id/linearLayout"
-    android:layout_below="@id/addnewHeader"
-    android:layout_centerInParent="true"
-    >
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name"
-        android:id="@+id/addnewNameLabel"
-        />
-    <EditText
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/addnewNameEdit"
-        android:inputType="textPersonName"
-        />
+        android:orientation="vertical"
+        android:layout_below="@+id/addnewHeader">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Phone number"
-        android:id="@+id/addnewPhoneNumber"
-        android:inputType="phone"
-        />
-    <EditText
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/addnewPhoneEdit"/>
+        <TextView
+            android:id="@+id/addnewNameLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"
+            android:layout_marginTop="5dp"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="B'day date"
-        />
+        <EditText
+            android:id="@+id/addnewNameEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:singleLine="true"
+            android:text="Jørgen"/>
 
-    <DatePicker
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/addnewDatePicker"
-        android:calendarViewShown="false"
-        android:spinnersShown="true"
-        android:datePickerMode="spinner"/>
+        <TextView
+            android:id="@+id/addnewPhoneNumber"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:text="Phone number"
+            android:layout_marginTop="5dp"/>
 
-</LinearLayout>
+        <EditText
+            android:id="@+id/addnewPhoneEdit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:text="1234"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="B'day date"
+            android:layout_marginTop="10dp"/>
+
+        <DatePicker
+            android:id="@+id/addnewDatePicker"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:calendarViewShown="false"
+            android:datePickerMode="spinner"
+            android:spinnersShown="true"
+            android:layout_marginTop="-15dp"/>
+
+    </LinearLayout>
 
     <Button
+        android:id="@+id/addnewButtonNext"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="Next"
-        android:id="@+id/addnewButtonNext"
         android:onClick="addMessage"
-        />
+        android:text="Next" />
 
 
 </RelativeLayout>

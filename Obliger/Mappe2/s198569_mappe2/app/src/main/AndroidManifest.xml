@@ -3,7 +3,7 @@
     package="com.example.s198569_mappe2" >
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
-
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -24,12 +24,14 @@
             android:name=".RegisterPerson"
             android:label="@string/title_activity_register_person" >
         </activity>
-        <activity android:name=".RegisterMessage" >
+        <activity
+            android:name=".RegisterMessage"
+            android:label="RegisterMessage">
         </activity>
         <activity
             android:name=".BuddyList"
             android:label="@string/title_activity_buddy_list"
-            android:theme="@style/AppTheme.NoActionBar" >
+             >
         </activity>
 
         <receiver android:name=".broadcasts.BootCompleted"
@@ -41,6 +43,8 @@
         </receiver>
 
         <service android:name=".services.BDayOnBootService"></service>
+        <service android:name=".services.TestService"></service>
+        <service android:name=".services.DailyMessageService"></service>
 
     </application>
 

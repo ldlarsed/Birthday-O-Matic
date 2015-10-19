@@ -2,6 +2,31 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.s198569_mappe2.RegisterMessage">
-    <item android:id="@+id/action_settings" android:title="@string/action_settings"
-        android:orderInCategory="100" app:showAsAction="never" />
+
+
+    <!--<item android:id="@+id/action_settings" android:title="@string/action_settings"
+        android:orderInCategory="100" app:showAsAction="never" />-->
+
+
+    <!--<item android:id="@+id/main_add_new"
+       android:orderInCategory="100"
+       app:showAsAction="always"
+       android:title="Add"
+       android:icon="@android:drawable/ic_menu_add"
+       />-->
+
+    <item android:id="@+id/main_upcoming"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="Upcoming"
+        android:icon="@android:drawable/ic_menu_my_calendar"
+        />
+
+    <item android:id="@+id/main_settings"
+        android:orderInCategory="200"
+        app:showAsAction="always"
+        android:title="Settings"
+        android:icon="@android:drawable/ic_menu_preferences"
+        />
+
 </menu>
