@@ -58,6 +58,12 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         buddyName.setText(person.getName());
         buddyBDay.setText(person.getSimpleBirthdayDate());
 
+        //If we are editing an existing person we can populate all the textboxes
+        if(person.getBirthdayMessage() != null){
+            messageText.setText(person.getBirthdayMessage());
+            isActiveSwitch.setChecked(person.isActive());
+        }
+
         Log.i(Constants.TAG_PERSON, person.toString());
 
         db = new DBHandler(this);

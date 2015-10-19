@@ -2,6 +2,7 @@ package com.example.s198569_mappe2.BLL;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,11 +16,16 @@ import android.widget.TextView;
 
 import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.DAL.DBHandler;
+import com.example.s198569_mappe2.LIB.Constants;
 import com.example.s198569_mappe2.R;
+import com.example.s198569_mappe2.RegisterMessage;
+import com.example.s198569_mappe2.RegisterPerson;
 
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+
+import static android.support.v4.app.ActivityCompat.startActivityForResult;
 
 /**
  * Created by luke on 10/18/15.
@@ -81,18 +87,14 @@ public class BuddyListAdapter extends ArrayAdapter<Person> {
             public void onClick(View view) {
                 Log.i("Listener", "Edit clicked");
 
+                Intent editBuddy = new Intent(getContext(), RegisterPerson.class);
+                editBuddy.putExtra(Constants.TAG_PERSON, buddy);
+                editBuddy.putExtra("toEdit", true);
+                context.startActivity(editBuddy);
             }
         });
 
 
-       /* bHolder.swtchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                Log.i("Listener", "On/Off switch changed");
-                db = new DBHandler(getContext());
-                db.changeStatus(buddy.get_ID(), !buddy.isActive());
-            }
-        });*/
 
         bHolder.swtchOnOff.setOnClickListener(new View.OnClickListener() {
             @Override

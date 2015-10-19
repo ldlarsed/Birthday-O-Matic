@@ -14,12 +14,14 @@ import android.widget.EditText;
 import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.LIB.Constants;
 
+import java.util.Calendar;
 import java.util.Date;
 
 public class RegisterPerson extends AppCompatActivity {
 
     private EditText nameText, phoneText;
     private DatePicker bDate;
+    private Person buddyToEdit;
 
 
     @Override
@@ -37,6 +39,17 @@ public class RegisterPerson extends AppCompatActivity {
         nameText = (EditText) findViewById(R.id.addnewNameEdit);
         phoneText = (EditText) findViewById(R.id.addnewPhoneEdit);
         bDate = (DatePicker) findViewById(R.id.addnewDatePicker);
+
+
+        Intent i = getIntent();
+        //This if !null if we ha received person object to edit
+        if(i.getSerializableExtra(Constants.TAG_PERSON) != null){
+            buddyToEdit = (Person) i.getSerializableExtra(Constants.TAG_PERSON);
+            nameText.setText(buddyToEdit.getName());
+            phoneText.setText(buddyToEdit.getPhoneNumber());
+            bDate.updateDate(buddyToEdit.getBDayYear(), buddyToEdit.getBDayMonth(), buddyToEdit.getBDayDay());
+        }
+
 
         phoneText.setRawInputType(Configuration.KEYBOARD_12KEY);
     }
