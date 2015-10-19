@@ -30,12 +30,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar(); //v7 action bar prevents nullpointer
-
-
-        setContentView(R.layout.activity_main);
-
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayShowHomeEnabled(false);
+
+        setContentView(R.layout.activity_main);
 
         startService(new Intent(this, BDayOnBootService.class));
     }

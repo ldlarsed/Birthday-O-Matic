@@ -21,7 +21,7 @@ import java.util.Date;
 public class RegisterMessage extends AppCompatActivity implements DialogYesNoListener {
 
     private EditText messageText;
-    private TimePicker messageTime;
+    //private TimePicker messageTime;
     private Switch isActiveSwitch;
     private Person person, p;
     private DBHandler db;
@@ -33,8 +33,8 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
 
         messageText = (EditText) findViewById(R.id.addmessageGreetingsText);
-        messageTime = (TimePicker) findViewById(R.id.addmessageTimePicker);
-        messageTime.setIs24HourView(true);
+        //messageTime = (TimePicker) findViewById(R.id.addmessageTimePicker);
+        //messageTime.setIs24HourView(true);
         isActiveSwitch = (Switch) findViewById(R.id.addmessageSwitchIsActivate);
 
         Intent intent = getIntent();

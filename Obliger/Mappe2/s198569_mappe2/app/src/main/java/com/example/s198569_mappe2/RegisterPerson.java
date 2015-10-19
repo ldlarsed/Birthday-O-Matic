@@ -1,6 +1,7 @@
 package com.example.s198569_mappe2;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,18 +25,27 @@ public class RegisterPerson extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        android.support.v7.app.ActionBar actionBar = getSupportActionBar(); //v7 action bar prevents nullpointer
+        actionBar.setDisplayShowTitleEnabled(false);
+        actionBar.setDisplayShowHomeEnabled(false);
+        actionBar.setHomeButtonEnabled(true);
+        actionBar.setDisplayHomeAsUpEnabled(true);
+
         setContentView(R.layout.activity_register_person);
 
         nameText = (EditText) findViewById(R.id.addnewNameEdit);
         phoneText = (EditText) findViewById(R.id.addnewPhoneEdit);
         bDate = (DatePicker) findViewById(R.id.addnewDatePicker);
 
+        phoneText.setRawInputType(Configuration.KEYBOARD_12KEY);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_register_person, menu);
+        //menu.getItem(0).setEnabled(false); //Disables the add new button
         return true;
     }
 
@@ -47,8 +57,16 @@ public class RegisterPerson extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+       /* if (id == R.id.action_settings) {
             return true;
+        }*/
+
+        switch (id){
+            case android.R.id.home:
+                this.finish();
+                break;
+            default:
+                super.onOptionsItemSelected(item);
         }
 
         return super.onOptionsItemSelected(item);
