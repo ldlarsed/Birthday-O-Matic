@@ -20,7 +20,7 @@ import com.example.s198569_mappe2.services.BDayOnBootService;
  */
 public class BDaySettings extends AppCompatActivity {
 
-
+    //TODO: Set header for settings fragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

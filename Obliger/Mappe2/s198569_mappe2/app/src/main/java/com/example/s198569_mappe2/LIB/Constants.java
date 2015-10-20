@@ -28,4 +28,5 @@ public class Constants {
     public static final String SHARED_PREFS_SERVICE_ACTIVE = "SERVICE_ACTIVE";
     public static final String SHARED_PREFS_SERVICE_HOUR = "SERVICE_HOUR";
     public static final String SHARED_PREFS_SERVICE_MINUTE = "SERVICE_MINUTE";
+    public static final String IS_EDIT_SESSION = "TO_EDIT";
 }

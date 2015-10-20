@@ -57,8 +57,8 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         buddyBDay.setText(person.getSimpleBirthdayDate());
 
         //If we are editing an existing person we can populate all the textboxes
-        if (intent.getBooleanExtra("IS_EDIT", true)) {
-            isEditSession = true;
+        isEditSession = intent.getBooleanExtra(Constants.IS_EDIT_SESSION, false);
+        if (isEditSession) {
             messageText.setText(person.getBirthdayMessage());
             isActiveSwitch.setChecked(person.isActive());
         }
@@ -67,6 +67,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
         db = new DBHandler(this);
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         Intent addNewActivity = new Intent(MainActivity.this, RegisterPerson.class);
         addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
         //this.getApplicationContext().startActivity(addNew);
+        addNewActivity.putExtra(Constants.IS_EDIT_SESSION, false);
         MainActivity.this.startActivity(addNewActivity);
     }
 

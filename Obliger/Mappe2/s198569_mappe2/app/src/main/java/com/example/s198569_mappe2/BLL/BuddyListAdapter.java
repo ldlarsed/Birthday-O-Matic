@@ -89,7 +89,7 @@ public class BuddyListAdapter extends ArrayAdapter<Person> {
 
                 Intent editBuddy = new Intent(getContext(), RegisterPerson.class);
                 editBuddy.putExtra(Constants.TAG_PERSON, buddy);
-                editBuddy.putExtra("TO_EDIT", true);
+                editBuddy.putExtra(Constants.IS_EDIT_SESSION, true);
                 context.startActivity(editBuddy);
             }
         });
