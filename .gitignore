@@ -1,6 +1,7 @@
 #Eget
 Fagstoff/
 Resurser/
+*.zip
 
 # Built application files
 *.apk
