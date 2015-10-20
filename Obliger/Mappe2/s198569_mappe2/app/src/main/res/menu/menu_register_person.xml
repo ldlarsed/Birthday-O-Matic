@@ -28,5 +28,12 @@
         android:icon="@android:drawable/ic_menu_preferences"
         />
 
+    <item android:id="@+id/main_next"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="Settings"
+        android:icon="@android:drawable/"
+        />
+
 
 </menu>
