@@ -1,26 +1,16 @@
 package com.example.s198569_mappe2;
 
-import android.app.ActionBar;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.widget.Toast;
 
-import com.example.s198569_mappe2.BLL.BirthdayController;
-import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.LIB.Constants;
 import com.example.s198569_mappe2.services.BDayOnBootService;
-
-import java.util.ArrayList;
-import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         //Calling up the shared preferences
-        getSharedPreferences();
+        runPreferenceActions();
 
         android.support.v7.app.ActionBar actionBar = getSupportActionBar(); //v7 action bar prevents nullpointer
         actionBar.setDisplayShowTitleEnabled(false);
@@ -45,11 +35,23 @@ public class MainActivity extends AppCompatActivity {
      * Mostly important for the first time app runs.
      * Using the default value if nothing is found.
      */
-    private void getSharedPreferences() {
+    private void runPreferenceActions() {
         SharedPreferences prefs = getSharedPreferences(Constants.SHARED_PREFS, MODE_PRIVATE);
         boolean bDayServiceisActive = prefs.getBoolean(Constants.SHARED_PREFS_SERVICE_ACTIVE, true);
         int messageHour = prefs.getInt(Constants.SHARED_PREFS_SERVICE_HOUR, 12);
         int messageMinute = prefs.getInt(Constants.SHARED_PREFS_SERVICE_MINUTE, 0);
+
+        Log.i(Constants.SHARED_PREFS, "Service key in main is " + bDayServiceisActive);
+
+        if(bDayServiceisActive) {
+            //Starting the message service
+            startService(new Intent(this, BDayOnBootService.class));
+        }
+        else{
+            //Stoppping the message service
+            stopService(new Intent(this, BDayOnBootService.class));
+        }
+
     }
 
     @Override

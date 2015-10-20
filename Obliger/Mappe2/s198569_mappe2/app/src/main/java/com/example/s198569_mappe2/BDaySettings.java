@@ -100,7 +100,6 @@ public class BDaySettings extends AppCompatActivity {
                     //Stoppping the message service
                     getActivity().stopService(new Intent(getActivity(), BDayOnBootService.class));
                 }
-
             }
         }
     }

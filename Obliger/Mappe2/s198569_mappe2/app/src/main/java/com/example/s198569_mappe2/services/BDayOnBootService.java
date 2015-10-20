@@ -28,6 +28,7 @@ public class BDayOnBootService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
+        //TODO: Show different logs depending on if service did run prevously or is being started for the first time
         Toast.makeText(getApplicationContext(), "B'day service started", Toast.LENGTH_LONG).show();
         Log.i("Service", "B'day service started");
 
