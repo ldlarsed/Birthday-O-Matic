@@ -33,6 +33,10 @@
             android:label="@string/title_activity_buddy_list"
              >
         </activity>
+        <activity
+            android:name=".BDaySettings"
+            android:label="BDaySettings">
+        </activity>
 
         <receiver android:name=".broadcasts.BootCompleted"
             android:enabled="true"

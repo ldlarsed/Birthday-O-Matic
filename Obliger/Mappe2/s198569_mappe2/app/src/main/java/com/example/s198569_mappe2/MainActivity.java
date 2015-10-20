@@ -89,15 +89,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showPreferences(View view){
-        BirthdayController b = new BirthdayController(getApplicationContext());
+       /* BirthdayController b = new BirthdayController(getApplicationContext());
         ArrayList<Person> p = b.getTodaysBDays();
         String result = "";
         for(Person o : p){
             result += o.getName() + ":" + o.getBirthdayDate() + "\n";
         }
 
-        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();*/
         //Toast.makeText(getApplicationContext(), "Not yet implemented", Toast.LENGTH_SHORT).show();
+        Intent settings = new Intent(MainActivity.this, BDaySettings.class);
+        settings.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        MainActivity.this.startActivity(settings);
     }
 
 
