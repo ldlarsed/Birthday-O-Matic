@@ -1,21 +1,18 @@
 package com.example.s198569_mappe2;
 
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceFragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
+import android.widget.TimePicker;
 
 import com.example.s198569_mappe2.LIB.Constants;
-import com.example.s198569_mappe2.fragments.TimePickerFragment;
 import com.example.s198569_mappe2.services.BDayOnBootService;
 
 /**
@@ -38,7 +35,6 @@ public class BDaySettings extends AppCompatActivity {
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new BDaySettingsFragment())
                 .commit();
-
     }
 
 
@@ -55,17 +51,27 @@ public class BDaySettings extends AppCompatActivity {
             setMessageTime.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    Toast.makeText(getActivity(), "Preference item is clicked", Toast.LENGTH_SHORT).show();
-                    /*TimePickerFragment timePicker = new TimePickerFragment();
-                    FragmentManager fm = getSupportFragmentManager();
-                    FragmentTransaction ft = fm.beginTransaction();
-                    ft.add(timePicker, "time_picker");
-                    ft.commit();*/
+
+                    final SharedPreferences prefs = getActivity().getSharedPreferences(Constants.SHARED_PREFS, MODE_PRIVATE);
+                    int bmHour = prefs.getInt(Constants.SHARED_PREFS_SERVICE_HOUR, 12);
+                    int bmMinute = prefs.getInt(Constants.SHARED_PREFS_SERVICE_MINUTE, 0);
+
+                    TimePickerDialog mTimePicker;
+                    mTimePicker = new TimePickerDialog(getActivity(), new TimePickerDialog.OnTimeSetListener() {
+                        @Override
+                        public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                            //eReminderTime.setText( selectedHour + ":" + selectedMinute);
+                            prefs.edit().putInt(Constants.SHARED_PREFS_SERVICE_HOUR, selectedHour).apply();
+                            prefs.edit().putInt(Constants.SHARED_PREFS_SERVICE_MINUTE, selectedMinute).apply();
+                            Log.i(Constants.SHARED_PREFS, "New selected time is " + selectedHour + ":" + selectedMinute);
+                        }
+                    }, bmHour, bmMinute, true);
+                    mTimePicker.setTitle("Select messaging time");
+                    mTimePicker.show();
 
                     return true;
                 }
             });
-
         }
 
         @Override
@@ -87,11 +93,8 @@ public class BDaySettings extends AppCompatActivity {
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
             if(key.equals(Constants.SHARED_PREFS_SERVICE_ACTIVE)){
-                //Toast.makeText(getActivity(), "Service preference changed", Toast.LENGTH_SHORT).show();
-
                 boolean isServiceOn = sharedPreferences.getBoolean(Constants.SHARED_PREFS_SERVICE_ACTIVE, true);
                 Log.i(Constants.SHARED_PREFS, "Message service is " + (isServiceOn ? "ON" : "OFF"));
-
                 if(isServiceOn) {
                     //Starting the message service
                     getActivity().startService(new Intent(getActivity(), BDayOnBootService.class));
@@ -115,4 +118,8 @@ public class BDaySettings extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
 }

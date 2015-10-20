@@ -17,6 +17,7 @@ import com.example.s198569_mappe2.LIB.Constants;
 import java.util.Calendar;
 import java.util.Date;
 
+//TODO: Prevent setting birthday date in the future.
 public class RegisterPerson extends AppCompatActivity {
 
     private EditText nameText, phoneText;
