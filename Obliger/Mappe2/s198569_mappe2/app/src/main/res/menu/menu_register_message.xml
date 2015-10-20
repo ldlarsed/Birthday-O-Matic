@@ -15,7 +15,7 @@
        android:icon="@android:drawable/ic_menu_add"
        />-->
 
-    <item android:id="@+id/main_upcoming"
+    <!--<item android:id="@+id/main_upcoming"
         android:orderInCategory="100"
         app:showAsAction="always"
         android:title="Upcoming"
@@ -27,6 +27,13 @@
         app:showAsAction="always"
         android:title="Settings"
         android:icon="@android:drawable/ic_menu_preferences"
+        />-->
+
+    <item android:id="@+id/main_save"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="Save"
+        android:icon="@drawable/done"
         />
 
 </menu>
