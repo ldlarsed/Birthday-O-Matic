@@ -9,7 +9,7 @@ package com.example.s198569_mappe2.LIB;
  */
 public class Constants {
 
-
+    public static final String SHARED_PREFS = "BDayPrefs";
     public static final String TAG_SQL = "SQL";
     public static final String TABLE_CREATION_PROBLEM = "Table creation problem";
     public static final String TABLE_INSERTION_PROBLEM = "Table insertion problem";
@@ -25,4 +25,8 @@ public class Constants {
     public static final String TAG_LISTENER = "Listener";
     public static final String DIALOG_YES_CLICK_REGISTERED = "Yes click registered";
     public static final String DIALOG_NO_CLICK_REGISTERED = "No click registered";
+    public static final String SHARED_PREFS_SERVICE_ACTIVE = "SERVICE_ACTIVE";
+    public static final String SHARED_PREFS_SERVICE_HOUR = "SERVICE_HOUR";
+    public static final String SHARED_PREFS_SERVICE_MINUTE = "SERVICE_MINUTE";
+    public static final String IS_EDIT_SESSION = "TO_EDIT";
 }

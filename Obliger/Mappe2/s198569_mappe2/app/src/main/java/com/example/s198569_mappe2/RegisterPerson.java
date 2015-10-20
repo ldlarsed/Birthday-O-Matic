@@ -17,6 +17,7 @@ import com.example.s198569_mappe2.LIB.Constants;
 import java.util.Calendar;
 import java.util.Date;
 
+//TODO: Prevent setting birthday date in the future.
 public class RegisterPerson extends AppCompatActivity {
 
     private EditText nameText, phoneText;
@@ -49,8 +50,8 @@ public class RegisterPerson extends AppCompatActivity {
          all wont be populated.
          */
         Intent i = getIntent();
-        if(i.getSerializableExtra(Constants.TAG_PERSON) != null){
-            isEditSession = true;
+        isEditSession = i.getBooleanExtra(Constants.IS_EDIT_SESSION, false);
+        if(isEditSession){
             buddyToEdit = (Person) i.getSerializableExtra(Constants.TAG_PERSON);
             nameText.setText(buddyToEdit.getName());
             phoneText.setText(buddyToEdit.getPhoneNumber());
@@ -138,7 +139,7 @@ public class RegisterPerson extends AppCompatActivity {
             Intent addNewMessage = new Intent(RegisterPerson.this, RegisterMessage.class);
             addNewMessage.putExtra(Constants.TAG_PERSON, getInputData());
             if(isEditSession)
-                addNewMessage.putExtra("IS_EDIT", true);
+                addNewMessage.putExtra(Constants.IS_EDIT_SESSION, true);
             addNewMessage.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             RegisterPerson.this.startActivity(addNewMessage);
         }

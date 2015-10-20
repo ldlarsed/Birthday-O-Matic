@@ -5,11 +5,13 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.s198569_mappe2.LIB.Constants;
 import com.example.s198569_mappe2.RegisterPerson;
 
 import java.util.Calendar;
@@ -28,34 +30,19 @@ public class BDayOnBootService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Toast.makeText(getApplicationContext(), "BDayService is running", Toast.LENGTH_LONG).show();
-        Log.i("Service", "BDayService is running");
+        //TODO: Show different logs depending on if service did run prevously or is being started for the first time
+        Toast.makeText(getApplicationContext(), "B'day service started", Toast.LENGTH_LONG).show();
+        Log.i("Service", "B'day service started");
 
-        //Hver 30 sekund
-/*        Calendar cal = Calendar.getInstance();
-        Intent i = new Intent(this, TestService.class);
-        PendingIntent pintent = PendingIntent.getService(this, 0, i, 0);
-        AlarmManager alarm = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(),
-                10 * 1000, pintent);*/
-
-        //Starter ved spesifikk tid
-     /*   Calendar calendar = Calendar.getInstance();
-
-        Context context = getApplicationContext();
-        calendar.set(Calendar.HOUR_OF_DAY, 22); // For 1 PM or 2 PM
-        calendar.set(Calendar.MINUTE, 31);
-        calendar.set(Calendar.SECOND, 0);
-        PendingIntent pi = PendingIntent.getService(context, 0,
-                new Intent(context, TestService.class),PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pi);*/
+        //Fetching shared preferences
+        final SharedPreferences prefs = getSharedPreferences(Constants.SHARED_PREFS, MODE_PRIVATE);
+        int bmHour = prefs.getInt(Constants.SHARED_PREFS_SERVICE_HOUR, 12);
+        int bmMinute = prefs.getInt(Constants.SHARED_PREFS_SERVICE_MINUTE, 0);
 
         Calendar calendar = Calendar.getInstance();
         Context context = getApplicationContext();
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 50);
+        calendar.set(Calendar.HOUR_OF_DAY, bmHour);
+        calendar.set(Calendar.MINUTE, bmMinute);
         calendar.set(Calendar.SECOND, 0);
         PendingIntent pi = PendingIntent.getService(context, 0,
                 new Intent(context, DailyMessageService.class),PendingIntent.FLAG_UPDATE_CURRENT);
@@ -63,40 +50,15 @@ public class BDayOnBootService extends Service {
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pi);
 
-        return Service.START_STICKY;
-
-
+        return Service.START_STICKY; //This one should run as soon system resources for it are available
         //return super.onStartCommand(intent, flags, startId);
     }
 
-    /*@Override
-    public void onCreate() {
-        super.onCreate();
-
-        //Kall opp det som skal gjøres her etter start
-        Toast.makeText(getApplicationContext(), "BDayService is running", Toast.LENGTH_LONG).show();
-        Log.i("Service", "BDayService is running");
-
-    }*/
-
-    /*
-    Her skal det startes en service samme tid hver dag (det blir normalt avhengig av instillinger som seinere gjøres av brukeren).
-    Denne service kommer til å gå igjennom alle registrerte brukere som har en bursdag som overensstemmer med dagens dato.
-    Dersom slike personer finnes kommer man til å sende epost til alle brukere avhengig av hvilken tekst de har.
-     */
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public void onDestroy() {
+        super.onDestroy();
 
-      /*  Calendar calendar = Calendar.getInstance();
-        Context context = getApplicationContext();
-        calendar.set(Calendar.HOUR_OF_DAY, 15);
-        calendar.set(Calendar.MINUTE, 39);
-        calendar.set(Calendar.SECOND, 0);
-        PendingIntent pi = PendingIntent.getService(context, 0,
-                new Intent(context, DailyMessageService.class),PendingIntent.FLAG_UPDATE_CURRENT);
-        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY, pi);*/
+        Toast.makeText(getApplicationContext(), "B'day service stopped", Toast.LENGTH_LONG).show();
+        Log.i("Service", "B'day service stopped");
     }
 }

@@ -4,6 +4,9 @@
 
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="com.example.s198569_mappe2.BDayOMatic.permission" />
+
+    <permission android:name="com.example.s198569_mappe2.BDayOMatic.permission" />
 
     <application
         android:allowBackup="true"
@@ -33,6 +36,10 @@
             android:label="@string/title_activity_buddy_list"
              >
         </activity>
+        <activity
+            android:name=".BDaySettings"
+            android:label="BDaySettings">
+        </activity>
 
         <receiver android:name=".broadcasts.BootCompleted"
             android:enabled="true"
@@ -45,6 +52,14 @@
         <service android:name=".services.BDayOnBootService"></service>
         <service android:name=".services.TestService"></service>
         <service android:name=".services.DailyMessageService"></service>
+        
+        <provider
+            android:authorities="com.example.s198569_mappe2.BDayOMatic"
+            android:name="com.example.s198569_mappe2.DAL.BDayContentProvider"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.example.s198569_mappe2.BDayOMatic.permission">
+        </provider>
 
     </application>
 

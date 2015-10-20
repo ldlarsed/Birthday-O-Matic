@@ -12,21 +12,21 @@
         android:orderInCategory="100"
         app:showAsAction="always"
         android:title="Add"
-        android:icon="@android:drawable/ic_menu_add"
+        android:icon="@drawable/add"
         />
 
     <item android:id="@+id/main_upcoming"
         android:orderInCategory="200"
         app:showAsAction="always"
         android:title="Upcoming"
-        android:icon="@android:drawable/ic_menu_my_calendar"
+        android:icon="@drawable/buddies"
         />
 
     <item android:id="@+id/main_settings"
         android:orderInCategory="300"
         app:showAsAction="always"
         android:title="Settings"
-        android:icon="@android:drawable/ic_menu_preferences"
+        android:icon="@drawable/settings"
         />
 
 </menu>
