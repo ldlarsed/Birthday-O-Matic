@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context="com.example.s198569_mappe2.BDaySettings">
 
-    <item
+  <!--  <item
         android:id="@+id/main_add_new"
         android:icon="@android:drawable/ic_menu_add"
         android:orderInCategory="100"
@@ -16,6 +16,6 @@
         android:icon="@android:drawable/ic_menu_my_calendar"
         android:orderInCategory="200"
         android:title="Upcoming"
-        app:showAsAction="always" />
+        app:showAsAction="always" />-->
 
 </menu>

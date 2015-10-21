@@ -25,4 +25,9 @@
     <string name="application_name">Birthday-o-Matic</string>
     <string name="answer_yes">Yes</string>
     <string name="answer_no">No</string>
+    <string name="preferances_header">Preferances</string>
+    <string name="PREF_SERVICE_TITLE">B\'day service</string>
+    <string name="PREF_SERVICE_DESC">Start or stop the service</string>
+    <string name="PREF_TIME_TITLE">Message time</string>
+    <string name="PREF_TIME_DESC">Time when messages will be send</string>
 </resources>

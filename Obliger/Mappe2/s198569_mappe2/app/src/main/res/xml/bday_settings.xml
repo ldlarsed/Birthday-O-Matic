@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
     <PreferenceCategory android:title="Birthday message service">
 
         <SwitchPreference
             android:key="SERVICE_ACTIVE"
-            android:summary="Start and stop the service"
-            android:title="Birthday service" />
+            android:summary="@string/PREF_SERVICE_DESC"
+            android:title="@string/PREF_SERVICE_TITLE" />
 
         <Preference
             android:key="bdayServiceMessageTime"
-            android:title="Message time"
-            android:summary="Time for sending birthday greetings" />
+            android:title="@string/PREF_TIME_TITLE"
+            android:summary="@string/PREF_TIME_DESC" />
 
     </PreferenceCategory>
 
