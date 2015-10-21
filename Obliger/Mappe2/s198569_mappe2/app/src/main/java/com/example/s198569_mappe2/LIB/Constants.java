@@ -17,6 +17,7 @@ public class Constants {
     public static final String ERROR_WHILE_PARSING_DATE = "Error while parsing date";
     public static final String REGULAR_EXPRESSION_LETTERS_ONLY = "^[\\p{L} _]*[\\p{L}][\\p{L} _]*$";
     public static final String REGULAR_EXPRESSION_NUMBERS_ONLY = "^[0-9 _]*[0-9][0-9 _]*$";
+    public static final String REGULAR_EXPRESSION_MIN_8_DIGITS = "(\\D*\\d){8}";
     public static final String TAG_INPUT = "Input";
     public static final String TAG_PERSON = "Person";
     public static final String TAG_EXCEPTION = "EXCEPTION";

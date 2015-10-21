@@ -7,9 +7,14 @@
     <string name="title_activity_register_message">RegisterMessage</string>
     <string name="regex_letters_only">Only letters allowed</string>
     <string name="regex_numbers_only">Only numbers allowed</string>
+    <string name="regex_min_8_digits">At least 8 digits</string>
     <string name="regex_empty_message">Message cannot be empty</string>
     <string name="title_activity_buddy_list">BuddyList</string>
     <string name="info_dialog_title">New Buddy</string>
     <string name="dialog_OK">OK</string>
     <string name="dialog_Cancel">Cancel</string>
+    <string name="header_new_buddy">New B\'day Buddy</string>
+    <string name="label_name">Name</string>
+    <string name="label_phone_number">Phone number</string>
+    <string name="label_birthday_date">B\'day date</string>
 </resources>

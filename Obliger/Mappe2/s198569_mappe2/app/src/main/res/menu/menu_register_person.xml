@@ -6,10 +6,10 @@
 
 
 
-    <item android:id="@+id/main_next"
+    <item android:id="@+id/register_person_next"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="Settings"
+        android:title="Next"
         android:icon="@drawable/next"
         />
 

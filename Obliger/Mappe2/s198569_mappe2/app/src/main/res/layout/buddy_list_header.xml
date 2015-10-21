@@ -12,6 +12,6 @@
         android:textStyle="bold"
         android:textSize="35dp"
         android:gravity="center_horizontal"
-        android:text="Birtday-o-Matic" />
+        android:text="Birthday-o-Matic" />
 
 </LinearLayout>
