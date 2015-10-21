@@ -18,6 +18,16 @@ import com.example.s198569_mappe2.R;
 public class InfoDialogFragment extends DialogFragment{
 
     private DialogYesNoListener callback;
+    private String dialogTitle;
+
+    /**
+     * Since DialogFragment requires standard constructor only
+     * the title have to be provided through a handy method.
+     * @param title
+     */
+    public void setDialogTitle(String title){
+        this.dialogTitle = title;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -30,23 +40,14 @@ public class InfoDialogFragment extends DialogFragment{
         }
     }
 
-//    public static InfoDialogFragment newInstance(int title){
-//        InfoDialogFragment dFrag = new InfoDialogFragment();
-//        Bundle args = new Bundle();
-//        args.putInt("DialogTitle", title);
-//        dFrag.setArguments(args);
-//        return dFrag;
-//    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         return new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.info_dialog_title)
+                .setTitle(dialogTitle)
                 .setPositiveButton(R.string.dialog_OK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         callback.onYesClick();
-                        goToMain();
                     }
                 })
                 .setNegativeButton(R.string.dialog_Cancel, new DialogInterface.OnClickListener() {
@@ -57,10 +58,4 @@ public class InfoDialogFragment extends DialogFragment{
                 .create();
     }
 
-    private void goToMain(){
-        Intent addNewActivity = new Intent(getActivity(), BuddyList.class);
-        addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
-        //this.getApplicationContext().startActivity(addNew);
-        getActivity().startActivity(addNewActivity);
-    }
 }
