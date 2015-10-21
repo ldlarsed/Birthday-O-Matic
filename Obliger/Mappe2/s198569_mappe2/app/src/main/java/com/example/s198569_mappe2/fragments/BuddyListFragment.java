@@ -30,9 +30,10 @@ public class BuddyListFragment extends Fragment {
     private static ArrayAdapter<String> bdAdapter;
     private static BuddylistEvent buddyListener;
     private DBHandler db;
+    private View v;
 
 
-    public interface BuddylistEvent{
+    public interface BuddylistEvent {
         void buddyChanged(Person p);
     }
 
@@ -56,45 +57,48 @@ public class BuddyListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         //return super.onCreateView(inflater, container, savedInstanceState);
 
-        View v = inflater.inflate(R.layout.buddy_list_layout, container, false);
-        final ListView lv = (ListView) v.findViewById(R.id.buddylistBuddies);
-
         db = new DBHandler(getActivity());
 
-        final ArrayList<Person> bList = db.getAllBuddies();
-        final ArrayList<String> buddyDetails = new ArrayList<String>();
+        if(db.getBuddyCount() == 0){
+            v = inflater.inflate(R.layout.buddy_list_layout_empty, container, false);
+        }else {
+            v = inflater.inflate(R.layout.buddy_list_layout, container, false);
+
+            final ListView lv = (ListView) v.findViewById(R.id.buddylistBuddies);
 
 
-        for (Person s : bList)
-            buddyDetails.add(s.getName());
+            final ArrayList<Person> bList = db.getAllBuddies();
+            final ArrayList<String> buddyDetails = new ArrayList<String>();
 
 
-
-        final BuddyListAdapter adapter = new BuddyListAdapter(getActivity(), R.layout.buddy_list_item_row, bList);
-
-
-
-        View header = inflater.inflate(R.layout.buddy_list_header, null);
+            for (Person s : bList)
+                buddyDetails.add(s.getName());
 
 
-
-        adapter.setDataChangedSetListener(new DataSetChangedListener() {
-            @Override
-            public void dataSetChanged(boolean isChanged) {
-                Log.i("Listener", "Adapter data set has been changed");
-                lv.destroyDrawingCache();
-                lv.setVisibility(ListView.INVISIBLE);
-
-                adapter.notifyDataSetChanged();
-                lv.setVisibility(ListView.VISIBLE);
-                getActivity().recreate();
-            }
-        });
+            final BuddyListAdapter adapter = new BuddyListAdapter(getActivity(), R.layout.buddy_list_item_row, bList);
 
 
-        lv.addHeaderView(header);
-        lv.setAdapter(adapter);
+            View header = inflater.inflate(R.layout.buddy_list_header, null);
 
+
+            adapter.setDataChangedSetListener(new DataSetChangedListener() {
+                @Override
+                public void dataSetChanged(boolean isChanged) {
+                    Log.i("Listener", "Adapter data set has been changed");
+                    lv.destroyDrawingCache();
+                    lv.setVisibility(ListView.INVISIBLE);
+
+                    adapter.notifyDataSetChanged();
+                    lv.setVisibility(ListView.VISIBLE);
+                    getActivity().recreate();
+
+                }
+            });
+
+
+            lv.addHeaderView(header);
+            lv.setAdapter(adapter);
+        }
         return v;
     }
 }
