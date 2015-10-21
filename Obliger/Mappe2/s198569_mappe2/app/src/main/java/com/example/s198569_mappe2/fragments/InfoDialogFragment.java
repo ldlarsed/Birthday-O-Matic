@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.s198569_mappe2.BuddyList;
 import com.example.s198569_mappe2.LIB.Constants;
 import com.example.s198569_mappe2.LIB.DialogYesNoListener;
 import com.example.s198569_mappe2.R;
@@ -44,6 +46,7 @@ public class InfoDialogFragment extends DialogFragment{
                 .setPositiveButton(R.string.dialog_OK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         callback.onYesClick();
+                        goToMain();
                     }
                 })
                 .setNegativeButton(R.string.dialog_Cancel, new DialogInterface.OnClickListener() {
@@ -52,5 +55,12 @@ public class InfoDialogFragment extends DialogFragment{
                     }
                 })
                 .create();
+    }
+
+    private void goToMain(){
+        Intent addNewActivity = new Intent(getActivity(), BuddyList.class);
+        addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
+        //this.getApplicationContext().startActivity(addNew);
+        getActivity().startActivity(addNewActivity);
     }
 }

@@ -7,4 +7,5 @@
     <dimen name="activity_label_size">20dp</dimen>
     <dimen name="activity_edittext_size">25dp</dimen>
     <dimen name="label_marigin_top">10dp</dimen>
+    <dimen name="activity_sub_label_size">15dp</dimen>
 </resources>

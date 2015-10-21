@@ -83,6 +83,8 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
             case android.R.id.home:
                 this.finish();
                 break;
+            case R.id.register_message_save:
+                this.saveBuddyAlert(getCurrentFocus());
             default:
                 return super.onOptionsItemSelected(item);
         }

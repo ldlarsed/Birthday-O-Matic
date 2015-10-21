@@ -5,7 +5,7 @@
 
 
 
-    <item android:id="@+id/main_save"
+    <item android:id="@+id/register_message_save"
         android:orderInCategory="100"
         app:showAsAction="always"
         android:title="Save"

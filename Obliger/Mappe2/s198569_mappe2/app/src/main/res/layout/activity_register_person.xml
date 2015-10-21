@@ -25,7 +25,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:orientation="vertical"
-        android:layout_below="@+id/addnewHeader">
+        android:layout_below="@+id/addnewHeader"
+        android:layout_centerInParent="true">
 
         <TextView
             android:id="@+id/addnewNameLabel"
@@ -43,7 +44,9 @@
             android:layout_height="wrap_content"
             android:inputType="textPersonName"
             android:singleLine="true"
+            android:gravity="center"
             android:text="Jørgen"
+            android:typeface="serif"
             android:textSize="@dimen/activity_edittext_size" />
 
         <TextView
@@ -53,6 +56,7 @@
             android:inputType="phone"
             android:gravity="center_horizontal"
             android:text="@string/label_phone_number"
+            android:layout_gravity="center"
             android:textSize="@dimen/activity_label_size"
             android:layout_marginTop="10dp"/>
 
@@ -62,7 +66,9 @@
             android:layout_height="wrap_content"
             android:singleLine="true"
             android:textSize="@dimen/activity_edittext_size"
-            android:text="1234"/>
+            android:gravity="center"
+            android:typeface="serif"
+            android:text="12345678"/>
 
         <TextView
             android:layout_width="fill_parent"
