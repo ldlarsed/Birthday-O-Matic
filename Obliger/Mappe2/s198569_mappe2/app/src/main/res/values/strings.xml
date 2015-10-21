@@ -12,6 +12,7 @@
     <string name="title_activity_buddy_list">BuddyList</string>
     <string name="info_dialog_title_new_buddy">Save new buddy?</string>
     <string name="info_dialog_title_edit_buddy">Save changes?</string>
+    <string name="info_dialog_title_delete_buddy">Delete this buddy?</string>
     <string name="dialog_OK">OK</string>
     <string name="dialog_Cancel">Cancel</string>
     <string name="header_new_buddy">New B\'day Buddy</string>
@@ -22,4 +23,6 @@
     <string name="activity_sub_heder_bdate">Birthday date</string>
     <string name="label_greetings_message">Your B\'day message</string>
     <string name="application_name">Birthday-o-Matic</string>
+    <string name="answer_yes">Yes</string>
+    <string name="answer_no">No</string>
 </resources>
