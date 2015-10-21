@@ -46,6 +46,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
         messageText = (EditText) findViewById(R.id.addmessageGreetingsText);
         isActiveSwitch = (Switch) findViewById(R.id.addmessageSwitchIsActivate);
+        isActiveSwitch.setChecked(true);
 
         Intent intent = getIntent();
         person = (Person) intent.getSerializableExtra(Constants.TAG_PERSON);
@@ -54,7 +55,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         buddyName = (TextView) findViewById(R.id.addmessageHeaderText);
         buddyBDay = (TextView) findViewById(R.id.addmessageBirthdayDateText);
         buddyName.setText(person.getName());
-        buddyBDay.setText(person.getSimpleBirthdayDate());
+        buddyBDay.setText(person.getSimpleYearMonthDay());
 
         //If we are editing an existing person we can populate all the textboxes
         isEditSession = intent.getBooleanExtra(Constants.IS_EDIT_SESSION, false);
