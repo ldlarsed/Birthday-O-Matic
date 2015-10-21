@@ -13,13 +13,11 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".BuddyList"
+            android:label="Birthday-o-Matic" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -30,11 +28,6 @@
         <activity
             android:name=".RegisterMessage"
             android:label="RegisterMessage">
-        </activity>
-        <activity
-            android:name=".BuddyList"
-            android:label="@string/title_activity_buddy_list"
-             >
         </activity>
         <activity
             android:name=".BDaySettings"
