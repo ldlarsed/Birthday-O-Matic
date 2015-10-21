@@ -38,13 +38,13 @@
             android:id="@+id/buddylistitemrowEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_edit"/>
+            android:src="@drawable/edit"/>
 
         <ImageButton
             android:id="@+id/buddylistitemrowDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_delete"/>
+            android:src="@drawable/delete"/>
 
         <Switch
             android:id="@+id/buddylistitemrowSwitch"

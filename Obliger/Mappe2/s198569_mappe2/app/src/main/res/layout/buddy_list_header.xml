@@ -10,6 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:textStyle="bold"
-        android:text="List of buddies" />
+        android:textSize="35dp"
+        android:gravity="center_horizontal"
+        android:text="Birtday-o-Matic" />
 
 </LinearLayout>
