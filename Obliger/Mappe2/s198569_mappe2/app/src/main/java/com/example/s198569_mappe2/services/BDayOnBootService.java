@@ -1,6 +1,8 @@
 package com.example.s198569_mappe2.services;
 
 import android.app.AlarmManager;
+import android.app.Notification;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
@@ -12,6 +14,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.example.s198569_mappe2.LIB.Constants;
+import com.example.s198569_mappe2.R;
 import com.example.s198569_mappe2.RegisterPerson;
 
 import java.util.Calendar;
@@ -31,8 +34,9 @@ public class BDayOnBootService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
 
         //TODO: Show different logs depending on if service did run prevously or is being started for the first time
-        Toast.makeText(getApplicationContext(), "B'day service started", Toast.LENGTH_LONG).show();
-        Log.i("Service", "B'day service started");
+        //Toast.makeText(getApplicationContext(), Constants.B_DAY_SERVICE_STARTED, Toast.LENGTH_LONG).show();
+        Log.i(Constants.SERVICE, Constants.B_DAY_SERVICE_STARTED);
+
 
         //Fetching shared preferences
         final SharedPreferences prefs = getSharedPreferences(Constants.SHARED_PREFS, MODE_PRIVATE);
@@ -50,6 +54,20 @@ public class BDayOnBootService extends Service {
         am.setRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
                 AlarmManager.INTERVAL_DAY, pi);
 
+
+        Notification noti = new Notification.Builder(this)
+                .setContentTitle(getString(R.string.application_name))
+                .setContentText(getString(R.string.bday_service_running))
+                .setSmallIcon(R.drawable.ic_launcher)
+                .setContentIntent(pi).build();
+        noti.flags |= Notification.FLAG_AUTO_CANCEL;
+        NotificationManager notificationManager =
+                (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+
+        notificationManager.notify(0, noti);
+
+
+
         return Service.START_STICKY; //This one should run as soon system resources for it are available
         //return super.onStartCommand(intent, flags, startId);
     }
@@ -58,7 +76,7 @@ public class BDayOnBootService extends Service {
     public void onDestroy() {
         super.onDestroy();
 
-        Toast.makeText(getApplicationContext(), "B'day service stopped", Toast.LENGTH_LONG).show();
-        Log.i("Service", "B'day service stopped");
+        Toast.makeText(getApplicationContext(), Constants.B_DAY_SERVICE_STOPPED, Toast.LENGTH_LONG).show();
+        Log.i(Constants.SERVICE, Constants.B_DAY_SERVICE_STOPPED);
     }
 }

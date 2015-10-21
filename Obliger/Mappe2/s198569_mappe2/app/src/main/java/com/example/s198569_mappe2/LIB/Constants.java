@@ -30,4 +30,11 @@ public class Constants {
     public static final String SHARED_PREFS_SERVICE_HOUR = "SERVICE_HOUR";
     public static final String SHARED_PREFS_SERVICE_MINUTE = "SERVICE_MINUTE";
     public static final String IS_EDIT_SESSION = "TO_EDIT";
+    public static final String SERVICE_KEY_IN_MAIN_IS = "Service key in main is ";
+    public static final String SERVICE = "Service";
+    public static final String NO_CONTACTS_TO_SHOW = "No contacts to show";
+    public static final String SENDING_MESSAGE_TO = "Sending message to: ";
+    public static final String DAILY_MESSAGE_SERVICE_IS_RUNNING = "DailyMessageService is running";
+    public static final String B_DAY_SERVICE_STOPPED = "B'day service stopped";
+    public static final String B_DAY_SERVICE_STARTED = "B'day service started";
 }

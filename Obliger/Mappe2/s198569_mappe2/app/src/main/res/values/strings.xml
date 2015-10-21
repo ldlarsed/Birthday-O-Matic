@@ -32,4 +32,5 @@
     <string name="PREF_TIME_DESC">Time when messages will be send</string>
     <string name="activity_help_header">Help</string>
     <string name="text_help_content">Birthday-o-Matic is an Android application that simplifies your birthday greetings to your collegaues, friends and family members.\n\nIt\'s very easy to use. Just add the contacts you wish to send birthday greetings too and write a short message. Thereafter go to settings and select time of day when send message to everyone in the list having birthday at the particular day.\n\nThat\'s all. You can go on and enjoy your day without need to check your calendar every day.</string>
+    <string name="bday_service_running">B\'day message service is runnig</string>
 </resources>

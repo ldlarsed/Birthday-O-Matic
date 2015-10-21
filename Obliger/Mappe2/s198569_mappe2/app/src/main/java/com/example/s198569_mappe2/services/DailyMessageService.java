@@ -10,6 +10,7 @@ import android.widget.Toast;
 import com.example.s198569_mappe2.BLL.BirthdayController;
 import com.example.s198569_mappe2.BLL.SMSHandler;
 import com.example.s198569_mappe2.BOL.Person;
+import com.example.s198569_mappe2.LIB.Constants;
 
 import java.util.ArrayList;
 import java.util.EmptyStackException;
@@ -28,7 +29,7 @@ public class DailyMessageService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
-        Log.i("Service", "DailyMessageService is running");
+        Log.i(Constants.SERVICE, Constants.DAILY_MESSAGE_SERVICE_IS_RUNNING);
 
         BirthdayController bDayController = new BirthdayController(getApplicationContext());
         try {
@@ -37,13 +38,13 @@ public class DailyMessageService extends Service {
             if(bDayPeople.size() > 0){
                 //Send sms to all people having birthday
                 for(Person p : bDayPeople){
-                    Log.i("Service", "Sending message to: " + p.getName());
+                    Log.i(Constants.SERVICE, Constants.SENDING_MESSAGE_TO + p.getName());
                     SMSHandler.sendSMS(p.getPhoneNumber(), p.getBirthdayMessage());
                 }
             }
 
         }catch (EmptyStackException e){
-            Toast.makeText(getApplicationContext(), "No contacts to show", Toast.LENGTH_SHORT).show();
+            Log.i(Constants.SERVICE, Constants.NO_CONTACTS_TO_SHOW);
         }
 
 

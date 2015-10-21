@@ -39,7 +39,7 @@ public class BuddyList extends AppCompatActivity {
         int messageHour = prefs.getInt(Constants.SHARED_PREFS_SERVICE_HOUR, 12);
         int messageMinute = prefs.getInt(Constants.SHARED_PREFS_SERVICE_MINUTE, 0);
 
-        Log.i(Constants.SHARED_PREFS, "Service key in main is " + bDayServiceisActive);
+        Log.i(Constants.SHARED_PREFS, Constants.SERVICE_KEY_IN_MAIN_IS + bDayServiceisActive);
 
         if(bDayServiceisActive) {
             //Starting the message service
@@ -53,7 +53,6 @@ public class BuddyList extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //return super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
@@ -61,12 +60,7 @@ public class BuddyList extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        switch (id) {
+        switch (item.getItemId()) {
             case R.id.main_add_new:
                 addNew(getWindow().getDecorView());
                 break;
@@ -86,7 +80,6 @@ public class BuddyList extends AppCompatActivity {
     public void addNew(View view) {
         Intent addNewActivity = new Intent(BuddyList.this, RegisterPerson.class);
         addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
-        //this.getApplicationContext().startActivity(addNew);
         addNewActivity.putExtra(Constants.IS_EDIT_SESSION, false);
         BuddyList.this.startActivity(addNewActivity);
     }
@@ -94,7 +87,6 @@ public class BuddyList extends AppCompatActivity {
     public void showBuddyList(View view) {
         Intent addNewActivity = new Intent(BuddyList.this, BuddyList.class);
         addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
-        //this.getApplicationContext().startActivity(addNew);
         BuddyList.this.startActivity(addNewActivity);
     }
 
