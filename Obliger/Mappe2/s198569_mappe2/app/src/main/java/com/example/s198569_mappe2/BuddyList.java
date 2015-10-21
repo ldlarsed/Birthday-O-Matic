@@ -70,11 +70,13 @@ public class BuddyList extends AppCompatActivity {
             case R.id.main_add_new:
                 addNew(getWindow().getDecorView());
                 break;
-            case R.id.main_upcoming:
-                showBuddyList(getWindow().getDecorView());
-                break;
             case R.id.main_settings:
                 showPreferences(getWindow().getDecorView());
+                break;
+            case R.id.main_help:
+                showHelp(getWindow().getDecorView());
+            default:
+                super.onOptionsItemSelected(item);
                 break;
         }
 
@@ -98,6 +100,12 @@ public class BuddyList extends AppCompatActivity {
 
     public void showPreferences(View view) {
         Intent settings = new Intent(BuddyList.this, BDaySettings.class);
+        settings.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        BuddyList.this.startActivity(settings);
+    }
+
+    public void showHelp(View view){
+        Intent settings = new Intent(BuddyList.this, HelpActivity.class);
         settings.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         BuddyList.this.startActivity(settings);
     }
