@@ -70,7 +70,7 @@ public class BuddyListAdapter extends ArrayAdapter<Person> {
 
         final Person buddy = buddies.get(position);
         bHolder.txtName.setText(buddy.getName());
-        bHolder.bDayDate.setText(buddy.getSimpleBirthdayDate());
+        bHolder.bDayDate.setText(buddy.getSimpleYearMonthDay());
         bHolder.swtchOnOff.setChecked(buddy.isActive());
 
         bHolder.deleteButton.setOnClickListener(new View.OnClickListener() {

@@ -10,8 +10,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:textStyle="bold"
-        android:textSize="35dp"
+        android:textSize="@dimen/application_title_header"
         android:gravity="center_horizontal"
-        android:text="Birthday-o-Matic" />
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="20dp"
+        android:text="@string/application_name" />
 
 </LinearLayout>

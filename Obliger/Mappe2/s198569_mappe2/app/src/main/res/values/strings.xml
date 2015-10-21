@@ -20,4 +20,5 @@
     <string name="header_buddys_name">Buddys name</string>
     <string name="activity_sub_heder_bdate">Birthday date</string>
     <string name="label_greetings_message">Your B\'day message</string>
+    <string name="application_name">Birthday-o-Matic</string>
 </resources>
