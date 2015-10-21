@@ -45,7 +45,6 @@
             android:inputType="textPersonName"
             android:singleLine="true"
             android:gravity="center"
-            android:text="Jørgen"
             android:typeface="serif"
             android:textSize="@dimen/activity_edittext_size" />
 
@@ -67,8 +66,7 @@
             android:singleLine="true"
             android:textSize="@dimen/activity_edittext_size"
             android:gravity="center"
-            android:typeface="serif"
-            android:text="12345678"/>
+            android:typeface="serif" />
 
         <TextView
             android:layout_width="fill_parent"

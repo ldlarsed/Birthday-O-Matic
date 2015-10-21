@@ -67,7 +67,6 @@
             android:background="@drawable/edit_text_style"
             android:lines="5"
             android:padding="20dp"
-            android:text="Happy Birthday old fool!"
             android:typeface="serif"
              />
 
