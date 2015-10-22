@@ -13,7 +13,7 @@
         android:id="@+id/addnewHeader"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/label_marigin_top"
         android:gravity="left"
         android:text="@string/header_new_buddy"
         android:textSize="@dimen/activity_header_size"
@@ -41,7 +41,7 @@
                 android:id="@+id/addnewNameLabel"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="@dimen/label_marigin_top"
                 android:text="@string/label_name"
                 android:textIsSelectable="false"
                 android:textSize="@dimen/activity_label_size" />

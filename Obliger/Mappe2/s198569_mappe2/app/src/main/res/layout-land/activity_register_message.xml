@@ -9,84 +9,90 @@
     tools:context="com.example.s198569_mappe2.RegisterMessage">
 
 
-    <TextView
-        android:id="@+id/addmessageHeaderText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:gravity="center_horizontal"
-        android:text="@string/header_buddys_name"
-        android:textSize="@dimen/activity_header_size"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/addmessageBirthdayDateText"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/addmessageHeaderText"
-        android:layout_marginTop="10dp"
-        android:gravity="center_horizontal"
-        android:text="@string/activity_sub_heder_bdate"
-        android:textSize="@dimen/buddy_list_date_size"
-        android:textStyle="italic"
-        />
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/addmessageBirthdayDateText"
-        android:background="?android:attr/listDivider"
-        android:layout_marginTop="10dp"
-        />
-
-
     <LinearLayout
-        android:id="@+id/registermessageLinearLayout"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/addmessageBirthdayDateText"
-        android:layout_centerInParent="true"
-        android:orientation="vertical"
-        android:layout_marginTop="25dp">
+        android:layout_height="fill_parent"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-        <TextView
-            android:id="@+id/addmessageMessageLabel"
+        <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center_horizontal"
-            android:text="@string/label_greetings_message"
-            android:textSize="@dimen/activity_label_size" />
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="50"
+            android:paddingRight="10dp"
+            >
 
-        <EditText
-            android:id="@+id/addmessageGreetingsText"
+            <TextView
+                android:id="@+id/addmessageHeaderText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/label_marigin_top"
+                android:gravity="left"
+                android:text="@string/header_buddys_name"
+                android:textSize="@dimen/activity_header_size"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/addmessageBirthdayDateText"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addmessageHeaderText"
+                android:layout_marginTop="10dp"
+                android:gravity="left"
+                android:text="@string/activity_sub_heder_bdate"
+                android:textSize="@dimen/buddy_list_date_size"
+                android:textStyle="italic" />
+
+            <View
+                android:layout_width="fill_parent"
+                android:layout_height="2dp"
+                android:layout_below="@+id/addmessageBirthdayDateText"
+                android:layout_marginTop="10dp"
+                android:background="?android:attr/listDivider" />
+
+            <Switch
+                android:id="@+id/addmessageSwitchIsActivate"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="20dp"
+                android:text="Send on birthday?"
+                android:gravity="bottom"
+                android:textColor="#808080"
+                android:textSize="@dimen/activity_sub_label_size" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/registermessageLinearLayout"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:gravity="top|center_horizontal"
-            android:background="@drawable/edit_text_style"
-            android:lines="5"
-            android:padding="20dp"
-            android:typeface="serif"
-             />
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="50"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/addmessageMessageLabel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/label_marigin_top"
+                android:text="@string/label_greetings_message"
+                android:textSize="@dimen/activity_label_size" />
+
+            <EditText
+                android:id="@+id/addmessageGreetingsText"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/edit_text_style"
+                android:gravity="top|center_horizontal"
+                android:lines="6"
+                android:padding="20dp"
+                android:typeface="serif" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <Switch
-        android:id="@+id/addmessageSwitchIsActivate"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/registermessageLinearLayout"
-        android:layout_marginTop="20dp"
-        android:text="Send on birthday?"
-        android:textSize="@dimen/activity_sub_label_size"
-        android:textColor="#808080"/>
-
-    <!--    <Button
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:onClick="saveBuddyAlert"
-            android:text="Save" />-->
 
 </RelativeLayout>
