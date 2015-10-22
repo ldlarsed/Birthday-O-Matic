@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TimePicker;
 
 import com.example.s198569_mappe2.LIB.Constants;
@@ -19,8 +21,6 @@ import com.example.s198569_mappe2.services.BDayOnBootService;
  * Created by luke on 10/20/15.
  */
 public class BDaySettings extends AppCompatActivity {
-
-    //TODO: Set header for settings fragment
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,11 +35,15 @@ public class BDaySettings extends AppCompatActivity {
         getFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new BDaySettingsFragment())
                 .commit();
+
+        //setContentView(R.layout.preferances_header); //A try to show a header for pref screen
+
     }
 
 
 
-    public static class BDaySettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener{
+
+    public static class BDaySettingsFragment extends PreferenceFragment implements SharedPreferences.OnSharedPreferenceChangeListener {
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -72,7 +76,10 @@ public class BDaySettings extends AppCompatActivity {
                     return true;
                 }
             });
+
+
         }
+
 
         @Override
         public void onResume() {
@@ -92,14 +99,13 @@ public class BDaySettings extends AppCompatActivity {
 
         @Override
         public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-            if(key.equals(Constants.SHARED_PREFS_SERVICE_ACTIVE)){
+            if (key.equals(Constants.SHARED_PREFS_SERVICE_ACTIVE)) {
                 boolean isServiceOn = sharedPreferences.getBoolean(Constants.SHARED_PREFS_SERVICE_ACTIVE, true);
                 Log.i(Constants.SHARED_PREFS, "Message service is " + (isServiceOn ? "ON" : "OFF"));
-                if(isServiceOn) {
+                if (isServiceOn) {
                     //Starting the message service
                     getActivity().startService(new Intent(getActivity(), BDayOnBootService.class));
-                }
-                else{
+                } else {
                     //Stoppping the message service
                     getActivity().stopService(new Intent(getActivity(), BDayOnBootService.class));
                 }
@@ -116,10 +122,17 @@ public class BDaySettings extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                Log.i("Settings", "Back button pressed");
+                this.finish();
+                break;
+            default:
+                super.onOptionsItemSelected(item);
+        }
+
         return super.onOptionsItemSelected(item);
     }
-
-
-
 
 }

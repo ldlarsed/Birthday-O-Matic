@@ -16,8 +16,8 @@ import com.example.s198569_mappe2.LIB.Constants;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
-//TODO: Prevent setting birthday date in the future.
 public class RegisterPerson extends AppCompatActivity {
 
     private EditText nameText, phoneText;
@@ -41,8 +41,9 @@ public class RegisterPerson extends AppCompatActivity {
         nameText = (EditText) findViewById(R.id.addnewNameEdit);
         phoneText = (EditText) findViewById(R.id.addnewPhoneEdit);
         bDate = (DatePicker) findViewById(R.id.addnewDatePicker);
-
-
+        bDate.setMaxDate(System.currentTimeMillis()); //Today is the max date that can be set
+        long MILLS_IN_YEAR = 1000L * 60 * 60 * 24 * 365;
+        bDate.setMinDate(System.currentTimeMillis() - (MILLS_IN_YEAR * 100)); //For now we stop at 100 years in the past
 
         /*
          This happens only if we receive an person object to edit.
@@ -72,19 +73,14 @@ public class RegisterPerson extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-       /* if (id == R.id.action_settings) {
-            return true;
-        }*/
 
         switch (id){
             case android.R.id.home:
                 this.finish();
+                break;
+            case R.id.register_person_next:
+                addMessage(getCurrentFocus());
                 break;
             default:
                 super.onOptionsItemSelected(item);
@@ -97,17 +93,30 @@ public class RegisterPerson extends AppCompatActivity {
     private boolean isValid(){
         boolean nameOK = false;
         boolean phoneOK = false;
+        boolean digitsLengthOK = false;
+
+        //Check for letters only
         if(!nameText.getText().toString().matches(Constants.REGULAR_EXPRESSION_LETTERS_ONLY)){
             //nameText.requestFocus();
             nameText.setError(getString(R.string.regex_letters_only));
         }else
             nameOK = true;
+
+        //Check for numbers only
         if(!phoneText.getText().toString().matches(Constants.REGULAR_EXPRESSION_NUMBERS_ONLY)){
             //phoneText.requestFocus();
             phoneText.setError(getString(R.string.regex_numbers_only));
         }else
             phoneOK = true;
-        return (nameOK && phoneOK);
+
+        //Check for correct number of digits
+        if(!phoneText.getText().toString().matches(Constants.REGULAR_EXPRESSION_MIN_8_DIGITS)){
+            //phoneText.requestFocus();
+            phoneText.setError(getString(R.string.regex_min_8_digits));
+        }else
+            digitsLengthOK = true;
+
+        return (nameOK && phoneOK && digitsLengthOK);
     }
 
     private void showLog(){

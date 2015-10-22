@@ -10,22 +10,24 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="10dp"
-        >
+        android:paddingBottom="10dp">
 
         <TextView
             android:id="@+id/buddylistitemrowTextName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="20dp"
-            />
+            android:text="@string/label_name"
+            android:textStyle="normal"
+            android:textSize="@dimen/buddy_list_name_size" />
 
         <TextView
             android:id="@+id/buddylistitemrowTextBDay"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="end|bottom"
-            />
+            android:text="@string/label_birthday_date"
+            android:textStyle="italic"
+            android:textSize="@dimen/buddy_list_date_size"
+            android:gravity="end|bottom" />
 
     </LinearLayout>
 
@@ -38,20 +40,36 @@
             android:id="@+id/buddylistitemrowEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_edit"/>
+            android:src="@drawable/edit" />
 
         <ImageButton
             android:id="@+id/buddylistitemrowDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@android:drawable/ic_menu_delete"/>
+            android:src="@drawable/delete" />
 
-        <Switch
-            android:id="@+id/buddylistitemrowSwitch"
+
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:gravity="end|bottom"
-            />
+            android:orientation="horizontal"
+            android:gravity="bottom|end|center_vertical"
+            >
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/message"
+                android:layout_marginBottom="-8px"
+                />
+
+            <Switch
+                android:id="@+id/buddylistitemrowSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                />
+
+        </LinearLayout>
 
 
     </LinearLayout>

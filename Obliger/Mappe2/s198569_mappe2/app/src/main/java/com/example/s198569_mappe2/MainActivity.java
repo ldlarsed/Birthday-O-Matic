@@ -72,9 +72,6 @@ public class MainActivity extends AppCompatActivity {
             case R.id.main_add_new:
                 addNew(getWindow().getDecorView());
                 break;
-            case R.id.main_upcoming:
-                showBuddyList(getWindow().getDecorView());
-                break;
             case R.id.main_settings:
                 showPreferences(getWindow().getDecorView());
                 break;

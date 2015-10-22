@@ -10,13 +10,12 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-
         <activity
-            android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:name=".BuddyList"
+            android:label="Birthday-o-Matic" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -29,38 +28,36 @@
         </activity>
         <activity
             android:name=".RegisterMessage"
-            android:label="RegisterMessage">
-        </activity>
-        <activity
-            android:name=".BuddyList"
-            android:label="@string/title_activity_buddy_list"
-             >
+            android:label="RegisterMessage" >
         </activity>
         <activity
             android:name=".BDaySettings"
-            android:label="BDaySettings">
+            android:label="BDaySettings" >
         </activity>
 
-        <receiver android:name=".broadcasts.BootCompleted"
+        <receiver
+            android:name=".broadcasts.BootCompleted"
             android:enabled="true"
-            android:exported="false">
+            android:exported="false" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
-        <service android:name=".services.BDayOnBootService"></service>
-        <service android:name=".services.TestService"></service>
-        <service android:name=".services.DailyMessageService"></service>
-        
+        <service android:name=".services.BDayOnBootService" />
+        <service android:name=".services.TestService" />
+        <service android:name=".services.DailyMessageService" />
+
         <provider
+            android:name=".DAL.BDayContentProvider"
             android:authorities="com.example.s198569_mappe2.BDayOMatic"
-            android:name="com.example.s198569_mappe2.DAL.BDayContentProvider"
             android:enabled="true"
             android:exported="true"
-            android:readPermission="com.example.s198569_mappe2.BDayOMatic.permission">
+            android:readPermission="com.example.s198569_mappe2.BDayOMatic.permission" >
         </provider>
 
+        <activity android:name=".HelpActivity" >
+        </activity>
     </application>
 
 </manifest>

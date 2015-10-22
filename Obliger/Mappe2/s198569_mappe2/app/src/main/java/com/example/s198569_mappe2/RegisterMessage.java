@@ -1,6 +1,5 @@
 package com.example.s198569_mappe2;
 
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,7 +10,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.DAL.DBHandler;
@@ -46,6 +44,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
 
         messageText = (EditText) findViewById(R.id.addmessageGreetingsText);
         isActiveSwitch = (Switch) findViewById(R.id.addmessageSwitchIsActivate);
+        isActiveSwitch.setChecked(true);
 
         Intent intent = getIntent();
         person = (Person) intent.getSerializableExtra(Constants.TAG_PERSON);
@@ -54,7 +53,7 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         buddyName = (TextView) findViewById(R.id.addmessageHeaderText);
         buddyBDay = (TextView) findViewById(R.id.addmessageBirthdayDateText);
         buddyName.setText(person.getName());
-        buddyBDay.setText(person.getSimpleBirthdayDate());
+        buddyBDay.setText(person.getSimpleYearMonthDay());
 
         //If we are editing an existing person we can populate all the textboxes
         isEditSession = intent.getBooleanExtra(Constants.IS_EDIT_SESSION, false);
@@ -83,6 +82,8 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
             case android.R.id.home:
                 this.finish();
                 break;
+            case R.id.register_message_save:
+                this.saveBuddyAlert(getCurrentFocus());
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -116,7 +117,11 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         if (isValid()) {
             p = getInputData();
             Log.i(Constants.TAG_PERSON, p.toString());
-            DialogFragment dialog = new InfoDialogFragment();
+            InfoDialogFragment dialog = new InfoDialogFragment();
+            if (isEditSession)
+                dialog.setDialogTitle(getResources().getString(R.string.info_dialog_title_edit_buddy));
+            else
+                dialog.setDialogTitle(getResources().getString(R.string.info_dialog_title_new_buddy));
             dialog.show(getFragmentManager(), "");
         }
     }
@@ -130,11 +135,19 @@ public class RegisterMessage extends AppCompatActivity implements DialogYesNoLis
         else
             db.addBuddy(p);
         this.finish();
+        goToMain();
     }
 
     @Override
     public void onNoClick() {
         Log.i(Constants.TAG_LISTENER, Constants.DIALOG_NO_CLICK_REGISTERED);
+    }
+
+    private void goToMain() {
+        Intent addNewActivity = new Intent(this, BuddyList.class);
+        addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
+        //this.getApplicationContext().startActivity(addNew);
+        this.startActivity(addNewActivity);
     }
 
 }

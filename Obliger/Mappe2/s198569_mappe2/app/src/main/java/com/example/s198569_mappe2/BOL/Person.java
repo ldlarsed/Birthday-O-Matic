@@ -121,6 +121,17 @@ public class Person implements Serializable {
     }
 
     /**
+     * To be used for date only representation in views.
+     * Returns a string representation of a date with year-month-day format.
+     * @return String
+     */
+    public String getSimpleYearMonthDay(){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(
+                "yyyy-MM-dd", Locale.getDefault());
+        return dateFormat.format(birthdayDate);
+    }
+
+    /**
      * Class helper function
      * @param date
      * @return

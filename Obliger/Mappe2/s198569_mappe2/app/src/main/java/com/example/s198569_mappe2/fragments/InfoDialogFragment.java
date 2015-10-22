@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.example.s198569_mappe2.BuddyList;
 import com.example.s198569_mappe2.LIB.Constants;
 import com.example.s198569_mappe2.LIB.DialogYesNoListener;
 import com.example.s198569_mappe2.R;
@@ -16,6 +18,16 @@ import com.example.s198569_mappe2.R;
 public class InfoDialogFragment extends DialogFragment{
 
     private DialogYesNoListener callback;
+    private String dialogTitle;
+
+    /**
+     * Since DialogFragment requires standard constructor only
+     * the title have to be provided through a handy method.
+     * @param title
+     */
+    public void setDialogTitle(String title){
+        this.dialogTitle = title;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -28,19 +40,11 @@ public class InfoDialogFragment extends DialogFragment{
         }
     }
 
-//    public static InfoDialogFragment newInstance(int title){
-//        InfoDialogFragment dFrag = new InfoDialogFragment();
-//        Bundle args = new Bundle();
-//        args.putInt("DialogTitle", title);
-//        dFrag.setArguments(args);
-//        return dFrag;
-//    }
-
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         return new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.info_dialog_title)
+                .setTitle(dialogTitle)
                 .setPositiveButton(R.string.dialog_OK, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         callback.onYesClick();
@@ -53,4 +57,5 @@ public class InfoDialogFragment extends DialogFragment{
                 })
                 .create();
     }
+
 }
