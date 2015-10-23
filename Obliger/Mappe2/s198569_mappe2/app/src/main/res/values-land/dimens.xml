@@ -8,7 +8,7 @@
     <dimen name="activity_edittext_size">20dp</dimen>
     <dimen name="label_marigin_top">10dp</dimen>
     <dimen name="activity_sub_label_size">15dp</dimen>
-    <dimen name="application_title_header">35dp</dimen>
+    <dimen name="application_title_header">25dp</dimen>
     <dimen name="buddy_list_name_size">22dp</dimen>
     <dimen name="buddy_list_date_size">17dp</dimen>
     <dimen name="text_help_breadtext_size">15dp</dimen>

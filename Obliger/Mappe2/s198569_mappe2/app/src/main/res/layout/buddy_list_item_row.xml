@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingBottom="10dp">
+        android:paddingBottom="@dimen/label_marigin_top">
 
         <TextView
             android:id="@+id/buddylistitemrowTextName"
@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/message"
-                android:layout_marginBottom="-8px"
+                android:layout_marginBottom="-7px"
                 />
 
             <Switch
