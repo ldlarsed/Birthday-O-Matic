@@ -7,7 +7,7 @@
     <string name="title_activity_register_message">RegisterMessage</string>
     <string name="regex_letters_only">Only letters allowed</string>
     <string name="regex_numbers_only">Only numbers allowed</string>
-    <string name="regex_min_8_digits">At least 8 digits</string>
+    <string name="regex_8_to_12_digits">Valid phone number</string>
     <string name="regex_empty_message">Message cannot be empty</string>
     <string name="title_activity_buddy_list">BuddyList</string>
     <string name="info_dialog_title_new_buddy">Save new buddy?</string>

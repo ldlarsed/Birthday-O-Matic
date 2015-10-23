@@ -1,1 +1,0 @@
-For at dokumentasjon skal være synlig så skal den legges i res/raw

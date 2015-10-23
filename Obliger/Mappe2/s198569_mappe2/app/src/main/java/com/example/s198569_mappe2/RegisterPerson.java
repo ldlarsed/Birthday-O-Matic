@@ -14,9 +14,7 @@ import android.widget.EditText;
 import com.example.s198569_mappe2.BOL.Person;
 import com.example.s198569_mappe2.LIB.Constants;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class RegisterPerson extends AppCompatActivity {
 
@@ -110,9 +108,9 @@ public class RegisterPerson extends AppCompatActivity {
             phoneOK = true;
 
         //Check for correct number of digits
-        if(!phoneText.getText().toString().matches(Constants.REGULAR_EXPRESSION_MIN_8_DIGITS)){
+        if(!phoneText.getText().toString().matches(Constants.REGULAR_EXPRESSION_8_TO_12_DIGITS)){
             //phoneText.requestFocus();
-            phoneText.setError(getString(R.string.regex_min_8_digits));
+            phoneText.setError(getString(R.string.regex_8_to_12_digits));
         }else
             digitsLengthOK = true;
 
