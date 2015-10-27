@@ -1,7 +1,9 @@
 package com.example.s198569.kart;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -27,5 +29,12 @@ public class MainActivity extends AppCompatActivity implements OnMapReadyCallbac
         LatLng sydney = new LatLng(-34, 151);
         googleMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    }
+
+    public void showMyCoordinates(View view){
+        Intent addNewActivity = new Intent(MainActivity.this, MyCoordinates.class);
+        addNewActivity.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP); //This should prevent stacking the activities
+        //this.getApplicationContext().startActivity(addNew);
+        MainActivity.this.startActivity(addNewActivity);
     }
 }
