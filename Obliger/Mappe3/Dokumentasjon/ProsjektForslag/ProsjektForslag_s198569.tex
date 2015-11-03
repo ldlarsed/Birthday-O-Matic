@@ -1,0 +1,44 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[norsk]{babel}
+\usepackage{hyperref}
+\author{Lukas David Larsed\\s198569}
+\title{Prosjektforslag Mappe 3}
+
+\date{\today}
+
+
+\begin{document}
+\maketitle
+
+\section*{Idé}
+Idéen bak mitt prosjekt er én applikasjon som skal benytte seg av en ekstern api for å hente inn data til appen. Den api som jeg har valgt er \href{http://www.fnugg.no}{fnugg.no}
+Hvilken er en ny tjeneste som viser informasjon om alle skianlegg i Norge. Tjenesten tilbyr informasjon om blant annet værforhold, snødybde, priser, åpentider og mye annen informasjon som er til nytte for ski  publikum. Dette er en api som jeg skal jobbe med i min bacheloroppgave men ettersom jeg skal uansett har tenkt å benytte med av en ekstern api har jeg valgt en som jeg uansett er i behov å lære meg.
+
+\section*{Mål}
+Følgende liste beskriver alle mine læringsmål som jeg har med oppgaven.
+\begin{itemize}
+\item Benytte trådmekanismer i rammeverket
+\item Metoder for behandling av JSON objekter
+\item Bruk av lokaliseringdata via GPS
+\item Avansert bruk av fragmenter
+\item Bli godt kjent med data som er tilgjengelig i api
+\end{itemize}
+
+
+
+\section*{Funksjonalitet}
+\begin{description}
+\item[Vis skianlegg]
+Dette er base funksjonalitet i applikasjonen. Det må uansett implementeres visning av skianlegg i applikasjonen. API tilbyr ganske mye data som kan benyttes til mange datafelt. Den viktigste informasjon som jeg ønsker å vise frem er vær, snødybde samt hvor man skiheiser som er åpne. Den data kan enkelt settes i en sortert listen etter brukerens egne preferanser. I den visningen kan det eventuelt implementeres også mulighet for vær prognose og seineste oppdateringer fra anlegget som blir publisert i sosiale medier. 
+
+\item[Sortering av anlegg]
+At man skal kunne sortere anlegg etter f.eks. (1) avstand, (2) pris, (3) snødybde
+
+\item[Favorittanlegg]
+Mulighet for å velge favorittanlegg som man kan prenumerere på oppdateringer. Dette anlegget bli vist på startsiden da applikasjonen starter. Eventuelt kan oppdatert info om anlegget vises i en widget.
+\end{description}
+
+\section*{Fremgang}
+For å få fremgang i utviklingen kommer jeg først og fremst å fokusere på å lage backend funksjonalitet slik at all kommunikasjon fungerer mot tjenesten å data kan kan da hentes ut på enkel måte til fragmentene. Jeg kommer til å fokusre på implementesjon av basis funksjonalitet før det utvikles noen av ekstra funksjonalitet. Som grunnleggende funksjonalitet ser jeg at man kan liste alle skianlegg og at man skal kunne klikke seg videre å få detaljert informasjon om et spesifikt anlegg. 
+\end{document}
