@@ -1,6 +1,6 @@
 # Birthday-O-Matic
 
-An android app that keeps track of the birthdays for contacts of your choice. 
+An Android app that keeps track of the birthdays for contacts of your choice. 
 
 ## About
 
@@ -39,7 +39,7 @@ Tired of always forgettin to send a greetings message to your friends and family
 ### Technical details
 * API 19
 * Minimal resolution: 480 x 800 pixels
-* IDE: Android Studio
+* IDE - Android Studio
 
 ### Repository structure
 * __BDayBuddiesContentProviderTest__ - A test project Birthday-O-Matic content provider. It can be used to retrive B'Day metadata by other applications on the same system.
