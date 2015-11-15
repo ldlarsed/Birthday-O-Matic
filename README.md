@@ -12,17 +12,17 @@ Tired of always forgettin to send a greetings message to your friends and family
 
 ### New contact
 
-<img src="/Dokumentasjon/img/1.png" align="left" width="220"/>
-<img src="/Dokumentasjon/img/2.png" align="right" width="220"/>
+<img src="/Dokumentasjon/img/1.png" width="220"/>
+<img src="/Dokumentasjon/img/2.png" width="220"/>
 
-<img src="/Dokumentasjon/img/3.png" align="left" width="220"/>
-<img src="/Dokumentasjon/img/4.png" align="right" width="220"/>
+<img src="/Dokumentasjon/img/3.png" width="220"/>
+<img src="/Dokumentasjon/img/4.png" width="220"/>
 
 
 ### Settings and B'day service
 
-<img src="/Dokumentasjon/img/7.png" align="left" width="220"/>
-<img src="/Dokumentasjon/img/8.png"  align="right" width="220"/>
+<img src="/Dokumentasjon/img/7.png" width="220"/>
+<img src="/Dokumentasjon/img/8.png" width="220"/>
 
-<img src="/Dokumentasjon/img/9.png" align="left" width="220"/>
-<img src="/Dokumentasjon/img/10.png"  align="right" width="220"/>
+<img src="/Dokumentasjon/img/9.png" width="220"/>
+<img src="/Dokumentasjon/img/10.png" width="220"/>
