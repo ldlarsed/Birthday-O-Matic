@@ -1,5 +1,7 @@
 # Birthday-O-Matic
 
+An android app that keeps track of the birthdays for contacts of your choice. 
+
 ## About
 
 Tired of always forgettin to send a greetings message to your friends and family? Well this application can help you with those humble but effective features:
@@ -32,3 +34,15 @@ Tired of always forgettin to send a greetings message to your friends and family
 
 <img src="/Dokumentasjon/img/9.png" width="220"/>
 <img src="/Dokumentasjon/img/10.png" width="220"/>
+
+
+### Technical details
+* API 19
+* Minimal resolution: 480 x 800 pixels
+* IDE: Android Studio
+
+### Repository structure
+* __BDayBuddiesContentProviderTest__ - A test project Birthday-O-Matic content provider. It can be used to retrive B'Day metadata by other applications on the same system.
+* __Dokumentasjon__ - Short project dokumentation written in LaTeX.
+* __Project__ - Android Studio project files.
+* __Resources__ - Original icon and image files used in project. 
