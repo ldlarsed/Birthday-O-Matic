@@ -1,4 +1,4 @@
-# Birthday-o-Matic
+# Birthday-O-Matic
 
 ## About
 
@@ -17,6 +17,12 @@ Tired of always forgettin to send a greetings message to your friends and family
 
 <img src="/Dokumentasjon/img/3.png" width="220"/>
 <img src="/Dokumentasjon/img/4.png" width="220"/>
+
+
+### Contact list on various screen resolutions
+
+<img src="/Dokumentasjon/img/5.png" width="220"/>
+<img src="/Dokumentasjon/img/nexus4/1.png" width="220"/>
 
 
 ### Settings and B'day service
