@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.s198569_mappe2" >
+
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+    <uses-permission android:name="com.example.s198569_mappe2.BDayOMatic.permission" />
+
+    <permission android:name="com.example.s198569_mappe2.BDayOMatic.permission" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".BuddyList"
+            android:label="Birthday-o-Matic" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".RegisterPerson"
+            android:label="@string/title_activity_register_person" >
+        </activity>
+        <activity
+            android:name=".RegisterMessage"
+            android:label="RegisterMessage" >
+        </activity>
+        <activity
+            android:name=".BDaySettings"
+            android:label="BDaySettings" >
+        </activity>
+
+        <receiver
+            android:name=".broadcasts.BootCompleted"
+            android:enabled="true"
+            android:exported="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".services.BDayOnBootService" />
+        <service android:name=".services.TestService" />
+        <service android:name=".services.DailyMessageService" />
+
+        <provider
+            android:name=".DAL.BDayContentProvider"
+            android:authorities="com.example.s198569_mappe2.BDayOMatic"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.example.s198569_mappe2.BDayOMatic.permission" >
+        </provider>
+
+        <activity android:name=".HelpActivity" >
+        </activity>
+    </application>
+
+</manifest>

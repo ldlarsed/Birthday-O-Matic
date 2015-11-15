@@ -1,0 +1,36 @@
+<resources>
+    <string name="app_name">s198569_mappe2</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_register_person">RegisterPerson</string>
+    <string name="title_activity_register_message">RegisterMessage</string>
+    <string name="regex_letters_only">Only letters allowed</string>
+    <string name="regex_numbers_only">Only numbers allowed</string>
+    <string name="regex_8_to_12_digits">Valid phone number</string>
+    <string name="regex_empty_message">Message cannot be empty</string>
+    <string name="title_activity_buddy_list">BuddyList</string>
+    <string name="info_dialog_title_new_buddy">Save new buddy?</string>
+    <string name="info_dialog_title_edit_buddy">Save changes?</string>
+    <string name="info_dialog_title_delete_buddy">Delete this buddy?</string>
+    <string name="dialog_OK">OK</string>
+    <string name="dialog_Cancel">Cancel</string>
+    <string name="header_new_buddy">New B\'day Buddy</string>
+    <string name="label_name">Name</string>
+    <string name="label_phone_number">Phone number</string>
+    <string name="label_birthday_date">B\'day date</string>
+    <string name="header_buddys_name">Buddys name</string>
+    <string name="activity_sub_heder_bdate">Birthday date</string>
+    <string name="label_greetings_message">Your B\'day message</string>
+    <string name="application_name">Birthday-o-Matic</string>
+    <string name="answer_yes">Yes</string>
+    <string name="answer_no">No</string>
+    <string name="preferances_header">Preferances</string>
+    <string name="PREF_SERVICE_TITLE">B\'day service</string>
+    <string name="PREF_SERVICE_DESC">Start or stop the service</string>
+    <string name="PREF_TIME_TITLE">Message time</string>
+    <string name="PREF_TIME_DESC">Time when messages will be send</string>
+    <string name="activity_help_header">Help</string>
+    <string name="text_help_content">Birthday-o-Matic is an Android application that simplifies your birthday greetings to your collegaues, friends and family members.\n\nIt\'s very easy to use. Just add the contacts you wish to send birthday greetings too and write a short message. Thereafter go to settings and select time of day when send message to everyone in the list having birthday at the particular day.\n\nThat\'s all. You can go on and enjoy your day without need to check your calendar every day.</string>
+    <string name="bday_service_running">B\'day message service is runnig</string>
+</resources>
