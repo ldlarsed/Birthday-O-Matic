@@ -1,6 +1,0 @@
-https://romannurik.github.io/AndroidAssetStudio/icons-actionbar.html
-
-Det som brukes er
-* Hvit farge (0% av transparency)
-* Trim 0%
-* 

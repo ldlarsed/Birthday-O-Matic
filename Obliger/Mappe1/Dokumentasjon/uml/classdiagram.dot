@@ -1,1 +1,0 @@
-digraph ./uml/classdiagram {rankdir=LR; a->b; b->c}
