@@ -1,4 +1,4 @@
-# Birthday-O-Matic
+# Birthday-O-Matic (student project)
 
 An Android app that keeps track of the birthdays for contacts of your choice. 
 
